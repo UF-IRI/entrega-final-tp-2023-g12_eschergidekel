@@ -13,7 +13,7 @@ typedef struct {
     str nombreClase;
 } Clases;
 
-inscripto estainscripto();
+inscripto estaInscriptoClases(Asistencia *asistencia,Clases* clase, unsigned int id, unsigned int horario, str nombreClase);
 Reservas clases();
 //reservar musculacion
 //dar de baja clase

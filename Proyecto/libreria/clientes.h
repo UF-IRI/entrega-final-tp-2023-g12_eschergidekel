@@ -12,13 +12,13 @@ typedef struct
     int dia, mes, anio;
 } Fecha;
 
-typedef struct
+struct Clientes
 {
     str nombre, apellido, dni, mail, telefono;
     Fecha fechaNac;
     int estado;
     unsigned int idCliente;
-} Clientes;
+}; typedef struct Clientes sClientes;
 
 typedef struct
 {
@@ -31,7 +31,8 @@ typedef struct {
     Inscripcion* CursosInscriptos;
 } Asistencia;
 
-Estado Cuota();
+int buscarCliente(sClientes* clientes, unsigned int id);
+Estado Cuota(sClientes* clientes, unsigned int id);
 //eliminar cliente
 //agregar cliente
 //modificar cliente
