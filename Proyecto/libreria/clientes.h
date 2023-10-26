@@ -31,9 +31,9 @@ typedef struct {
     Inscripcion* CursosInscriptos;
 } Asistencia;
 
-int buscarCliente(sClientes* clientes, unsigned int id);
-Estado Cuota(sClientes* clientes, unsigned int id);
-//eliminar cliente
+int buscarCliente(sClientes* clientes, str dni); //buscar clientes por dni
+Estado Cuota(sClientes* clientes, unsigned int id); //verificar el estado del cliente
+int eliminar(sClientes* cliente, Asistencia* asistencia, str dni); //eliminar cliente
 //agregar cliente
 //modificar cliente
 
