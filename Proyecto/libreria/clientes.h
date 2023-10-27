@@ -1,7 +1,7 @@
 #ifndef CLIENTES_H
 #define CLIENTES_H
 
-#include "encabezados.h"
+#include "libreria.h"
 #include "clientes.h"
 
 enum estado{Deudor=-1,AlDia=1, Afavor=2};

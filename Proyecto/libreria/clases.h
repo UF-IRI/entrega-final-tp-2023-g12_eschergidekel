@@ -1,6 +1,6 @@
 #ifndef CLASES_H
 #define CLASES_H
-#include "encabezados.h"
+#include "libreria.h"
 #include "clientes.h"
 
 enum estaInscripto {Esta = 1, noEsta = -1};
