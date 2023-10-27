@@ -4,7 +4,7 @@
 #include <clases.h>
 #include <archivo.h>
 
-int main(int argc, char *argv[]) {
-    
+int main() {
+    int tam = 250;
     return 0;
 }

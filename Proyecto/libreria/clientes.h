@@ -4,8 +4,12 @@
 #include "libreria.h"
 #include "clientes.h"
 
-enum estado{Deudor=-1,AlDia=1, Afavor=2};
-typedef enum estado Estado;
+enum estado {Deudor=-1, AlDia=1, Afavor=2};
+typedef enum estado eEstado;
+enum agregar {ExitoAg=1, ErrorAg=-1};
+typedef enum agregar eAgregar;
+enum modificar {ExitoMod=1, ErrMod=-1};
+typedef enum modificar eModificar;
 
 typedef struct
 {
@@ -31,10 +35,11 @@ typedef struct {
     Inscripcion* CursosInscriptos;
 } Asistencia;
 
-int buscarCliente(sClientes* clientes, str dni); //buscar clientes por dni
-Estado Cuota(sClientes* clientes, unsigned int id); //verificar el estado del cliente
-int eliminar(sClientes* cliente, int N, str dni); //eliminar cliente
-//agregar cliente
-//modificar cliente
+sClientes* resizeClientes(sClientes* lista, unsigned int tam, unsigned int nuevoTam); //tamaño de clientes
+int buscarCliente(sClientes* cliente, str dni); //buscar clientes por dni
+eEstado Cuota(sClientes* cliente, unsigned int id); //erificar el estado del cliente
+int eliminarCliente(sClientes* cliente, str dni); //eliminar cliente
+eAgregar agregarCliente(); //agregar cliente
+eModificar modificarCliente();//modificar cliente
 
 #endif // CLIENTES_H
