@@ -33,7 +33,7 @@ typedef struct {
 
 int buscarCliente(sClientes* clientes, str dni); //buscar clientes por dni
 Estado Cuota(sClientes* clientes, unsigned int id); //verificar el estado del cliente
-int eliminar(sClientes* cliente, Asistencia* asistencia, str dni); //eliminar cliente
+int eliminar(sClientes* cliente, int N, str dni); //eliminar cliente
 //agregar cliente
 //modificar cliente
 

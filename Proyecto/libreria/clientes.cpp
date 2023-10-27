@@ -23,14 +23,14 @@ Estado Cuota(sClientes *clientes, str dni)
         else
             return Estado::Deudor;
 }
-int eliminar(sClientes* cliente, Asistencia asistencia, str dni)
+int eliminar(sClientes* cliente, int N, str dni)
 {
     unsigned int pos=buscarCliente(cliente,dni);
-    if (pos > (asistencia.cantInscriptos - 1))
-        return asistencia.cantInscriptos;
-    if (pos == (asistencia.cantInscriptos-1))
-        return asistencia.cantInscriptos - 1;
-    for (unsigned int i = pos; i < (asistencia.cantInscriptos - 1); i++)
+    if (pos > (N - 1))
+        return N;
+    if (pos == (N - 1))
+        return N - 1;
+    for (unsigned int i = pos; i < (N - 1); i++)
         cliente[i] = cliente[i + 1];
-    return asistencia.cantInscriptos - 1;
+    return N - 1;
 }
