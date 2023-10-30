@@ -14,3 +14,4 @@ public:
 
 #endif // LIBRERIA_H
 typedef std::string str;
+typedef unsigned int u_int;

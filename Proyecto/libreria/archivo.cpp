@@ -2,14 +2,15 @@
 #include "clientes.h"
 #include "clases.h"
 
-eCodArchivos leerArchivoClientes(std::fstream	*archivo, Clientes *cliente){
+eCodArchivos leerArchivoClientes(std::fstream* archivo, Clientes *cliente)
+{
     if(!archivo->is_open()) //si el archivo se pudo abrir
         return eCodArchivos::ErrorApertura;
 
     archivo->read((char*)cliente, sizeof(Clientes)); //leer los contactos
-    if(!*archivo){
-        return eCodArchivos::ErrorEscritura;
-    }
+    if(!*archivo)
+        return eCodArchivos::ErrorApertura;
+
     return eCodArchivos::ExitoOperacion; //archivo binario
 }
 eCodArchivos escribirArchivoClientes(std::fstream	*archivo, Clientes *cliente)

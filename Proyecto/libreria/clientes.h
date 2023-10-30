@@ -21,23 +21,23 @@ struct Clientes
     str nombre, apellido, dni, mail, telefono;
     Fecha fechaNac;
     int estado;
-    unsigned int idCliente;
+    u_int idCliente;
 }; typedef struct Clientes sClientes;
 
 typedef struct
 {
-    int idCurso;
+    u_int idCurso;
     time_t fechaInscripcion;
 } Inscripcion;
 
 typedef struct {
-    unsigned int cantInscriptos, idCliente;
+    u_int cantInscriptos, idCliente;
     Inscripcion* CursosInscriptos;
 } Asistencia;
 
-sClientes* resizeClientes(sClientes* lista, unsigned int tam, unsigned int nuevoTam); //tamaño de clientes
+sClientes* resizeClientes(sClientes* lista, u_int tam, u_int nuevoTam); //tamaño de clientes
 int buscarCliente(sClientes* cliente, str dni); //buscar clientes por dni
-eEstado Cuota(sClientes* cliente, unsigned int id); //erificar el estado del cliente
+eEstado Cuota(sClientes* cliente, u_int id); //erificar el estado del cliente
 int eliminarCliente(sClientes* cliente, str dni); //eliminar cliente
 eAgregar agregarCliente(); //agregar cliente
 eModificar modificarCliente();//modificar cliente
