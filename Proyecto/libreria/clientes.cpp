@@ -1,8 +1,12 @@
 #include "clientes.h"
 #include "archivo.h"
 #include <libreria.h>
-#define N 250
 
+
+bool espacio(int cantMaxima, int cant)
+{
+    return ( (cantMaxima-cant)>0);
+}
 sClientes* resizeClientes(sClientes* cliente, u_int tam, u_int nuevoTam)
 {
     sClientes* aux = new sClientes[nuevoTam];
@@ -19,44 +23,84 @@ sClientes* resizeClientes(sClientes* cliente, u_int tam, u_int nuevoTam)
 
     return nullptr;
 }
-int buscarCliente(sClientes* clientes, str dni)
+int buscarCliente(sClientes* cliente, str dni, int cant)
 {
     u_int pos;
-    for(u_int i=0; i<N ;i++)
+    for(u_int i=0; i<cant ;i++)
     {
-        if(clientes[i].dni==dni)
+        if(cliente[i].dni==dni)
             pos=i;
     }
-    return pos;
+    int i;
+    if(i==cant)
+        return -1;
+    else
+        return pos;
 }
-eEstado Cuota(sClientes* clientes, str dni)
+eEstado Cuota(sClientes* cliente, str dni, int cant)
 {
-    u_int pos = buscarCliente(clientes, dni);
+    u_int pos = buscarCliente(cliente, dni, cant);
 
-    if(clientes[pos].estado == 0)
+    if(cliente[pos].estado == 0)
         return eEstado::AlDia;
     else
-        if(clientes[pos].estado > 0)
+        if(cliente[pos].estado > 0)
             return eEstado::Afavor;
         else
             return eEstado::Deudor;
 }
-int eliminarCliente(sClientes* cliente, str dni)
-{
-    u_int pos=buscarCliente(cliente,dni);
-    if (pos > (N - 1))
-        return N;
-    if (pos == (N - 1))
-        return N - 1;
-    for (u_int i = pos; i < (N - 1); i++)
-        cliente[i] = cliente[i + 1];
-    return N - 1;
-}
-eAgregar agregarCliente(sClientes nuevoCliente, std::fstream archiClientes)
+int eliminarCliente(sClientes* cliente, str dni, int cant)
 {
 
+    u_int pos=buscarCliente(cliente,dni, cant);
+    if (pos > (cant - 1))
+        return cant;
+    if (pos == (cant - 1))
+    {
+        cant= cant-1;
+        return cant;
+    }
+    for (u_int i = pos; i < (cant - 1); i++)
+        cliente[i] = cliente[i + 1];
+    return cant;
 }
-eModificar modificarCliente()
+int cantClientes(std::fstream *Archi)
+{   int cant;
+    while((cant = fgetc(Archi)) != EOF){ //un cliente por linea
+        if( cant == '\n')
+            n++;
+    }
+    return n;
+}
+eAgregar agregarCliente(sClientes* cliente,sClientes nuevoCliente, int cant, int cantMaxima)
 {
-    ;
+
+    int pos=buscarCliente(cliente, nuevoCliente.dni, cant);
+    int nuevoTam= cant+30;
+    if(!espacio(cantMaxima, archiClientes))
+    {
+        cliente =resizeClientes(cliente,cant, nuevoTam);
+        cantMaxima=nuevoTam;
+    }
+    if(pos== -1)//me aseguro que el cliente ya no este inscripto
+    {
+        cliente[cant+1]=nuevoCliente;
+        return eAgregar::ExitoAg;
+    }
+    else
+        return eAgregar::ErrorAg;
+}
+eModificar modificarCliente(sClientes* cliente, sClientes clienteModificado, str dni, int cant)
+{
+    int pos;
+    pos=buscarCliente(cliente, dni, cant);
+
+    if(pos != -1)
+    {
+        cliente[pos]= clienteModificado;
+        return eModificar::ExitoMod;
+    }
+    else
+        return eModificar::ErrMod;
+
 }
