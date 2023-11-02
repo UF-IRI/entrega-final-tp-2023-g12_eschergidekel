@@ -2,7 +2,6 @@
 #include "archivo.h"
 #include <libreria.h>
 
-
 bool espacio(int cantMaxima, int cant)
 {
     return ( (cantMaxima-cant)>0);
@@ -26,7 +25,7 @@ sClientes* resizeClientes(sClientes* cliente, u_int tam, u_int nuevoTam)
 int buscarCliente(sClientes* cliente, str dni, int cant)
 {
     u_int pos;
-    for(u_int i=0; i<cant ;i++)
+    for(int i=0; i<cant; i++)
     {
         if(cliente[i].dni==dni)
             pos=i;
@@ -51,8 +50,7 @@ eEstado Cuota(sClientes* cliente, str dni, int cant)
 }
 int eliminarCliente(sClientes* cliente, str dni, int cant)
 {
-
-    u_int pos=buscarCliente(cliente,dni, cant);
+    int pos=buscarCliente(cliente,dni, cant);
     if (pos > (cant - 1))
         return cant;
     if (pos == (cant - 1))
@@ -60,31 +58,33 @@ int eliminarCliente(sClientes* cliente, str dni, int cant)
         cant= cant-1;
         return cant;
     }
-    for (u_int i = pos; i < (cant - 1); i++)
+    for (int i = pos; i < (cant - 1); i++)
         cliente[i] = cliente[i + 1];
     return cant;
 }
-int cantClientes(std::fstream *Archi)
-{   int cant;
-    while((cant = fgetc(Archi)) != EOF){ //un cliente por linea
+int cantClientes(std::fstream* archiClientes, int n)
+{
+    int cant;
+    while((cant = fgetc(archiClientes)) != EOF)
+    { //un cliente por linea
         if( cant == '\n')
             n++;
     }
     return n;
 }
-eAgregar agregarCliente(sClientes* cliente,sClientes nuevoCliente, int cant, int cantMaxima)
+eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, int cant, int cantMaxima)
 {
 
     int pos=buscarCliente(cliente, nuevoCliente.dni, cant);
-    int nuevoTam= cant+30;
+    int nuevoTam = cant+30;
     if(!espacio(cantMaxima, archiClientes))
     {
-        cliente =resizeClientes(cliente,cant, nuevoTam);
-        cantMaxima=nuevoTam;
+        cliente = resizeClientes(cliente, cant, nuevoTam);
+        cantMaxima = nuevoTam;
     }
     if(pos== -1)//me aseguro que el cliente ya no este inscripto
     {
-        cliente[cant+1]=nuevoCliente;
+        cliente[cant+1] = nuevoCliente;
         return eAgregar::ExitoAg;
     }
     else
@@ -102,5 +102,4 @@ eModificar modificarCliente(sClientes* cliente, sClientes clienteModificado, str
     }
     else
         return eModificar::ErrMod;
-
 }

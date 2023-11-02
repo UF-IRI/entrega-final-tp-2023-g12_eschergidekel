@@ -8,25 +8,28 @@ using namespace std;
 
 int main()
 {
+    ifstream archiClientes, archiClases, archiAsistencia;
+    archiClientes.open ("clientes.csv");
+    archiClases.open ("clases.csv");
+    archiAsistencia.open ("asistencia.dat");
+    int n=0;
     sClientes aux;
     sClientes* cliente;
+
     int spinning[12]={45,0,45,0,45,0,0,0,45,0,45,0};
     int yoga[12]={0,25,25,25,0,0,0,25,25,0,0,25};
     int pilates[12]={15,15,15,0,15,0,0,0,0,0,15,15};
     int stretching[12]={40,0,0,0,0,0,40,40,40,0,40,40};
     int zumba[12]={50,0,50,0,50,0,0,0,50,50,50,0};
     int boxeo[12]={0,0,0,0,0,0,0,0,30,30,30,30};
-    int cantMaxima= 250;// inicialmente
-    //para agregar mas espacio hacemos un rezise
-    int nuevoTam= cant+30;
-    cliente =resizeClientes(cliente,cant, nuevoTam);
-    cantMaxima=nuevoTam;
-    int cant= cantClientes(archiClientes);
-    ifstream archiClientes, archiClases;
-    archiClientes.open ("clientes.csv");
-    archiClases.open ("clases.csv");
+    int cantMaxima = 250;// inicialmente
 
-    sClientes* ultimo= cliente[cant-1];
+    int cant = cantClientes(archiClientes, n);
+    int nuevoTam = cant+30; //para agregar mas espacio hacemos un rezise
+    cliente = resizeClientes(cliente, cant, nuevoTam);
+    cantMaxima = nuevoTam;
+    sClientes* ultimo = cliente[cant-1];
+
     int opcion;
     cout << "1.Agregar un cliente" << endl;
     cout << "2.Actualizar un cliente" << endl;
@@ -59,7 +62,7 @@ int main()
         if(opcion==1)
         {
             aux.estado==0;
-            aux.idCliente= ((*ultimo).idCliente) +1;
+            aux.idCliente = ((*ultimo).idCliente) +1;
         } else
         {
             int pos= buscarCliente(cliente, aux.dni, cant);
@@ -76,8 +79,8 @@ int main()
         {
         case 1: //agregar cliente
         {
-            eAgregar cliente= agregarCliente(cliente, aux,cant, cantMaxima);
-            if(cliente== -1)
+            eAgregar result1 = agregarCliente(cliente, aux, cant, cantMaxima);
+            if(result1 == -1)
                 cout<<"Hubo un error, porfavor vuelva a intentar"<<endl;
             else
                 cout<<"se agrego con exito"<<endl;
@@ -85,8 +88,8 @@ int main()
         }
         case 2: //actualizar cliente
         {
-            eModificar cliente= modificarCliente(cliente, aux,aux.dni,cant);
-            if(cliente== -1)
+            eModificar result2 = modificarCliente(cliente, aux, aux.dni, cant);
+            if(result2 == -1)
                 cout<<"Hubo un error, porfavor vuelva a intentar"<<endl;
             else
                 cout<<"se modifico con exito"<<endl;
@@ -97,7 +100,7 @@ int main()
             str dni;
             cout<<"Ingrese el dni del cliente a eliminar"<<endl;
             cin>>dni;
-            int eliminar= eliminarCliente(cliente,dni,cant);
+            int eliminar = eliminarCliente(cliente, dni, cant);
             break;
         }
         case 4: //reservar clase
