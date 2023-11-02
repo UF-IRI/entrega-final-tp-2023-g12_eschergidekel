@@ -4,6 +4,7 @@
 #include "libreria_global.h"
 #include <string>
 #include <ctime>
+#include <stdio.h>
 
 
 class LIBRERIA_EXPORT Libreria

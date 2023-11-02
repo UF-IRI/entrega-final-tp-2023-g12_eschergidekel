@@ -34,6 +34,9 @@ Reservas clases(sClientes cliente, Asistencia* asistencia, Clases nombreClase)
         if(result2 != 1)
             return reservar::ErrR;
         else
+        {
+
             return reservar::ExitoR;
+        }
     }
 }

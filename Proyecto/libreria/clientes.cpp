@@ -62,10 +62,10 @@ int eliminarCliente(sClientes* cliente, str dni, int cant)
         cliente[i] = cliente[i + 1];
     return cant;
 }
-int cantClientes(std::fstream* archiClientes, int n)
+int cantClientes(FILE* archiClientes, int n)
 {
-    int cant;
-    while((cant = fgetc(archiClientes)) != EOF)
+    int cant = fgetc(archiClientes);
+    while(cant != EOF)
     { //un cliente por linea
         if( cant == '\n')
             n++;
@@ -77,7 +77,7 @@ eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, int cant, in
 
     int pos=buscarCliente(cliente, nuevoCliente.dni, cant);
     int nuevoTam = cant+30;
-    if(!espacio(cantMaxima, archiClientes))
+    if(!espacio(cantMaxima, cant))
     {
         cliente = resizeClientes(cliente, cant, nuevoTam);
         cantMaxima = nuevoTam;

@@ -22,13 +22,13 @@ int main()
     int stretching[12]={40,0,0,0,0,0,40,40,40,0,40,40};
     int zumba[12]={50,0,50,0,50,0,0,0,50,50,50,0};
     int boxeo[12]={0,0,0,0,0,0,0,0,30,30,30,30};
-    int cantMaxima = 250;// inicialmente
+    int cantMaxima = 250; // inicialmente
 
-    int cant = cantClientes(archiClientes, n);
+    int cant = cantClientes('clientes.csv', n);
     int nuevoTam = cant+30; //para agregar mas espacio hacemos un rezise
     cliente = resizeClientes(cliente, cant, nuevoTam);
     cantMaxima = nuevoTam;
-    sClientes* ultimo = cliente[cant-1];
+    sClientes* ultimo = *cliente[cant-1];
 
     int opcion;
     cout << "1.Agregar un cliente" << endl;
@@ -124,5 +124,6 @@ int main()
 
     archiClientes.close();
     archiClases.close();
+    archiAsistencia.close();
     return 0;
 }
