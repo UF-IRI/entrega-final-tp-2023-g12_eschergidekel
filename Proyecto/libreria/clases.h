@@ -4,7 +4,7 @@
 #include "clientes.h"
 
 enum estaInscripto {Esta = -1, noEsta = 1};
-typedef enum estaInscripto inscripto;
+typedef enum estaInscripto Inscripto;
 enum reservar {ErrR = -1, ExitoR = 1};
 typedef enum reservar Reservas;
 enum darBaja {ErrBaja = -1, ExitoBaja = 1};
@@ -17,7 +17,7 @@ typedef struct {
     str nombreClase;
 } Clases;
 
-inscripto estaInscriptoClases(Asistencia *asistencia,Clases* clase, unsigned int id, unsigned int horario, str nombreClase); //verificar que no se inscriba dos veces
+Inscripto estaInscriptoClases(Asistencia *asistencia,Clases* clase, unsigned int id, unsigned int horario, str nombreClase); //verificar que no se inscriba dos veces
 superposicion superposicionHorarios(Asistencia* asistencia, Clases* clase, sClientes cliente);
 Reservas clases(str clase, str horario, sClientes cliente); //reservar clase
 Reservas musculacion(); //reservar musculacion
