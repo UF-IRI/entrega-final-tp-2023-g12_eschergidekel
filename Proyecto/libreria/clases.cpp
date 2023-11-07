@@ -1,6 +1,6 @@
 #include "clases.h"
 #include "archivo.h"
-#include <libreria.h>
+#include "clientes.h"
 
 Inscripto estaInscriptoClase(Asistencia* asistencia, Clases clase)
 {
