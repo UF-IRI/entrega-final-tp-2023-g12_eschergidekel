@@ -1,6 +1,6 @@
 #include "clientes.h"
 #include "archivo.h"
-#include <libreria.h>
+#include "clases.h"
 
 bool espacio(int cantMaxima, int cant)
 {
@@ -62,8 +62,9 @@ int eliminarCliente(sClientes* cliente, str dni, int cant)
         cliente[i] = cliente[i + 1];
     return cant;
 }
-int cantClientes(FILE* archiClientes, int n)
+int cantClientes(string archiClientes, int n)
 {
+
     int cant = fgetc(archiClientes);
     while(cant != EOF)
     { //un cliente por linea
