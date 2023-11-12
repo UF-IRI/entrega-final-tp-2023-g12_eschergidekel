@@ -4,7 +4,7 @@
 
 bool espacio(int cantMaxima, int cant)
 {
-    return ( (cantMaxima-cant)>0);
+    return ((cantMaxima-cant)>0);
 }
 sClientes* resizeClientes(sClientes* cliente, u_int tam, u_int nuevoTam)
 {
@@ -62,20 +62,26 @@ int eliminarCliente(sClientes* cliente, str dni, int cant)
         cliente[i] = cliente[i + 1];
     return cant;
 }
-int cantClientes(string archiClientes, int n)
+int cantClientes(std::fstream lecturaClientes, int n)
 {
+    if(lecturaClientes.is_open())
+    {
+        while(lecturaClientes.good()) //Leer los datos desde el archivo CSV
+        {
+            str linea;
+            getline(lecturaClientes, linea);
 
-    int cant = fgetc(archiClientes);
-    while(cant != EOF)
-    { //un cliente por linea
-        if( cant == '\n')
-            n++;
+            char delimitador = ',';
+            str file;
+            istringstream iss(linea);
+            while(getline(iss, file, delimitador))
+                n++;
+        }
     }
     return n;
 }
 eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, int cant, int cantMaxima)
 {
-
     int pos=buscarCliente(cliente, nuevoCliente.dni, cant);
     int nuevoTam = cant+30;
     if(!espacio(cantMaxima, cant))
@@ -83,7 +89,7 @@ eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, int cant, in
         cliente = resizeClientes(cliente, cant, nuevoTam);
         cantMaxima = nuevoTam;
     }
-    if(pos== -1)//me aseguro que el cliente ya no este inscripto
+    if(pos == -1) //me aseguro que el cliente ya no este inscripto
     {
         cliente[cant+1] = nuevoCliente;
         return eAgregar::ExitoAg;

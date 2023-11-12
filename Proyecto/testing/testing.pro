@@ -13,6 +13,7 @@ isEmpty(CATCH_INCLUDE_DIR): {
 
 SOURCES += \
     main.cpp \
+    test_clases.cpp \
     test_clientes.cpp \
     tst_proyecto.cpp
 
