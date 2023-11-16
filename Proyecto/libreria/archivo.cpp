@@ -43,7 +43,7 @@ eCodArchivos escribirArchivoClientes(std::ofstream archiClientes, str nombre, st
     } else
         return eCodArchivos::ErrorEscritura;
 }
-eCodArchivos leerArchivoClases(std::ifstream archiClases) //archivo CSV
+eCodArchivos leerArchivoClases(ifstream &archiClases) //archivo CSV
 {
     //Abrir el archivo CSV para lectura
     if(archiClases.is_open())

@@ -2,28 +2,28 @@
 #include <clientes.h>
 #include <clases.h>
 #include <archivo.h>
-
+#include <libreria.h>
 using namespace std;
 
 int main()
 {
     //archiclientes csv
     //archiclases csv
-    ifstream lecturaClientes, lecturaClases, lecturaAsistencia;
-    ofstream escrituraClientes, escrituraClases, escrituraAsistencia, escrituraInforme;
+
+    ifstream archiClases("iriClasesGYM.csv");
+
+    if(archiClases.is_open())
+    {
+       eCodArchivos result= leerArchivoClases(archiClases);
+        if(result!=1)
+           cout<<"hubo un error"<<endl;
+    }
     int n=0;
     sClientes aux;
     sClientes* cliente;
-    lecturaClientes.open ("clientes.csv");
-    lecturaClases.open ("clases.csv");
-    lecturaAsistencia.open ("asistencia.dat");
-    escrituraClientes.open ("Clientes.csv");
-    escrituraClases.open ("Clases.csv");
-    escrituraInforme.open ("Informe.txt");
 
-    if(lecturaClientes.is_open() && lecturaClases.is_open() && lecturaAsistencia.is_open() && escrituraClientes.is_open() &&
-        escrituraClases.is_open() &&  escrituraInforme.is_open())
-    {
+
+
         int spinning[12]={45,0,45,0,45,0,0,0,45,0,45,0};
         int yoga[12]={0,25,25,25,0,0,0,25,25,0,0,25};
         int pilates[12]={15,15,15,0,15,0,0,0,0,0,15,15};
@@ -167,14 +167,6 @@ int main()
             }
         }while (opcion != 8);
 
-        lecturaClientes.close();
-        lecturaClases.close();
-        lecturaAsistencia.close();
-        escrituraClientes.close();
-        escrituraClases.close();
-        escrituraInforme.close();
-    } else
-        cout << "Error al abrir los archivos";
 
     return 0;
 }
