@@ -129,7 +129,7 @@ TEST_CASE("Estado de la cuota")
     {
     eEstado resul=Cuota(cliente, dni1, cant);
     REQUIRE(resul==eEstado::AlDia);
-    eEstado resul2=Cuota(cliente, dni2, cant);
+    eEstado resul2=CuotaCuota(cliente, dni2, cant);
     REQUIRE(resul2==eEstado::Afavor);
     }
 }

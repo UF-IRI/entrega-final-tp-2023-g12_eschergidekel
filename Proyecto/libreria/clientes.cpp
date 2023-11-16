@@ -110,3 +110,14 @@ eModificar modificarCliente(sClientes* cliente, sClientes clienteModificado, str
     else
         return eModificar::ErrMod;
 }
+int cantClientes(ifstream archiClientes)
+{
+    int cont = 0;
+    str linea;
+
+    //Iterar sobre cada línea del archivo
+    while (std::getline(archiClientes, linea))
+        cont++;
+
+    return cont;
+}

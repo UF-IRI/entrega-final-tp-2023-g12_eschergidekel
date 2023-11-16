@@ -3,15 +3,15 @@
 #include "clientes.h"
 #include "clases.h"
 
-eCodArchivos leerArchivoClientes(std::ifstream lecturaClientes) //archivo CSV
+eCodArchivos leerArchivoClientes(std::ifstream archiClientes) //archivo CSV
 {
     //Abrir el archivo CSV para lectura
-    if(lecturaClientes.is_open())
+    if(archiClientes.is_open())
     {
-        while(lecturaClientes.good()) //Leer los datos desde el archivo CSV
+        while(archiClientes.good()) //Leer los datos desde el archivo CSV
         {
             str linea;
-            getline(lecturaClientes, linea);
+            getline(archiClientes, linea);
 
             char delimitador = ',';
             str file;
@@ -20,38 +20,38 @@ eCodArchivos leerArchivoClientes(std::ifstream lecturaClientes) //archivo CSV
                 cout << file << " ";
             cout << endl;
         }
-        lecturaClientes.close();
+        archiClientes.close();
         return eCodArchivos::ExitoOperacion;
     }
     else
         return eCodArchivos::ErrorApertura;
 }
-eCodArchivos escribirArchivoClientes(std::ofstream escrituraClientes, str nombre, str apellido, str email, str telefono,
+eCodArchivos escribirArchivoClientes(std::ofstream archiClientes, str nombre, str apellido, str email, str telefono,
                                      Fecha fechaNac, int estado, u_int idCliente)
 {
-    if(escrituraClientes.is_open())
+    if(archiClientes.is_open())
     {
         // Escribir los datos en el archivo CSV
-        escrituraClientes << "idCliente, nombre, apellido, email, telefono, fecha de nacimiento, estado" << endl;
-        escrituraClientes << idCliente << "," << nombre << "," << apellido << "," << email << "," << telefono << "," <<
+        archiClientes << "idCliente, nombre, apellido, email, telefono, fecha de nacimiento, estado" << endl;
+        archiClientes << idCliente << "," << nombre << "," << apellido << "," << email << "," << telefono << "," <<
                 fechaNac.dia << "/ " << fechaNac.mes << "/ " << fechaNac.anio << "," << estado << "," << endl;
 
         // Cerrar el archivo
-        escrituraClientes.close();
+        archiClientes.close();
 
         return eCodArchivos::ExitoOperacion;
     } else
         return eCodArchivos::ErrorEscritura;
 }
-eCodArchivos leerArchivoClases(std::ifstream lecturaClases) //archivo CSV
+eCodArchivos leerArchivoClases(std::ifstream archiClases) //archivo CSV
 {
     //Abrir el archivo CSV para lectura
-    if(lecturaClases.is_open())
+    if(archiClases.is_open())
     {
-        while(lecturaClases.good()) //Leer los datos desde el archivo CSV
+        while(archiClases.good()) //Leer los datos desde el archivo CSV
         {
             str linea;
-            getline(lecturaClases, linea);
+            getline(archiClases, linea);
 
             char delimitador = ',';
             str file;
@@ -60,53 +60,53 @@ eCodArchivos leerArchivoClases(std::ifstream lecturaClases) //archivo CSV
                 cout << file << " ";
             cout << endl;
         }
-        lecturaClases.close();
+        archiClases.close();
         return eCodArchivos::ExitoOperacion;
     }
     else
         return eCodArchivos::ErrorApertura;
 }
-eCodArchivos escribirArchivoClases(std::ofstream escrituraClases, u_int idClase, str nombre, u_int horario)
+eCodArchivos escribirArchivoClases(std::ofstream archiClases, u_int idClase, str nombre, u_int horario)
 {
-    if(escrituraClases.is_open())
+    if(archiClases.is_open())
     {
         // Escribir los datos en el archivo CSV
-        escrituraClases << "idClase, nombre, horario" << endl;
-        escrituraClases << idClase << "," << nombre << "," << horario << endl;
+        archiClases << "idClase, nombre, horario" << endl;
+        archiClases << idClase << "," << nombre << "," << horario << endl;
 
         // Cerrar el archivo
-        escrituraClases.close();
+        archiClases.close();
 
         return eCodArchivos::ExitoOperacion;
     } else
         return eCodArchivos::ErrorEscritura;
 }
-eCodArchivos leerArchivoAsistencia(std::ifstream* lecturaAsistencia, Asistencia* asistencia) //archivo binario
+eCodArchivos leerArchivoAsistencia(std::ifstream* archiAsistencia, Asistencia* asistencia) //archivo binario
 {
-    if(!lecturaAsistencia->is_open()) //si el archivo no se pudo abrir
+    if(!archiAsistencia->is_open()) //si el archivo no se pudo abrir
         return eCodArchivos::ErrorApertura;
 
-    lecturaAsistencia->read((char*)asistencia, sizeof(Asistencia)); //leer las asistencias
-    if(!*lecturaAsistencia)
+    archiAsistencia->read((char*)asistencia, sizeof(Asistencia)); //leer las asistencias
+    if(!*archiAsistencia)
         return eCodArchivos::ErrorEscritura;
 
     return eCodArchivos::ExitoOperacion; //archivo binario
 }
-eCodArchivos informeAsistencia(std::ofstream escrituraInforme, Asistencia *asistencia, Inscripcion* inscripcion)
+eCodArchivos informeAsistencia(std::ofstream informe, Asistencia *asistencia, Inscripcion* inscripcion)
 {
-    if(escrituraInforme.is_open())
+    if(informe.is_open())
     {
-        escrituraInforme << "Asistencias del dia:" << endl;
+        informe << "Asistencias del dia:" << endl;
         for(u_int i=0; i<asistencia->cantInscriptos; i++)
         {
             for(u_int j=0; j<asistencia[i].cantInscriptos; j++)
             {
-                escrituraInforme << "ID cliente: " << asistencia[i].idCliente << endl;
-                escrituraInforme << "Cantidad de inscriptos: " << asistencia[i].cantInscriptos << endl;
-                escrituraInforme << "ID clase: " << inscripcion[j].idCurso << endl;
+                informe << "ID cliente: " << asistencia[i].idCliente << endl;
+                informe << "Cantidad de inscriptos: " << asistencia[i].cantInscriptos << endl;
+                informe << "ID clase: " << inscripcion[j].idCurso << endl;
             }
         }
-        escrituraInforme.close();
+        informe.close();
         return eCodArchivos::ExitoOperacion;
     }
     else

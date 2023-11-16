@@ -29,7 +29,7 @@ int main()
         int zumba[12]={50,0,50,0,50,0,0,0,50,50,50,0};
         int boxeo[12]={0,0,0,0,0,0,0,0,30,30,30,30};
         int cantMaxima = 250; //inicialmente
-        int cant = cantClientes(lecturaClientes, n);
+        int cant = cantClientes(lecturaClientes);
         int nuevoTam = cant+30; //para agregar mas espacio hacemos un rezise
         cliente = resizeClientes(cliente, cant, nuevoTam);
         cantMaxima = nuevoTam;
@@ -75,7 +75,28 @@ int main()
                 cin >> aux.estado;
                 aux.idCliente= cliente[pos].idCliente; //el id sigue siendo el mismo
             }
+        }
 
+        if(opcion == 4 || opcion == 5)
+        {
+            str nombreClase, horario, dni;
+            cout << "Ingrese su DNI: " << endl;
+            cin >> dni;
+            cout << "Ingrese la clase que desea reservar: " << endl;
+            cin >> nombreClase;
+            cout << "Ingrese el horario: " << endl;
+            cin >> horario;
+        }
+
+        if(opcion == 6 || opcion == 7)
+        {
+            str nombreClase, horario, dni;
+            cout << "Ingrese su DNI: " << endl;
+            cin >> dni;
+            cout << "Ingrese la clase que desea dar de baja: " << endl;
+            cin >> nombreClase;
+            cout << "Ingrese el horario: " << endl;
+            cin >> horario;
         }
 
         do
@@ -110,6 +131,23 @@ int main()
             }
             case 4: //reservar clase
             {
+                str nombreClase, horario, dni;
+                cout << "Ingrese su DNI: " << endl;
+                cin >> dni;
+                cout << "Ingrese la clase que desea reservar: " << endl;
+                cin >> nombreClase;
+                cout << "Ingrese el horario: " << endl;
+                cin >> horario;
+                int pos=buscarCliente(cliente, dni, cant);
+                reservar result =clases(cliente[pos], Asistencia, nombreClase);
+                if(nombreClase == 'Stretching' && horario == '8' && stretching[0]>0)
+                {
+                    stretching[0]-=stretching[0];
+                    cout << "Clase reservada.";
+                } else
+                    cout << "No hay más cupos disponibles.";
+
+
                 break;
             }
             case 5: //reservar musculacion

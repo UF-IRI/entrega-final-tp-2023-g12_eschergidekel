@@ -20,6 +20,11 @@ HEADERS += \
     libreria_global.h \
     libreria.h
 
+FILES += \
+    iriClasesGYM.csv\
+    iriClientesGYM.csv\
+    asistencias_1697673600000.dat\
+
 # Default rules for deployment.
 unix {
     target.path = /usr/lib
