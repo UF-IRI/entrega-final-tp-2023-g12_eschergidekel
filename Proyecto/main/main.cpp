@@ -2,36 +2,41 @@
 #include <clientes.h>
 #include <clases.h>
 #include <archivo.h>
-#include <libreria.h>
 using namespace std;
 
 int main()
 {
-    //archiclientes csv
-    //archiclases csv
+    //archiClientes csv
+    //archiClases csv
 
-    ifstream archiClases("iriClasesGYM.csv");
+    fstream archiClases("iriClasesGYM.csv");
+    fstream archiClientes("iriClientesGYM.csv");
 
-    if(archiClases.is_open())
+    if(archiClases.is_open() && archiClientes.is_open())
     {
-       eCodArchivos result= leerArchivoClases(archiClases);
-        if(result!=1)
-           cout<<"hubo un error"<<endl;
+       eCodArchivos result = leerArchivoClases(&archiClases);
+       if(result != eCodArchivos::ExitoOperacion)
+        cout << "Hubo un error." << endl;
+
+       eCodArchivos result2 = leerArchivoClientes(&archiClientes);
+       if(result2 != eCodArchivos::ExitoOperacion)
+        cout << "Hubo un error." << endl;
     }
-    int n=0;
+    int cant=0;
     sClientes aux;
     sClientes* cliente;
+    Asistencia* asistencia;
 
 
 
-        int spinning[12]={45,0,45,0,45,0,0,0,45,0,45,0};
-        int yoga[12]={0,25,25,25,0,0,0,25,25,0,0,25};
-        int pilates[12]={15,15,15,0,15,0,0,0,0,0,15,15};
-        int stretching[12]={40,0,0,0,0,0,40,40,40,0,40,40};
-        int zumba[12]={50,0,50,0,50,0,0,0,50,50,50,0};
-        int boxeo[12]={0,0,0,0,0,0,0,0,30,30,30,30};
+        int Spinning[12]={45,0,45,0,45,0,0,0,45,0,45,0};
+        int Yoga[12]={0,25,25,25,0,0,0,25,25,0,0,25};
+        int Pilates[12]={15,15,15,0,15,0,0,0,0,0,15,15};
+        int Stretching[12]={40,0,0,0,0,0,40,40,40,0,40,40};
+        int Zumba[12]={50,0,50,0,50,0,0,0,50,50,50,0};
+        int Boxeo[12]={0,0,0,0,0,0,0,0,30,30,30,30};
         int cantMaxima = 250; //inicialmente
-        int cant = cantClientes(lecturaClientes);
+        cant = cantClientes(*archiClientes);
         int nuevoTam = cant+30; //para agregar mas espacio hacemos un rezise
         cliente = resizeClientes(cliente, cant, nuevoTam);
         cantMaxima = nuevoTam;
@@ -133,21 +138,25 @@ int main()
             }
             case 4: //reservar clase
             {
-                str nombreClase, horario, dni;
+                str horario, dni;
+                Clases clase;
                 cout << "Ingrese su DNI: " << endl;
                 cin >> dni;
                 cout << "Ingrese la clase que desea reservar: " << endl;
-                cin >> nombreClase;
+                cin >> clase.nombreClase;
                 cout << "Ingrese el horario: " << endl;
                 cin >> horario;
                 int pos=buscarCliente(cliente, dni, cant);
-                reservar result =clases(cliente[pos], Asistencia, nombreClase);
-                if(nombreClase == 'Stretching' && horario == '8' && stretching[0]>0)
+                Reservas result = clases(cliente[pos], asistencia, clase.nombreClase, cant);
+                if(result != reservar::ErrR)
                 {
-                    stretching[0]-=stretching[0];
-                    cout << "Clase reservada.";
-                } else
-                    cout << "No hay más cupos disponibles.";
+                    if(clase.nombreClase=='Spinning' && horario == '8' && Spinning[0]>0)
+                    {
+                        Spinning[0]-=Spinning[0];
+                        cout << "Clase reservada.";
+                    } else
+                        cout << "No hay más cupos disponibles.";
+                }
 
 
                 break;

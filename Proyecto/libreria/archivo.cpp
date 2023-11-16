@@ -3,7 +3,7 @@
 #include "clientes.h"
 #include "clases.h"
 
-eCodArchivos leerArchivoClientes(std::ifstream archiClientes) //archivo CSV
+eCodArchivos leerArchivoClientes(fstream &archiClientes) //archivo CSV
 {
     //Abrir el archivo CSV para lectura
     if(archiClientes.is_open())
@@ -26,7 +26,7 @@ eCodArchivos leerArchivoClientes(std::ifstream archiClientes) //archivo CSV
     else
         return eCodArchivos::ErrorApertura;
 }
-eCodArchivos escribirArchivoClientes(std::ofstream archiClientes, str nombre, str apellido, str email, str telefono,
+eCodArchivos escribirArchivoClientes(fstream archiClientes, str nombre, str apellido, str email, str telefono,
                                      Fecha fechaNac, int estado, u_int idCliente)
 {
     if(archiClientes.is_open())
@@ -43,7 +43,7 @@ eCodArchivos escribirArchivoClientes(std::ofstream archiClientes, str nombre, st
     } else
         return eCodArchivos::ErrorEscritura;
 }
-eCodArchivos leerArchivoClases(ifstream &archiClases) //archivo CSV
+eCodArchivos leerArchivoClases(fstream &archiClases) //archivo CSV
 {
     //Abrir el archivo CSV para lectura
     if(archiClases.is_open())
@@ -66,7 +66,7 @@ eCodArchivos leerArchivoClases(ifstream &archiClases) //archivo CSV
     else
         return eCodArchivos::ErrorApertura;
 }
-eCodArchivos escribirArchivoClases(std::ofstream archiClases, u_int idClase, str nombre, u_int horario)
+eCodArchivos escribirArchivoClases(fstream archiClases, u_int idClase, str nombre, u_int horario)
 {
     if(archiClases.is_open())
     {
@@ -92,7 +92,7 @@ eCodArchivos leerArchivoAsistencia(std::ifstream* archiAsistencia, Asistencia* a
 
     return eCodArchivos::ExitoOperacion; //archivo binario
 }
-eCodArchivos informeAsistencia(std::ofstream informe, Asistencia *asistencia, Inscripcion* inscripcion)
+eCodArchivos informeAsistencia(fstream informe, Asistencia *asistencia, Inscripcion* inscripcion)
 {
     if(informe.is_open())
     {

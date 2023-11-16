@@ -62,14 +62,14 @@ int eliminarCliente(sClientes* cliente, str dni, int cant)
         cliente[i] = cliente[i + 1];
     return cant;
 }
-int cantClientes(std::fstream lecturaClientes, int n)
+int cantClientes(fstream &archiClientes, int n)
 {
-    if(lecturaClientes.is_open())
+    if(archiClientes.is_open())
     {
-        while(lecturaClientes.good()) //Leer los datos desde el archivo CSV
+        while(archiClientes.good()) //Leer los datos desde el archivo CSV
         {
             str linea;
-            getline(lecturaClientes, linea);
+            getline(archiClientes, linea);
 
             char delimitador = ',';
             str file;
@@ -77,6 +77,7 @@ int cantClientes(std::fstream lecturaClientes, int n)
             while(getline(iss, file, delimitador))
                 n++;
         }
+        archiClientes.close();
     }
     return n;
 }

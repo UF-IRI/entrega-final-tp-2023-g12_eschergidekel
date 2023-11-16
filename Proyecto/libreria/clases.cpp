@@ -20,24 +20,20 @@ superposicion superposicionHorarios(Asistencia* asistencia, Clases clase,u_int i
             return superposicion::SH;
         else
             return superposicion::noSH;
-
     }
 }
-Reservas clases(sClientes cliente, Asistencia* asistencia, Clases nombreClase, int cantClientes)
+Reservas clases(sClientes cliente, Asistencia* asistencia, Clases clase, int cantClientes)
 {
-    int result = estaInscriptoClase(asistencia, nombreClase);
+    int result = estaInscriptoClase(asistencia, clase);
     superposicion result2;
     if(result != 1)
         return reservar::ErrR;
     else
     {
-        result2 = superposicionHorarios(asistencia, nombreClase, cliente.idCliente, cantClientes);//discutir
+        result2 = superposicionHorarios(asistencia, clase, cliente.idCliente, cantClientes);//discutir
         if(result2 != 1)
             return reservar::ErrR;
         else
-        {
-
             return reservar::ExitoR;
-        }
     }
 }

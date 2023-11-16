@@ -9,12 +9,12 @@ std::fstream archiClientes, archiClases, archiAsistencia, informe;
 
 typedef enum CodArchivos {ErrorLectura=-3, ErrorApertura=-2, ErrorEscritura=-1, ExitoOperacion=1} eCodArchivos;
 
-eCodArchivos leerArchivoClientes(std::ifstream* archiClientes);
-eCodArchivos escribirArchivoClientes(std::ofstream archiClientes,str nombre, str apellido, str email, str telefono,
+eCodArchivos leerArchivoClientes(fstream archiClientes);
+eCodArchivos escribirArchivoClientes(fstream archiClientes, str nombre, str apellido, str email, str telefono,
                                      Fecha fechaNac, int estado, u_int idCliente);
-eCodArchivos leerArchivoClases(std::ifstream* archiClase);
-eCodArchivos escribirArchivoClases(std::ofstream archiClases, u_int idClase, str nombre, u_int horario);
-eCodArchivos leerArchivoAsistencia(ifstream *archiAsistencia, Asistencia* asistencia);
-eCodArchivos informeAsistencia(std::ofstream informe, Asistencia *asistencia, Inscripcion* inscripcion);
+eCodArchivos leerArchivoClases(fstream* archiClase);
+eCodArchivos escribirArchivoClases(fstream archiClases, u_int idClase, str nombre, u_int horario);
+eCodArchivos leerArchivoAsistencia(fstream *archiAsistencia, Asistencia* asistencia);
+eCodArchivos informeAsistencia(fstream informe, Asistencia *asistencia, Inscripcion* inscripcion);
 
 #endif // ARCHIVO_H
