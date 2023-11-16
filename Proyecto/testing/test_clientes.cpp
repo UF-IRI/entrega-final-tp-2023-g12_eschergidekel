@@ -1,6 +1,6 @@
 #include <catch2/catch.hpp>
 #include <clientes.h>
-
+#include <fstream>
 /*
 sClientes* resizeClientes(sClientes* lista, u_int tam, u_int nuevoTam); //tamaño de clientes
 int buscarCliente(sClientes* cliente, str dni,int cant); //buscar clientes por dni
@@ -129,7 +129,21 @@ TEST_CASE("Estado de la cuota")
     {
     eEstado resul=Cuota(cliente, dni1, cant);
     REQUIRE(resul==eEstado::AlDia);
-    eEstado resul2=CuotaCuota(cliente, dni2, cant);
+    eEstado resul2=Cuota(cliente, dni2, cant);
     REQUIRE(resul2==eEstado::Afavor);
     }
+}
+TEST_CASE("verificar espacio"){
+
+    int cantmax=6;
+    int cant=6;
+
+    REQUIRE(!espacio(cantmax,cant));
+
+ }
+
+TEST_CASE("cantidad de clientes"){
+
+
+
 }

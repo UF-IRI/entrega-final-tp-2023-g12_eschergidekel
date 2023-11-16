@@ -7,6 +7,8 @@ using namespace std;
 
 int main()
 {
+    //archiclientes csv
+    //archiclases csv
     ifstream lecturaClientes, lecturaClases, lecturaAsistencia;
     ofstream escrituraClientes, escrituraClases, escrituraAsistencia, escrituraInforme;
     int n=0;
