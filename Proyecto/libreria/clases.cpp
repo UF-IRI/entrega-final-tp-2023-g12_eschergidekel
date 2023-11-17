@@ -46,7 +46,7 @@ Baja cancelarClase(Asistencia* asistencia, Clases clase, int cantClientes)
     Clases nula={0,0,""};
     for(int i=0; i<cantClientes;i++)
     {
-        if(asistencia[i]->CursosInscriptos->idCurso== clase.idClase)
+        if(asistencia[i].CursosInscriptos->idCurso== clase.idClase)
         {
             asistencia[i].cantInscriptos=asistencia[i].cantInscriptos-1;
             asistencia[i].CursosInscriptos->idCurso=0;

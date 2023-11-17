@@ -9,7 +9,6 @@ int eliminarCliente(sClientes* cliente, str dni,int cant); //eliminar cliente
 eAgregar agregarCliente(sClientes* cliente,sClientes nuevoCliente, int cant, int cantMaxima); //agregar cliente
 eModificar modificarCliente(sClientes* cliente, sClientes clienteModificado, str dni, int cant); //modificar cliente
 bool espacio(int cantMaxima, int cant); //verificar el espacio disponible
-int cantClientes(FILE* archiClientes, int n); //paso el archivo como parámetro y leo la cantidad de registros
 */
 
 const sClientes DefaultCliente[3] = {
@@ -121,8 +120,8 @@ TEST_CASE("Estado de la cuota")
 {
     sClientes* cliente = new sClientes[3];
     //eEstado Cuota(sClientes* cliente, str dni, int cant)
-    int dni1=46534213;
-    int dni2=45025423;
+    str dni1={"46534213"};
+    str dni2={"45025423"};
     int cant=2;
 
     SECTION("Comprobando estado de dos clientes")
@@ -139,7 +138,6 @@ TEST_CASE("verificar espacio"){
     int cant=6;
 
     REQUIRE(!espacio(cantmax,cant));
-
  }
 
 

@@ -35,9 +35,9 @@ typedef struct {
     Inscripcion* CursosInscriptos;
 } Asistencia;
 
-sClientes* resizeClientes(sClientes* lista, u_int tam, u_int nuevoTam); //tamaño de clientes
+sClientes* resizeClientes(sClientes* cliente, u_int tam, u_int nuevoTam); //tamaño de clientes
 int buscarCliente(sClientes* cliente, str dni,int cant); //buscar clientes por dni
-eEstado Cuota(sClientes* cliente, u_int dni, int cant); //verificar el estado del cliente
+eEstado Cuota(sClientes* cliente, str dni, int cant); //verificar el estado del cliente
 int eliminarCliente(sClientes* cliente, str dni,int cant); //eliminar cliente
 eAgregar agregarCliente(sClientes* cliente,sClientes nuevoCliente, int cant, int cantMaxima); //agregar cliente
 eModificar modificarCliente(sClientes* cliente, sClientes clienteModificado, str dni, int cant); //modificar cliente

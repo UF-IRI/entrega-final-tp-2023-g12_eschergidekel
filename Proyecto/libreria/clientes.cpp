@@ -25,12 +25,12 @@ sClientes* resizeClientes(sClientes* cliente, u_int tam, u_int nuevoTam)
 int buscarCliente(sClientes* cliente, str dni, int cant)
 {
     u_int pos;
-    for(int i=0; i<cant; i++)
+    int i;
+    for(i=0; i<cant; i++)
     {
         if(cliente[i].dni==dni)
             pos=i;
     }
-    int i;
     if(i==cant)
         return -1;
     else
