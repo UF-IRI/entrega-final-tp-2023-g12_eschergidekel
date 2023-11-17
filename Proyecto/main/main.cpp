@@ -22,12 +22,12 @@ int main()
        if(result2 != eCodArchivos::ExitoOperacion)
         cout << "Hubo un error." << endl;
     }
-    int cant=0;
+    int cant;
     sClientes aux;
     sClientes* cliente;
     Asistencia* asistencia;
 
-
+     Clases *clase;
 
     int Spinning[12]={45,0,45,0,45,0,0,0,45,0,45,0};
     int Yoga[12]={0,25,25,25,0,0,0,25,25,0,0,25};
@@ -36,7 +36,7 @@ int main()
     int Zumba[12]={50,0,50,0,50,0,0,0,50,50,50,0};
     int Boxeo[12]={0,0,0,0,0,0,0,0,30,30,30,30};
     int cantMaxima = 250; //inicialmente
-    cant = cantClientes(*archiClientes);
+    cant = cantClientes(archiClientes);
     int nuevoTam = cant+30; //para agregar mas espacio hacemos un rezise
     cliente = resizeClientes(cliente, cant, nuevoTam);
     cantMaxima = nuevoTam;
@@ -138,40 +138,44 @@ int main()
         }
         case 4: //reservar clase
         {
-            str horario, dni;
-            Clases clase;
+            str dni;
+            Clases auxclase;
+            int cont=0;
+            int pos2;
             cout << "Ingrese su DNI: " << endl;
             cin >> dni;
             cout << "Ingrese la clase que desea reservar: " << endl;
-            cin >> clase.nombreClase;
+            cin >> auxclase.nombreClase;
             cout << "Ingrese el horario: " << endl;
-            cin >> horario;
+            cin >> auxclase.horarioClase;
             int pos=buscarCliente(cliente, dni, cant);
-            Reservas result = clases(cliente[pos], asistencia, clase.nombreClase, cant);
+            Reservas result = clases(cliente[pos], asistencia,auxclase , cant);
             if(result != reservar::ErrR)
             {
-                if(clase.nombreClase=='Spinning' && horario == '8' && Spinning[0]>0)
+                for(int i=0;i<33;i++)//33 es la cantidad de id de la clase
+               {
+                    if(clase[i].nombreClase==auxclase.nombreClase && clase[i].horarioClase==auxclase.horarioClase)
+                    {
+                        cont++;
+                        pos2=i;
+
+                    }
+                }
+                if(cont>0 && clase[pos2].nombreClase=='Spinning' && cont<45)
                 {
-                    Spinning[0]-=Spinning[0];
-                    cout << "Clase reservada.";
-                } else
-                    cout << "No hay más cupos disponibles.";
+                    clase[]
+
+                }
             }
             break;
         }
-        case 5: //reservar musculacion
+
+        case 5: //cancelar clase
         {
             break;
         }
-        case 6: //cancelar clase
-        {
-            break;
         }
-        case 7: //cancelar musculacion
-        {
-            break;
-        }
-    }while (opcion != 8);
+    }while (opcion != 6);
 
 
     return 0;

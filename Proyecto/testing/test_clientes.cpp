@@ -142,8 +142,4 @@ TEST_CASE("verificar espacio"){
 
  }
 
-TEST_CASE("cantidad de clientes"){
 
-
-
-}

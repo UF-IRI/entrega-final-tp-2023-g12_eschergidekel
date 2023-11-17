@@ -62,20 +62,16 @@ int eliminarCliente(sClientes* cliente, str dni, int cant)
         cliente[i] = cliente[i + 1];
     return cant;
 }
-int cantClientes(fstream &archiClientes, int n)
+int cantClientes(fstream &archiClientes)
 {
+    int n=0;
     if(archiClientes.is_open())
     {
         while(archiClientes.good()) //Leer los datos desde el archivo CSV
         {
             str linea;
             getline(archiClientes, linea);
-
-            char delimitador = ',';
-            str file;
-            istringstream iss(linea);
-            while(getline(iss, file, delimitador))
-                n++;
+            n++;
         }
         archiClientes.close();
     }

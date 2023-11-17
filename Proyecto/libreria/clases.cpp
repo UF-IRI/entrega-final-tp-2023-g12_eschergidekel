@@ -2,6 +2,7 @@
 #include "archivo.h"
 #include "clientes.h"
 
+
 Inscripto estaInscriptoClase(Asistencia* asistencia, Clases clase)
 {
     for(u_int i=0; i<asistencia->cantInscriptos; i++)
@@ -37,3 +38,30 @@ Reservas clases(sClientes cliente, Asistencia* asistencia, Clases clase, int can
             return reservar::ExitoR;
     }
 }
+Baja cancelarClase(Asistencia* asistencia, Clases clase, int cantClientes)
+{
+
+    int i;
+
+    Clases nula={0,0,""};
+    for(int i=0; i<cantClientes;i++)
+    {
+        if(asistencia[i]->CursosInscriptos->idCurso== clase.idClase)
+        {
+            asistencia[i].cantInscriptos=asistencia[i].cantInscriptos-1;
+            asistencia[i].CursosInscriptos->idCurso=0;
+
+        }
+
+    }
+
+}
+
+
+
+
+
+
+
+
+

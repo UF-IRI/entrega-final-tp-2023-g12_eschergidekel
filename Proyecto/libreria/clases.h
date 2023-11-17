@@ -20,8 +20,7 @@ typedef struct {
 Inscripto estaInscriptoClases(Asistencia* asistencia, Clases clase); //verificar que no se inscriba dos veces
 superposicion superposicionHorarios(Asistencia* asistencia, Clases clase, int idCliente);//modificada
 Reservas clases(sClientes cliente, Asistencia* asistencia, Clases nombreClase, int cantClientes); //reservar clase//modificada
-Reservas musculacion(); //reservar musculacion
 Baja cancelarClase(); //dar de baja clase
-Baja cancelarMusculacion(); //dar de baja musculacion
+
 
 #endif // CLASES_H

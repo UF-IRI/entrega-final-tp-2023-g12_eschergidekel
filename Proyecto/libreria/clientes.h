@@ -42,5 +42,5 @@ int eliminarCliente(sClientes* cliente, str dni,int cant); //eliminar cliente
 eAgregar agregarCliente(sClientes* cliente,sClientes nuevoCliente, int cant, int cantMaxima); //agregar cliente
 eModificar modificarCliente(sClientes* cliente, sClientes clienteModificado, str dni, int cant); //modificar cliente
 bool espacio(int cantMaxima, int cant); //verificar el espacio disponible
-int cantClientes(ifstream archiClientes); //paso el archivo como parámetro y leo la cantidad de registros
+int cantClientes(fstream &archiClientes); //paso el archivo como parámetro y leo la cantidad de registros
 #endif // CLIENTES_H
