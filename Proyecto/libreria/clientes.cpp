@@ -48,29 +48,33 @@ eEstado Cuota(sClientes* cliente, str dni, int cant)
         else
             return eEstado::Deudor;
 }
-int eliminarCliente(sClientes* cliente, str dni, int cant)
+int eliminarCliente(ifstream &archiClientes, ofstream &archivoClientes, sClientes* cliente, str dni, int cant)
 {
-    int pos=buscarCliente(cliente,dni, cant);
-    if (pos > (cant - 1))
-        return cant;
-    if (pos == (cant - 1))
+    int pos=buscarCliente(cliente,dni, cant); //cambiar tamaño
+    eCodArchivos resul = leerArchivoClientes(archiClientes, cliente);
+    str linea;
+    if(resul != eCodArchivos::ErrorApertura)
     {
-        cant= cant-1;
-        return cant;
-    }
-    for (int i = pos; i < (cant - 1); i++)
-        cliente[i] = cliente[i + 1];
-    return cant;
+        while(getline(archivoEntrada, linea)) //Copiar las líneas excepto la línea a borrar al archivo temporal
+        {
+            for(int i=0; i<cant, i++)
+                if(cliente[pos] != cliente[i])
+                    archivoClientes << linea << endl;
+        }
+        return cant-1;
+    }else
+        return -1;
 }
 int cantClientes(fstream &archiClientes)
 {
     int n=0;
+    archiClientes.open();
     if(archiClientes.is_open())
     {
         while(archiClientes.good()) //Leer los datos desde el archivo CSV
         {
             str linea;
-            getline(archiClientes, linea);
+            getline(archiClientes, linea);//subir esto al while
             n++;
         }
         archiClientes.close();

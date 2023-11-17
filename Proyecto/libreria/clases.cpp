@@ -17,7 +17,7 @@ superposicion superposicionHorarios(Asistencia* asistencia, Clases clase,u_int i
 {
     for(int i=0; i<cantClientes;i++)
     {
-        if(asistencia->idCliente==idCliente && asistencia->CursosInscriptos->idCurso == clase.idClase)
+        if(asistencia->idCliente==idCliente && asistencia->CursosInscriptos->idCurso == clase.idClase)//[i]
             return superposicion::SH;
         else
             return superposicion::noSH;

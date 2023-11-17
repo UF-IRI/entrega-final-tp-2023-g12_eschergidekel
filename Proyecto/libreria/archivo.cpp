@@ -3,9 +3,9 @@
 #include "clientes.h"
 #include "clases.h"
 
-eCodArchivos leerArchivoClientes(fstream &archiClientes, sClientes* cliente) //archivo CSV
+eCodArchivos leerArchivoClientes(ifstream &archiClientes, sClientes* cliente) //archivo CSV
 {
-    sClientes* aux= new sClientes;
+    sClientes* aux = new sClientes; //tamaño
     string auxNombre;
     string auxApellido;
     string auxDNI;
@@ -16,8 +16,8 @@ eCodArchivos leerArchivoClientes(fstream &archiClientes, sClientes* cliente) //a
     string auxfecha;
     int i=1;
 
-
     //Abrir el archivo CSV para lectura
+    archiClientes.open();
     if(archiClientes.is_open())
     {
         while(archiClientes.good()) //Leer los datos desde el archivo CSV
@@ -49,17 +49,19 @@ eCodArchivos leerArchivoClientes(fstream &archiClientes, sClientes* cliente) //a
             getline(iss,auxestado,delimitador);
             aux[i].estado=stoi(auxestado);
             i++;
-
         }
         archiClientes.close();
+        cliente=aux;
+        delete aux;
         return eCodArchivos::ExitoOperacion;
     }
     else
         return eCodArchivos::ErrorApertura;
 }
-eCodArchivos escribirArchivoClientes(fstream archiClientes, str nombre, str apellido, str email, str telefono,
+eCodArchivos escribirArchivoClientes(ofstream &archiClientes, str nombre, str apellido, str email, str telefono,
                                      Fecha fechaNac, int estado, u_int idCliente)
 {
+    archiClientes.open();
     if(archiClientes.is_open())
     {
         // Escribir los datos en el archivo CSV
@@ -74,14 +76,16 @@ eCodArchivos escribirArchivoClientes(fstream archiClientes, str nombre, str apel
     } else
         return eCodArchivos::ErrorEscritura;
 }
-eCodArchivos leerArchivoClases(fstream &archiClases, Clases* clase) //archivo CSV
+eCodArchivos leerArchivoClases(ifstream &archiClases, Clases* clase) //archivo CSV
 {
-    Clases*aux= new Clases;
+    Clases*aux = new Clases[60];
     string auxidClase;
     string auxNombre;
     string auxHorario;
     int i=1;
+
     //Abrir el archivo CSV para lectura
+    archiClases.open();
     if(archiClases.is_open())
     {
         while(archiClases.good()) //Leer los datos desde el archivo CSV
@@ -90,7 +94,7 @@ eCodArchivos leerArchivoClases(fstream &archiClases, Clases* clase) //archivo CS
             getline(archiClases, linea);
 
             char delimitador = ',';
-            str file;
+            str file;// sacar
             istringstream iss(linea);
             getline(iss,auxidClase,delimitador);
             aux[i].idClase=stoi(auxidClase);
@@ -101,20 +105,23 @@ eCodArchivos leerArchivoClases(fstream &archiClases, Clases* clase) //archivo CS
             i++;
         }
         archiClases.close();
+        clase=aux;
+        delete aux;
         return eCodArchivos::ExitoOperacion;
     }
     else
         return eCodArchivos::ErrorApertura;
 }
-eCodArchivos escribirArchivoClases(fstream archiClases, u_int idClase, str nombre, u_int horario)
+eCodArchivos escribirArchivoClases(ofstream &archiClases, u_int idClase, str nombre, u_int horario)
 {
+    archiClases.open(); //abrir el archivo para escribir
     if(archiClases.is_open())
     {
-        // Escribir los datos en el archivo CSV
+        //Escribir los datos en el archivo CSV
         archiClases << "idClase, nombre, horario" << endl;
         archiClases << idClase << "," << nombre << "," << horario << endl;
 
-        // Cerrar el archivo
+        //Cerrar el archivo
         archiClases.close();
 
         return eCodArchivos::ExitoOperacion;
@@ -123,50 +130,55 @@ eCodArchivos escribirArchivoClases(fstream archiClases, u_int idClase, str nombr
 }
 eCodArchivos leerArchivoAsistencia(ifstream &archiAsistencia, Asistencia* asistencia) //archivo binario
 {
-        if (!archiAsistencia.is_open())
+    archiAsistencia.open();
+    if(!archiAsistencia.is_open())
         return eCodArchivos::ErrorApertura;
-        // Setear inicio
-        archiAsistencia.clear();
-        archiAsistencia.seekg(0);
+    // Setear inicio
+    archiAsistencia.clear();
+    archiAsistencia.seekg(0);
 
-        Asistencia *aux = new Asistencia;
-
-        while (!archiAsistencia.eof()) {
-            archiAsistencia.read((char *)&aux->idCliente, sizeof(u_int));
-            archiAsistencia.read((char *)&aux->cantInscriptos, sizeof(u_int));
-
-            Inscripcion *registro = new Inscripcion[aux->cantInscriptos];
-            Inscripcion *auxInscriptions = registro;
-            for (u_int i = 0; i < aux->cantInscriptos; i++) {
-                archiAsistencia.read((char *)auxInscriptions, sizeof(Inscripcion));
-                auxInscriptions++;
-            }
-            aux->CursosInscriptos = registro;
-
-            aux++;
+    Asistencia* aux = new Asistencia;
+    while (!archiAsistencia.eof())
+    {
+        archiAsistencia.read((char *)&aux->idCliente, sizeof(u_int));
+        archiAsistencia.read((char *)&aux->cantInscriptos, sizeof(u_int));
+        Inscripcion *registro = new Inscripcion[aux->cantInscriptos];
+        Inscripcion *auxInscriptions = registro;
+        for (u_int i = 0; i < aux->cantInscriptos; i++)
+        {
+            archiAsistencia.read((char *)&auxInscriptions, sizeof(Inscripcion));
+            auxInscriptions++;
         }
+        aux->CursosInscriptos = registro;
 
-
-
+        aux++;
+    }
+    archiAsistencia.close();
+    asistencia=aux;
+    delete aux;
     return eCodArchivos::ExitoOperacion; //archivo binario
 }
-eCodArchivos informeAsistencia(fstream informe, Asistencia *asistencia, Inscripcion* inscripcion)
+eCodArchivos informeAsistencia(ofstream &informe, Asistencia *asistencia, Inscripcion* inscripcion)
 {
-    if(informe.is_open())
+    informe.open();
+    if(!archiAsistencia.is_open())
+        return eCodArchivos::ErrorApertura;
+    // Setear inicio
+    informe.clear();
+    informe.seekp(0);
+
+    while (!informe.eof())
     {
-        informe << "Asistencias del dia:" << endl;
-        for(u_int i=0; i<asistencia->cantInscriptos; i++)
+        for (u_int i=0; i<asistencia->cantInscriptos; i++)
         {
-            for(u_int j=0; j<asistencia[i].cantInscriptos; j++)
+            informe.write((char*)&asistencia[i].idCliente, sizeof(u_int));
+            informe.write((char*)&asistencia[i].cantInscriptos, sizeof(u_int));
+            for(u_int j = 0; j < asistencia[i].cantInscriptos; j++)
             {
-                informe << "ID cliente: " << asistencia[i].idCliente << endl;
-                informe << "Cantidad de inscriptos: " << asistencia[i].cantInscriptos << endl;
-                informe << "ID clase: " << inscripcion[j].idCurso << endl;
+                informe.write((char*)&asistencia[i].CursosInscriptos[j], sizeof(Inscripcion));
             }
         }
-        informe.close();
-        return eCodArchivos::ExitoOperacion;
     }
-    else
-        return eCodArchivos::ErrorApertura;
+    informe.close();
+    return eCodArchivos::ExitoOperacion;
 }
