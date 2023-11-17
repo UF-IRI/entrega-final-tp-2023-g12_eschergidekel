@@ -199,7 +199,7 @@ int main()
                         Yoga[11]=Yoga[11]-1;
                 }else
                     cout << "No hay cupos disponibles." << endl;
-                if(cont>0 && clase[pos2].nombreClase=="Pilates" && cont<25)
+                if(cont>0 && clase[pos2].nombreClase=="Pilates" && cont<15)
                 {
                     if(clase[pos2].horarioClase == '8')
                         Pilates[0]=Pilates[0]-1;
