@@ -8,7 +8,7 @@ int main()
 {
     //archiClientes csv
     //archiClases csv
-
+    fstream informe("informe.txt");
     fstream archiClases("iriClasesGYM.csv");
     fstream archiClientes("iriClientesGYM.csv");
 
@@ -25,6 +25,7 @@ int main()
     sClientes aux;
     sClientes* cliente;
     Asistencia* asistencia;
+    Inscripcion* inscripcion;
     Clases* clase;
 
     int Spinning[12]={45,0,45,0,45,0,0,0,45,0,45,0};
@@ -159,6 +160,9 @@ int main()
             cin >> auxclase.horarioClase;
             int pos=buscarCliente(cliente, dni, cant);
             Reservas result = clases(cliente[pos], asistencia,auxclase , cant);
+
+            /*como reflejo estos cambios en el array en las estructuras
+             * */
             if(result != reservar::ErrR)
             {
                 for(int i=0; i<cant; i++)
@@ -268,7 +272,8 @@ int main()
         }
         }
     }while (opcion != 6);
-
-
+    eCodArchivos resultados= informeAsistencia(informe, asistencia, inscripcion);
+    archiClientes.close();
+    archiClases.close();
     return 0;
 }
