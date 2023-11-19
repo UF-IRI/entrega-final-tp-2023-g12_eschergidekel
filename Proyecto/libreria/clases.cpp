@@ -3,40 +3,70 @@
 #include "clientes.h"
 
 
-Inscripto estaInscriptoClase(Asistencia* asistencia, Clases clase)
+Inscripto estaInscriptoClase(ifstream &archiAsistencia, Asistencia* asistencia, Clases clase)
 {
-    for(u_int i=0; i<asistencia->cantInscriptos; i++)
+    archiAsistencia.open("Asistencia.dat");
+    if(archiAsistencia.is_open())
     {
-        if(asistencia->CursosInscriptos[i].idCurso == clase.idClase) //verificar si ya está inscripto
-            return Inscripto::Esta;
-        else
-            return Inscripto::noEsta;
+        for(u_int i=0; i<asistencia->cantInscriptos; i++)
+        {
+            if(asistencia->CursosInscriptos[i].idCurso == clase.idClase) //verificar si ya está inscripto
+            {
+                archiAsistencia.close();
+                return Inscripto::Esta;
+            }
+            else
+            {
+                archiAsistencia.close();
+                return Inscripto::noEsta;
+            }
+        }
     }
 }
-superposicion superposicionHorarios(Asistencia* asistencia, Clases clase, u_int idCliente, int cantClientes)
+superposicion superposicionHorarios(ifstream &archiAsistencia, Asistencia* asistencia, Clases clase, u_int idCliente,
+                                    int cantClientes)
 {
-    for(int i=0; i<cantClientes; i++)
+    archiAsistencia.open("Asistencia.dat");
+    if(archiAsistencia.is_open())
     {
-        if(asistencia->idCliente == idCliente && asistencia->CursosInscriptos[i].idCurso == clase.idClase)
-            return superposicion::SH;
-        else
-            return superposicion::noSH;
+        for(int i=0; i<cantClientes; i++)
+        {
+            if(asistencia->idCliente == idCliente && asistencia->CursosInscriptos[i].idCurso == clase.idClase)
+            {
+                archiAsistencia.close();
+                return superposicion::SH;
+            }
+            else
+            {
+                archiAsistencia.close();
+                return superposicion::noSH;
+            }
+        }
     }
 }
-Reservas clases(sClientes cliente, Asistencia* asistencia, Clases clase, int cantClientes)
+Reservas clases(ifstream &archiClases, ifstream &archiClientes, ifstream &archiAsistencia, ofstream &informe,
+                sClientes cliente, Asistencia* asistencia, Clases clase, int cantClientes)
 {
-    int result = estaInscriptoClase(asistencia, clase);
-    superposicion result2;
-    if(result != 1)
-        return reservar::ErrR;
+    Inscripto resul = estaInscriptoClase(archiAsistencia, asistencia, clase);
+    superposicion resul2 = superposicionHorarios(archiAsistencia, asistencia, clase, cliente.idCliente, cantClientes);
+    if(resul != Inscripto::Esta && resul2 != superposicion::SH)
+    {
+        informe.open("informe.dat");
+        if(informe.is_open() && archiClases.is_open())
+        {
+            eCodArchivos resul3 = informeAsistencia(informe, asistencia);
+            if(resul3 != eCodArchivos::ErrorApertura)
+            {
+                for(int i=0; i<cantClientes; i++)
+                {
+                    asistencia[i];
+                }
+            }
+        }
+        return reservar::ExitoR;
+    }
     else
-    {
-        result2 = superposicionHorarios(asistencia, clase, cliente.idCliente, cantClientes);//discutir
-        if(result2 != 1)
-            return reservar::ErrR;
-        else
-            return reservar::ExitoR;
-    }
+        return reservar::ErrR;
 }
 Baja cancelarClase(Asistencia* asistencia, Clases clase, int cantClientes)
 {

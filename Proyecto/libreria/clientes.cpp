@@ -22,23 +22,28 @@ sClientes* resizeClientes(sClientes* cliente, u_int tam, u_int nuevoTam)
 
     return nullptr;
 }
-int buscarCliente(sClientes* cliente, str dni, int cant)
+int buscarCliente(ifstream &archiClientes, sClientes* cliente, str dni, int cant)
 {
-    u_int pos;
-    int i;
-    for(i=0; i<cant; i++)
+    eCodArchivos resul = leerArchivoClientes(archiClientes, cliente, cant);
+    if(resul != eCodArchivos::ErrorApertura)
     {
-        if(cliente[i].dni==dni)
-            pos=i;
-    }
-    if(i==cant)
+        u_int pos;
+        int i;
+        for(i=0; i<cant; i++)
+        {
+            if(cliente[i].dni==dni)
+                pos=i;
+        }
+        if(i==cant)
+            return -1;
+        else
+            return pos;
+    }else
         return -1;
-    else
-        return pos;
 }
-eEstado Cuota(sClientes* cliente, str dni, int cant)
+eEstado Cuota(ifstream &archiClientes, sClientes* cliente, str dni, int cant)
 {
-    u_int pos = buscarCliente(cliente, dni, cant);
+    u_int pos = buscarCliente(archiClientes, cliente, dni, cant);
 
     if(cliente[pos].estado == 0)
         return eEstado::AlDia;
@@ -52,8 +57,8 @@ int eliminarCliente(ifstream &archiClientes, sClientes* cliente, str dni, int ca
 {
     ofstream archiTemporal("ClientesEditados.csv");
     archiTemporal.open("ClientesEdiatados.csv");
-    int pos=buscarCliente(cliente, dni, cant); //cambiar tamaño
-    eCodArchivos resul = leerArchivoClientes(archiClientes, cliente);
+    int pos=buscarCliente(archiClientes, cliente, dni, cant); //cambiar tamaño
+    eCodArchivos resul = leerArchivoClientes(archiClientes, cliente, cant);
     if(resul != eCodArchivos::ErrorApertura && archiTemporal.is_open())
     {
         while(archiTemporal.good()) //Copiar las líneas excepto la línea a borrar al archivo temporal
@@ -95,28 +100,42 @@ int cantClientes(ifstream &archiClientes)
     }else
         return -1;
 }
-eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, int cant, int cantMaxima)
+eAgregar agregarCliente(ifstream &archiClientes, ofstream &archivoClientes, sClientes* cliente, sClientes nuevoCliente,
+                        int cant, int cantMaxima)
 {
-    int pos=buscarCliente(cliente, nuevoCliente.dni, cant);
+    int pos = buscarCliente(archiClientes, cliente, nuevoCliente.dni, cant);
     int nuevoTam = cant+30;
-    if(!espacio(cantMaxima, cant))
+    archivoClientes.open("iriClientesGYM.csv");
+    if(archivoClientes.is_open())
     {
-        cliente = resizeClientes(cliente, cant, nuevoTam);
-        cantMaxima = nuevoTam;
-    }
-    if(pos == -1) //me aseguro que el cliente ya no este inscripto
-    {
-        cliente[cant+1] = nuevoCliente;
-        return eAgregar::ExitoAg;
-    }
-    else
+        if(!espacio(cantMaxima, cant))
+        {
+            cliente = resizeClientes(cliente, cant, nuevoTam);
+            cantMaxima = nuevoTam;
+        }
+        if(pos == -1) //me aseguro que el cliente ya no este inscripto
+        {
+            cliente[cant+1] = nuevoCliente;
+            eCodArchivos resul = escribirArchivoClientes(archivoClientes, nuevoCliente.nombre, nuevoCliente.apellido,
+                                                         nuevoCliente.mail,nuevoCliente.telefono, nuevoCliente.fechaNac.dia,
+                                                         nuevoCliente.fechaNac.mes, nuevoCliente.fechaNac.anio,
+                                                         nuevoCliente.estado, nuevoCliente.idCliente);
+            archivoClientes.close();
+            if(resul != eCodArchivos::ErrorEscritura)
+                return eAgregar::ExitoAg;
+            else
+                return eAgregar::ErrorAg;
+        }
+        else
+            return eAgregar::ErrorAg;
+    }else
         return eAgregar::ErrorAg;
 }
 eModificar modificarCliente(ifstream &archiClientes, sClientes* cliente, sClientes clienteModificado, str dni, int cant)
 {
     ofstream archiTemporal("ClientesEditados.csv");
     archiTemporal.open("ClientesEditados.csv");
-    int pos=buscarCliente(cliente, dni, cant);
+    int pos=buscarCliente(archiClientes, cliente, dni, cant);
     eCodArchivos resul = leerArchivoClientes(archiClientes, cliente, cant);
 
     string auxNombre;

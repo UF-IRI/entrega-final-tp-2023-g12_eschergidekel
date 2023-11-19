@@ -58,19 +58,19 @@ eCodArchivos leerArchivoClientes(ifstream &archiClientes, sClientes* cliente, in
     else
         return eCodArchivos::ErrorApertura;
 }
-eCodArchivos escribirArchivoClientes(ofstream &archiClientes, str nombre, str apellido, str email, str telefono,
+eCodArchivos escribirArchivoClientes(ofstream &archivoClientes, str nombre, str apellido, str email, str telefono,
                                      Fecha fechaNac, int estado, u_int idCliente)
 {
-    archiClientes.open("iriClientesGYM.csv");
-    if(archiClientes.is_open())
+    archivoClientes.open("iriClientesGYM.csv");
+    if(archivoClientes.is_open())
     {
         // Escribir los datos en el archivo CSV
-        archiClientes << "idCliente, nombre, apellido, email, telefono, fecha de nacimiento, estado" << endl;
-        archiClientes << idCliente << "," << nombre << "," << apellido << "," << email << "," << telefono << "," <<
+        archivoClientes << "idCliente, nombre, apellido, email, telefono, fecha de nacimiento, estado" << endl;
+        archivoClientes << idCliente << "," << nombre << "," << apellido << "," << email << "," << telefono << "," <<
                 fechaNac.dia << "/ " << fechaNac.mes << "/ " << fechaNac.anio << "," << estado << "," << endl;
 
         // Cerrar el archivo
-        archiClientes.close();
+        archivoClientes.close();
 
         return eCodArchivos::ExitoOperacion;
     } else
@@ -110,17 +110,17 @@ eCodArchivos leerArchivoClases(ifstream &archiClases, Clases* clase) //archivo C
     else
         return eCodArchivos::ErrorApertura;
 }
-eCodArchivos escribirArchivoClases(ofstream &archiClases, u_int idClase, str nombre, u_int horario)
+eCodArchivos escribirArchivoClases(ofstream &archivoClases, u_int idClase, str nombre, u_int horario)
 {
-    archiClases.open("iriClasesGYM.csv"); //abrir el archivo para escribir
-    if(archiClases.is_open())
+    archivoClases.open("iriClasesGYM.csv"); //abrir el archivo para escribir
+    if(archivoClases.is_open())
     {
         //Escribir los datos en el archivo CSV
-        archiClases << "idClase, nombre, horario" << endl;
-        archiClases << idClase << "," << nombre << "," << horario << endl;
+        archivoClases << "idClase, nombre, horario" << endl;
+        archivoClases << idClase << "," << nombre << "," << horario << endl;
 
         //Cerrar el archivo
-        archiClases.close();
+        archivoClases.close();
 
         return eCodArchivos::ExitoOperacion;
     } else
@@ -158,7 +158,7 @@ eCodArchivos leerArchivoAsistencia(ifstream &archiAsistencia, Asistencia* asiste
 }
 eCodArchivos informeAsistencia(ofstream &informe, Asistencia *asistencia)
 {
-    informe.open("informe.dat");
+    informe.open("informe.dat", ios::binary);
     if(!archiAsistencia.is_open())
         return eCodArchivos::ErrorApertura;
     // Setear inicio

@@ -6,13 +6,18 @@ using namespace std;
 
 int main()
 {
-    //archiClientes csv
-    //archiClases csv
-    ofstream informe("informe.dat");//indicar que vamos a hacer con ek , binario
+    ofstream informe("informe.dat");
+    ofstream archivoClientes("iriClientesGYM.csv");
+    ofstream archivoClases("iriClasesGYM.csv");
+
     ifstream archiClases("iriClasesGYM.csv");
     ifstream archiClientes("iriClientesGYM.csv");
     ifstream archiAsistencia("AsistenciaGYM.dat");
+
     informe.open("informe.dat");
+    archivoClientes.open("iriClientesGYM.csv");
+    archivoClases.open("iriClasesGYM.csv");
+
     archiClases.open("iriClasesGYM.csv");
     archiClientes.open("iriClientesGYM.csv");
     archiAsistencia.open("AsistenciaGYM.dat");
@@ -20,7 +25,7 @@ int main()
     sClientes aux;
     sClientes* cliente;
     Asistencia* asistencia;
-    //Inscripcion* inscripcion;
+    Inscripcion* inscripcion;
     Clases* clase;
 
     if(archiClases.is_open() && archiClientes.is_open() && archiAsistencia.is_open())
@@ -74,7 +79,7 @@ int main()
             aux.idCliente = (ultimo.idCliente) +1;
         } else
         {
-            int pos= buscarCliente(cliente, aux.dni, cant);
+            int pos = buscarCliente(archiClientes, cliente, aux.dni, cant);
             cout << "Ingrese su estado actual"<<endl;
             cin >> aux.estado;
             aux.idCliente= cliente[pos].idCliente; //el id sigue siendo el mismo
@@ -109,7 +114,7 @@ int main()
             {
             case 1: //agregar cliente
             {
-                eAgregar result1 = agregarCliente(cliente, aux, cant, cantMaxima);
+                eAgregar result1 = agregarCliente(archiClientes, cliente, aux, cant, cantMaxima);
                 if(result1 == -1)
                     cout << "Hubo un error, porfavor vuelva a intentar." << endl;
                 else

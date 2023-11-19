@@ -36,10 +36,11 @@ typedef struct {
 } Asistencia;
 
 sClientes* resizeClientes(sClientes* cliente, u_int tam, u_int nuevoTam); //tamaño de clientes
-int buscarCliente(sClientes* cliente, str dni, int cant); //buscar clientes por dni
-eEstado Cuota(sClientes* cliente, str dni, int cant); //verificar el estado del cliente
+int buscarCliente(ifstream &archiClientes, sClientes* cliente, str dni, int cant); //buscar clientes por dni
+eEstado Cuota(ifstream &archiClientes, sClientes* cliente, str dni, int cant); //verificar el estado del cliente
 int eliminarCliente(ifstream &archiClientes, sClientes* cliente, str dni, int cant); //eliminar cliente
-eAgregar agregarCliente(sClientes* cliente,sClientes nuevoCliente, int cant, int cantMaxima); //agregar cliente
+eAgregar agregarCliente(ifstream &archiClientes, ofstream &archivoClientes, sClientes* cliente, sClientes nuevoCliente,
+                        int cant, int cantMaxima); //agregar cliente
 eModificar modificarCliente(ifstream &archiClientes, sClientes* cliente, sClientes clienteModificado, str dni, int cant); //modificar cliente
 bool espacio(int cantMaxima, int cant); //verificar el espacio disponible
 int cantClientes(ifstream &archiClientes); //paso el archivo como parámetro y leo la cantidad de registros
