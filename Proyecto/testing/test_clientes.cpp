@@ -55,6 +55,7 @@ TEST_CASE("Buscar cliente")
 
 TEST_CASE("Eliminar cliente")
 {
+    ifstream archiClientes("iriClientesGYM.csv");
     sClientes* cliente= new sClientes;
     int cant=2;
     int cantMaxima=6;
@@ -63,12 +64,11 @@ TEST_CASE("Eliminar cliente")
 
     SECTION("Eliminando un cliente")
     {
-    eAgregar resul1;
-    eAgregar resul2;
-    resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima);
-    resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
+    eAgregar resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima);
+    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
+    CHECK(cant==2);
 
-    resul = eliminarCliente(cliente,"46534213",cant);
+    resul = eliminarCliente(archiClientes, cliente,"46534213",cant);
     REQUIRE(resul==1);
     CHECK(cant==1);
     busqueda = buscarCliente(cliente, "46534213" ,cant);
@@ -78,6 +78,7 @@ TEST_CASE("Eliminar cliente")
 
 TEST_CASE("Modificar cliente")
 {
+    ifstream archiClientes("iriClientesGYM.csv");
     sClientes* cliente = new sClientes;
     str dni;
     int cant=2;
@@ -90,7 +91,7 @@ TEST_CASE("Modificar cliente")
     eAgregar resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima); //agregar cliente
     eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
 
-    eModificar resul = modificarCliente(cliente, cliente[pos], dni, cant);
+    eModificar resul = modificarCliente(archiClientes, cliente, cliente[pos], dni, cant);
     REQUIRE(resul == eModificar::ExitoMod);
     }
 }

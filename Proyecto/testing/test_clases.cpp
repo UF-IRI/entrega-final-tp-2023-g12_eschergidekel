@@ -9,7 +9,7 @@ Reservas clases(sClientes cliente, Asistencia* asistencia, Clases nombreClase);
 
 TEST_CASE("Incripcion multiple")
 {
-    Asistencia *aux= new Asistencia;
+    Asistencia *aux= new Asistencia; //tamaño
     sClientes cliente;
     int cantClientes=1;
     Clases curso;
@@ -34,16 +34,18 @@ TEST_CASE("Incripcion multiple")
     clases(cliente,aux ,curso, cantClientes);
 
 
-    SECTION ("verificacion de inscripcion"){
+    SECTION("Verificacion de inscripcion"){
         Inscripto result=estaInscriptoClases(aux, curso);
         REQUIRE(result==1);
     }
-    SECTION("superposicion horaria"){
-        superposicion superp= superposicionHorarios(aux, curso, cliente.idCliente);
+    SECTION("Superposicion horaria"){
+        superposicion superp = superposicionHorarios(aux, curso, cliente.idCliente, cantClientes);
         REQUIRE (superp==1);
     }
-    SECTION ("reserva de clases"){
+    SECTION("Reserva de clases"){
 
     }
+    SECTION("Cancelacion de clase"){
 
+    }
 }

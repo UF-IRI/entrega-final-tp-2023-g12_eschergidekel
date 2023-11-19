@@ -48,27 +48,43 @@ eEstado Cuota(sClientes* cliente, str dni, int cant)
         else
             return eEstado::Deudor;
 }
-int eliminarCliente(ifstream &archiClientes, ofstream &archivoClientes, sClientes* cliente, str dni, int cant)
+int eliminarCliente(ifstream &archiClientes, sClientes* cliente, str dni, int cant)
 {
-    int pos=buscarCliente(cliente,dni, cant); //cambiar tamaño
+    ofstream archiTemporal("ClientesEditados.csv");
+    archiTemporal.open("ClientesEdiatados.csv");
+    int pos=buscarCliente(cliente, dni, cant); //cambiar tamaño
     eCodArchivos resul = leerArchivoClientes(archiClientes, cliente);
-    str linea;
-    if(resul != eCodArchivos::ErrorApertura)
+    if(resul != eCodArchivos::ErrorApertura && archiTemporal.is_open())
     {
-        while(getline(archivoEntrada, linea)) //Copiar las líneas excepto la línea a borrar al archivo temporal
+        while(archiTemporal.good()) //Copiar las líneas excepto la línea a borrar al archivo temporal
         {
-            for(int i=0; i<cant, i++)
-                if(cliente[pos] != cliente[i])
-                    archivoClientes << linea << endl;
+            for(int i=0; i<cant; i++)
+            {
+                if(cliente[pos].idCliente != cliente[i].idCliente)
+                {
+                    str linea;
+                    getline(archiClases, linea);
+
+                    char delimitador = ',';
+                    istringstream iss(linea);
+                    string token;
+                    getline(iss, token, delimitador);
+                }
+            }
         }
-        return cant-1;
+        archiClientes.close();
+        archiTemporal.close();
+        if(rename("ClientesEditados.csv", "iriClientesGYM") == 0)
+            return cant-1;
+        else
+            return -1;
     }else
         return -1;
 }
-int cantClientes(fstream &archiClientes)
+int cantClientes(ifstream &archiClientes)
 {
     int n=0;
-    archiClientes.open();
+    archiClientes.open("iriClientesGYM.csv");
     if(archiClientes.is_open())
     {
         while(archiClientes.good()) //Leer los datos desde el archivo CSV
@@ -98,27 +114,88 @@ eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, int cant, in
     else
         return eAgregar::ErrorAg;
 }
-eModificar modificarCliente(sClientes* cliente, sClientes clienteModificado, str dni, int cant)
+eModificar modificarCliente(ifstream &archiClientes, sClientes* cliente, sClientes clienteModificado, str dni, int cant)
 {
-    int pos;
-    pos=buscarCliente(cliente, dni, cant);
+    ofstream archiTemporal("ClientesEditados.csv");
+    archiTemporal.open("ClientesEditados.csv");
+    int pos=buscarCliente(cliente, dni, cant);
+    eCodArchivos resul = leerArchivoClientes(archiClientes, cliente, cant);
 
-    if(pos != -1)
+    string auxNombre;
+    string auxApellido;
+    string auxDNI;
+    string auxtelefono;
+    string auxMail;
+    string auxestado;
+    string auxid;
+    string auxfecha;
+
+    if(resul != eCodArchivos::ErrorApertura && archiTemporal.is_open())
     {
-        cliente[pos]= clienteModificado;
-        return eModificar::ExitoMod;
-    }
-    else
+        while(archiTemporal.good()) //Copiar las líneas excepto la línea a borrar al archivo temporal
+        {
+            if(cliente[pos].idCliente == clienteModificado.idCliente)
+            {
+                str linea;
+                getline(archiClientes, linea);
+
+                char delimitador = ',';
+                char delimitador2='-';
+                istringstream iss(linea);
+
+                getline(iss,auxid,delimitador);
+                cliente[pos].idCliente=clienteModificado.idCliente;
+
+                getline(iss,auxNombre,delimitador);
+                cliente[pos].nombre=clienteModificado.nombre;
+
+                getline(iss,auxApellido,delimitador);
+                cliente[pos].apellido=clienteModificado.apellido;
+
+                getline(iss,auxMail,delimitador);
+                cliente[pos].mail=clienteModificado.mail;
+
+                getline(iss,auxtelefono,delimitador);
+                cliente[pos].telefono=clienteModificado.telefono;
+
+                getline(iss,auxfecha,delimitador);
+                istringstream ff(auxfecha);
+                getline(ff,auxfecha,delimitador2);
+                cliente[pos].fechaNac.dia=clienteModificado.fechaNac.dia;
+                getline(ff,auxfecha,delimitador2);
+                cliente[pos].fechaNac.mes=clienteModificado.fechaNac.mes;
+                getline(ff,auxfecha,delimitador2);
+                cliente[pos].fechaNac.anio=clienteModificado.fechaNac.anio;
+
+                getline(iss,auxestado,delimitador);
+                cliente[pos].estado=clienteModificado.estado;
+            }
+        }
+        archiClientes.close();
+        archiTemporal.close();
+        if(rename("ClientesEditados.csv", "iriClientesGYM") == 0)
+            return eModificar::ExitoMod;
+        else
+            return eModificar::ErrMod;
+    }else
         return eModificar::ErrMod;
 }
-int cantClientes(ifstream archiClientes)
+int cantClientes(ifstream &archiClientes)
 {
     int cont = 0;
-    str linea;
+    archiClientes.open("iriClientesGYM.csv");
 
     //Iterar sobre cada línea del archivo
-    while (std::getline(archiClientes, linea))
-        cont++;
-
-    return cont;
+    if(archiClientes.is_open())
+    {
+        while(archiClientes.good())
+        {
+            str linea;
+            getline(archiClientes, linea);
+            cont++;
+        }
+        archiClientes.close();
+        return cont;
+    }else
+        return -1;
 }

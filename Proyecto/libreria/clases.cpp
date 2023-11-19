@@ -13,11 +13,11 @@ Inscripto estaInscriptoClase(Asistencia* asistencia, Clases clase)
             return Inscripto::noEsta;
     }
 }
-superposicion superposicionHorarios(Asistencia* asistencia, Clases clase,u_int idCliente, int cantClientes)
+superposicion superposicionHorarios(Asistencia* asistencia, Clases clase, u_int idCliente, int cantClientes)
 {
-    for(int i=0; i<cantClientes;i++)
+    for(int i=0; i<cantClientes; i++)
     {
-        if(asistencia->idCliente==idCliente && asistencia->CursosInscriptos->idCurso == clase.idClase)//[i]
+        if(asistencia->idCliente == idCliente && asistencia->CursosInscriptos[i].idCurso == clase.idClase)
             return superposicion::SH;
         else
             return superposicion::noSH;
@@ -40,9 +40,6 @@ Reservas clases(sClientes cliente, Asistencia* asistencia, Clases clase, int can
 }
 Baja cancelarClase(Asistencia* asistencia, Clases clase, int cantClientes)
 {
-
-    int i;
-
     Clases nula={0,0,""};
     for(int i=0; i<cantClientes;i++)
     {

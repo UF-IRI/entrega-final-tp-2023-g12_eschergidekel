@@ -18,7 +18,7 @@ typedef struct {
 } Clases;
 
 Inscripto estaInscriptoClases(Asistencia* asistencia, Clases clase); //verificar que no se inscriba dos veces
-superposicion superposicionHorarios(Asistencia* asistencia, Clases clase, int idCliente);//modificada
+superposicion superposicionHorarios(Asistencia* asistencia, Clases clase, u_int idCliente, int cantClientes);//modificada
 Reservas clases(sClientes cliente, Asistencia* asistencia, Clases nombreClase, int cantClientes); //reservar clase//modificada
 Baja cancelarClase(); //dar de baja clase
 
