@@ -83,19 +83,17 @@ int eliminarCliente(ifstream &archiClientes, sClientes* cliente, str dni, int ca
 }
 int cantClientes(ifstream &archiClientes)
 {
-    int n=0;
+    int cont=0;
     archiClientes.open("iriClientesGYM.csv");
     if(archiClientes.is_open())
     {
-        while(archiClientes.good()) //Leer los datos desde el archivo CSV
-        {
-            str linea;
-            getline(archiClientes, linea);//subir esto al while
-            n++;
-        }
+        str linea;
+        while(getline(archiClientes, linea)) //Leer los datos desde el archivo CSV
+            cont++;
         archiClientes.close();
-    }
-    return n;
+        return cont;
+    }else
+        return -1;
 }
 eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, int cant, int cantMaxima)
 {
@@ -179,23 +177,4 @@ eModificar modificarCliente(ifstream &archiClientes, sClientes* cliente, sClient
             return eModificar::ErrMod;
     }else
         return eModificar::ErrMod;
-}
-int cantClientes(ifstream &archiClientes)
-{
-    int cont = 0;
-    archiClientes.open("iriClientesGYM.csv");
-
-    //Iterar sobre cada línea del archivo
-    if(archiClientes.is_open())
-    {
-        while(archiClientes.good())
-        {
-            str linea;
-            getline(archiClientes, linea);
-            cont++;
-        }
-        archiClientes.close();
-        return cont;
-    }else
-        return -1;
 }
