@@ -3,14 +3,15 @@
 #include "clientes.h"
 
 
-Inscripto estaInscriptoClase(ifstream &archiAsistencia, Asistencia* asistencia, Clases clase)
+Inscripto estaInscriptoClase(ifstream &archiAsistencia, Asistencia* asistencia, Clases *clase)//modificar
 {
+
     archiAsistencia.open("Asistencia.dat");
     if(archiAsistencia.is_open())
     {
         for(u_int i=0; i<asistencia->cantInscriptos; i++)
         {
-            if(asistencia->CursosInscriptos[i].idCurso == clase.idClase) //verificar si ya está inscripto
+            if(asistencia[i].CursosInscriptos[i].idCurso == clase[i].idClase) //verificar si ya está inscripto
             {
                 archiAsistencia.close();
                 return Inscripto::Esta;
@@ -23,8 +24,8 @@ Inscripto estaInscriptoClase(ifstream &archiAsistencia, Asistencia* asistencia, 
         }
     }
 }
-superposicion superposicionHorarios(ifstream &archiAsistencia, Asistencia* asistencia, Clases clase, u_int idCliente,
-                                    int cantClientes)
+superposicion superposicionHorarios(ifstream &archiAsistencia, Asistencia* asistencia, Clases *clase, u_int idCliente,
+                                    int cantClientes)//modificar
 {
     archiAsistencia.open("Asistencia.dat");
     if(archiAsistencia.is_open())
@@ -45,7 +46,7 @@ superposicion superposicionHorarios(ifstream &archiAsistencia, Asistencia* asist
     }
 }
 Reservas clases(ifstream &archiClases, ifstream &archiClientes, ifstream &archiAsistencia, ofstream &informe,
-                sClientes cliente, Asistencia* asistencia, Clases clase, int cantClientes)
+                sClientes cliente, Asistencia* asistencia, Clases *clase, int cantClientes)//modificar
 {
     Inscripto resul = estaInscriptoClase(archiAsistencia, asistencia, clase);
     superposicion resul2 = superposicionHorarios(archiAsistencia, asistencia, clase, cliente.idCliente, cantClientes);
@@ -68,7 +69,7 @@ Reservas clases(ifstream &archiClases, ifstream &archiClientes, ifstream &archiA
     else
         return reservar::ErrR;
 }
-Baja cancelarClase(Asistencia* asistencia, Clases clase, int cantClientes)
+Baja cancelarClase(Asistencia* asistencia, Clases *clase, int cantClientes)//modificar
 {
     Clases nula={0,0,""};
     for(int i=0; i<cantClientes;i++)
@@ -83,12 +84,4 @@ Baja cancelarClase(Asistencia* asistencia, Clases clase, int cantClientes)
     }
 
 }
-
-
-
-
-
-
-
-
 

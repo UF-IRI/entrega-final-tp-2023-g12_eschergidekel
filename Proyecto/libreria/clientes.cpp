@@ -32,12 +32,10 @@ int buscarCliente(ifstream &archiClientes, sClientes* cliente, str dni, int cant
         for(i=0; i<cant; i++)
         {
             if(cliente[i].dni==dni)
-                pos=i;
+                return cliente[i].idCliente;
         }
         if(i==cant)
             return -1;
-        else
-            return pos;
     }else
         return -1;
 }

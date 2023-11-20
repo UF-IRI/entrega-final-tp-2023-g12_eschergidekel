@@ -1,6 +1,7 @@
 #include <catch2/catch.hpp>
 #include <clientes.h>
 #include <fstream>
+#include <archivo.h>
 /*
 sClientes* resizeClientes(sClientes* lista, u_int tam, u_int nuevoTam); //tamaño de clientes
 int buscarCliente(sClientes* cliente, str dni,int cant); //buscar clientes por dni
@@ -27,8 +28,8 @@ TEST_CASE("Agregar cliente")
     {
     eAgregar resul;
     eAgregar resul2;
-    resul= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima); //agregar cliente
-    resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
+    resul= agregarCliente(archiClientes,archivoClientes ,cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima); //agregar cliente
+    resul2= agregarCliente(archiClientes,archivoClientes ,cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
     if(resul==1 && resul2==1)
         cant=2;
     REQUIRE(resul==1); //ambos se agregaron de manera correcta
@@ -43,8 +44,8 @@ TEST_CASE("Buscar cliente")
     int cant=2;
     int cantMaxima=6;
 
-    eAgregar resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima);
-    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
+    eAgregar resul1= agregarCliente(archiClientes,archivoClientes ,cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima);
+    eAgregar resul2= agregarCliente(archiClientes,archivoClientes ,cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
 
     SECTION("Buscando el cliente por DNI")
     {
@@ -64,8 +65,8 @@ TEST_CASE("Eliminar cliente")
 
     SECTION("Eliminando un cliente")
     {
-    eAgregar resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima);
-    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
+    eAgregar resul1= agregarCliente(archiClientes,archivoClientes ,cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima);
+    eAgregar resul2= agregarCliente(archiClientes,archivoClientes ,cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
     CHECK(cant==2);
 
     resul = eliminarCliente(archiClientes, cliente,"46534213",cant);
@@ -88,8 +89,8 @@ TEST_CASE("Modificar cliente")
 
     SECTION("Mofificando un cliente")
     {
-    eAgregar resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima); //agregar cliente
-    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
+    eAgregar resul1= agregarCliente(archiClientes,archivoClientes ,cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima); //agregar cliente
+    eAgregar resul2= agregarCliente(archiClientes,archivoClientes ,cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
 
     eModificar resul = modificarCliente(archiClientes, cliente, cliente[pos], dni, cant);
     REQUIRE(resul == eModificar::ExitoMod);
@@ -127,9 +128,9 @@ TEST_CASE("Estado de la cuota")
 
     SECTION("Comprobando estado de dos clientes")
     {
-    eEstado resul=Cuota(cliente, dni1, cant);
+    eEstado resul=Cuota(archiClientes,cliente, dni1, cant);
     REQUIRE(resul==eEstado::AlDia);
-    eEstado resul2=Cuota(cliente, dni2, cant);
+    eEstado resul2=Cuota(archiClientes,cliente, dni2, cant);
     REQUIRE(resul2==eEstado::Afavor);
     }
 }
