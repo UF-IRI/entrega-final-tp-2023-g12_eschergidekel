@@ -51,7 +51,8 @@ eCodArchivos leerArchivoClientes(ifstream &archiClientes, sClientes* cliente, in
             i++;
         }
         archiClientes.close();
-        cliente=aux;
+        for(int i=0; i<cant; i++)
+            cliente[i]=aux[i];
         delete[] aux;
         return eCodArchivos::ExitoOperacion;
     }
@@ -103,7 +104,8 @@ eCodArchivos leerArchivoClases(ifstream &archiClases, Clases* clase) //archivo C
             i++;
         }
         archiClases.close();
-        clase=aux;
+        for(int j=0; j<60; j++)
+            clase[j]=aux[j];
         delete[] aux;
         return eCodArchivos::ExitoOperacion;
     }
@@ -135,7 +137,7 @@ eCodArchivos leerArchivoAsistencia(ifstream &archiAsistencia, Asistencia* asiste
     archiAsistencia.clear();
     archiAsistencia.seekg(0);
 
-    Asistencia* aux = new Asistencia; //tamaño
+    Asistencia* aux = new Asistencia[asistencia->cantInscriptos];
     while (!archiAsistencia.eof())
     {
         archiAsistencia.read((char *)&aux->idCliente, sizeof(u_int));
@@ -152,7 +154,8 @@ eCodArchivos leerArchivoAsistencia(ifstream &archiAsistencia, Asistencia* asiste
         aux++;
     }
     archiAsistencia.close();
-    asistencia=aux;
+    for(u_int j=0; j<asistencia->cantInscriptos; j++)
+        asistencia[j]=aux[j];
     delete[] aux;
     return eCodArchivos::ExitoOperacion; //archivo binario
 }

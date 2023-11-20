@@ -27,7 +27,6 @@ int buscarCliente(ifstream &archiClientes, sClientes* cliente, str dni, int cant
     eCodArchivos resul = leerArchivoClientes(archiClientes, cliente, cant);
     if(resul != eCodArchivos::ErrorApertura)
     {
-        u_int pos;
         int i;
         for(i=0; i<cant; i++)
         {
@@ -41,21 +40,27 @@ int buscarCliente(ifstream &archiClientes, sClientes* cliente, str dni, int cant
 }
 eEstado Cuota(ifstream &archiClientes, sClientes* cliente, str dni, int cant)
 {
-    u_int pos = buscarCliente(archiClientes, cliente, dni, cant);
+    u_int id = buscarCliente(archiClientes, cliente, dni, cant);
 
-    if(cliente[pos].estado == 0)
-        return eEstado::AlDia;
-    else
-        if(cliente[pos].estado > 0)
-            return eEstado::Afavor;
-        else
-            return eEstado::Deudor;
+    for(int i=0; i<cant; i++)
+    {
+        if(cliente[i].idCliente == id)
+        {
+            if(cliente[i].estado == 0)
+                return eEstado::AlDia;
+            else
+                if(cliente[i].estado > 0)
+                    return eEstado::Afavor;
+                else
+                    return eEstado::Deudor;
+        }
+    }
 }
 int eliminarCliente(ifstream &archiClientes, sClientes* cliente, str dni, int cant)
 {
     ofstream archiTemporal("ClientesEditados.csv");
     archiTemporal.open("ClientesEdiatados.csv");
-    int pos=buscarCliente(archiClientes, cliente, dni, cant); //cambiar tamaño
+    u_int id=buscarCliente(archiClientes, cliente, dni, cant); //cambiar tamaño
     eCodArchivos resul = leerArchivoClientes(archiClientes, cliente, cant);
     if(resul != eCodArchivos::ErrorApertura && archiTemporal.is_open())
     {
@@ -63,7 +68,7 @@ int eliminarCliente(ifstream &archiClientes, sClientes* cliente, str dni, int ca
         {
             for(int i=0; i<cant; i++)
             {
-                if(cliente[pos].idCliente != cliente[i].idCliente)
+                if(id != cliente[i].idCliente)
                 {
                     str linea;
                     getline(archiClases, linea);
@@ -101,7 +106,7 @@ int cantClientes(ifstream &archiClientes)
 eAgregar agregarCliente(ifstream &archiClientes, ofstream &archivoClientes, sClientes* cliente, sClientes nuevoCliente,
                         int cant, int cantMaxima)
 {
-    int pos = buscarCliente(archiClientes, cliente, nuevoCliente.dni, cant);
+    int id = buscarCliente(archiClientes, cliente, nuevoCliente.dni, cant);
     int nuevoTam = cant+30;
     archivoClientes.open("iriClientesGYM.csv");
     if(archivoClientes.is_open())
@@ -111,13 +116,13 @@ eAgregar agregarCliente(ifstream &archiClientes, ofstream &archivoClientes, sCli
             cliente = resizeClientes(cliente, cant, nuevoTam);
             cantMaxima = nuevoTam;
         }
-        if(pos == -1) //me aseguro que el cliente ya no este inscripto
+        if(id == -1) //me aseguro que el cliente ya no este inscripto
         {
-            cliente[cant+1] = nuevoCliente;
             eCodArchivos resul = escribirArchivoClientes(archivoClientes, nuevoCliente.nombre, nuevoCliente.apellido,
                                                          nuevoCliente.mail,nuevoCliente.telefono, nuevoCliente.fechaNac.dia,
                                                          nuevoCliente.fechaNac.mes, nuevoCliente.fechaNac.anio,
                                                          nuevoCliente.estado, nuevoCliente.idCliente);
+            cliente[cant+1] = nuevoCliente;
             archivoClientes.close();
             if(resul != eCodArchivos::ErrorEscritura)
                 return eAgregar::ExitoAg;

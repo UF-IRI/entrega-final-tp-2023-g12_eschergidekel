@@ -156,22 +156,20 @@ int main()
 
                 int pos=0;
 
-                u_int id= buscarCliente(archiClientes,cliente,dni,cant);
+                u_int id = buscarCliente(archiClientes, cliente, dni, cant);
                 for(int i=0;i<33;i++){
                     if(clase[i].nombreClase==nombreClase)
                         pos=i;
                 }
 
-                Inscripto resul= estaInscriptoClases(archiAsistencia,  asistencia,clase);
+                Inscripto resul= estaInscriptoClases(archiAsistencia, asistencia, clase);
                 if(resul==1){
-
-                    for(int i=0;i<cant;i++)
+                    for(int i=0; i<cant; i++)
                     {
                         if(asistencia[i].idCliente==id)
                         {
                             asistencia[i].cantInscriptos=(asistencia[i].cantInscriptos)+1;
                             asistencia[i].CursosInscriptos[0].idCurso=clase[pos].idClase;
-
                         }
                     }
                 }else
@@ -191,41 +189,33 @@ int main()
                     }else
                     {
                         string respuesta;
-                        cout<<"Usted ya tiene un reserva ya programada para dicho dia y horario"<<endl;
-                        cout<<"¿Desea cancelarla?"<<endl;
-                                cout<<"Ingrese si en caso de querer cancelarla, y no en caso de no desearlo"<<endl;
-                        cin>>respuesta;
-                        if(respuesta=="si"){
+                        cout << "Usted ya tiene una reserva programada para dicho dia y horario." << endl;
+                        cout << "¿Desea cancelarla?" << endl;
+                        cout << "Ingrese si en caso de querer cancelarla, y no en caso de no desearlo: " << endl;
+                        cin >> respuesta;
+                        if(respuesta == "si"){
                             Baja cancelar= cancelarClase();
                             if(cancelar==1)
                             {
-                                cout<<"Su reserva se cancelo con exito"<<endl;
-                                for(int i=0;i<cant;i++)
+                                cout << "Su reserva se cancelo con exito." << endl;
+                                for(int i=0; i<cant; i++)
                                 {
                                     if(asistencia[i].idCliente==id)
                                     {
                                         asistencia[i].cantInscriptos=(asistencia[i].cantInscriptos)+1;
-                                        asistencia[i].CursosInscriptos[i].idCurso=clase[i].idClase; //fijarme que posicion esoty ocupando en cursosinscriptos
-
+                                        asistencia[i].CursosInscriptos[i].idCurso=clase[i].idClase; //fijarme que posicion estoy ocupando en cursosinscriptos
                                     }
                                 }
-                                cout<<"Su clase nueva ya fue reservada"<<endl;
-
+                                cout << "Su clase nueva ya fue reservada." << endl;
                             }
                             else
-                                cout<<"Hubo problemas para cancelar su clase"<<endl;
+                                cout << "Hubo problemas para cancelar su clase." << endl;
                         }
-                        else if(respuesta=="no")
-                        {
-                            cout<<"Su reserva no ha sido modificada"<<endl;
-                        }
-
+                        else if(respuesta == "no")
+                            cout << "Su reserva no ha sido modificada." << endl;
                     }
                 }
             }
-
-            }
-
             case 5: //cancelar clase
             {
                 break;
