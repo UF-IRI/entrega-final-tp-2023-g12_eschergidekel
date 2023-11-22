@@ -106,13 +106,15 @@ eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente,int *cant, in
 }
 eModificar modificarCliente(sClientes* cliente, sClientes clienteModificado, str dni, int *cant)
 {
-
     u_int id=buscarCliente(cliente,dni,cant);
     for(int i=0;i<*cant;i++)
     {
-       if(cliente[i].idCliente==id)
-       {
+        if(cliente[i].idCliente==id)
+        {
             cliente[i]=clienteModificado;
-       }
+            return eModificar::ExitoMod;
+        }
+        else
+            return eModificar::ErrMod;
     }
 }

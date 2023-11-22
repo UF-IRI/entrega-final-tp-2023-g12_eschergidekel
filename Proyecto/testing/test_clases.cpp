@@ -34,11 +34,11 @@ TEST_CASE("Incripcion multiple")
     curso->horarioClase=5;
     curso->idClase=3;
     curso->nombreClase={"boxeo"};
-    clases(cliente,aux ,curso, cantClientes);//revisar
+    clases(cliente, aux, curso, cantClientes, curso->nombreClase, curso->horarioClase);//revisar
 
 
     SECTION("Verificacion de inscripcion"){
-        Inscripto result=estaInscriptoClases(aux, curso,curso->nombreClase,curso->horarioClase);
+        Inscripto result=estaInscriptoClases(aux, curso, curso->nombreClase, curso->horarioClase);
         REQUIRE(result==1);
     }
     SECTION("Superposicion horaria"){

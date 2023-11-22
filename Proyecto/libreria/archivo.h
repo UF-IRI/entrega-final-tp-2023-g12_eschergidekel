@@ -5,7 +5,7 @@
 #include "clientes.h"
 #include "clases.h"
 
-std::fstream archiClientes, archiClases, archiAsistencia, informe;
+fstream archiClientes, archiClases, archiAsistencia, informe;
 
 typedef enum CodArchivos {ErrorLectura=-3, ErrorApertura=-2, ErrorEscritura=-1, ExitoOperacion=1} eCodArchivos;
 

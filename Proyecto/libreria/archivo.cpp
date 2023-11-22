@@ -157,7 +157,7 @@ eCodArchivos leerArchivoAsistencia(ifstream &archiAsistencia, Asistencia* asiste
     archiAsistencia.close();
     for(u_int j=0; j<asistencia->cantInscriptos; j++)
         asistencia[j]=aux[j];
-    delete[] aux;
+    delete aux;
     return eCodArchivos::ExitoOperacion; //archivo binario
 }
 eCodArchivos informeAsistencia(ofstream &informe, Asistencia *asistencia)
