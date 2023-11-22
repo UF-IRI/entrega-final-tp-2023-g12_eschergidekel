@@ -12,14 +12,10 @@ Inscripto estaInscriptoClase(Asistencia* asistencia, Clases* clase, string nombr
     for(u_int i=0; i<asistencia->cantInscriptos; i++)
     {
         if(asistencia[i].CursosInscriptos[i].idCurso == clase[pos].idClase) //verificar si ya está inscripto
-        {
-                return Inscripto::Esta;
-        }
-        else
-        {
-                return Inscripto::noEsta;
-        }
+            return Inscripto::Esta;
     }
+
+    return Inscripto::noEsta;
 }
 superposicion superposicionHorarios(Asistencia* asistencia, Clases* clase, u_int idCliente, int cantClientes,
                                     string nombreClase, u_int horario)
@@ -33,16 +29,12 @@ superposicion superposicionHorarios(Asistencia* asistencia, Clases* clase, u_int
     for(int i=0; i<cantClientes; i++)
     {
       if(asistencia->idCliente == idCliente && asistencia->CursosInscriptos[i].idCurso == clase[pos].idClase)
-        {
           return superposicion::SH;
-        }
-        else
-        {
-          return superposicion::noSH;
-        }
     }
+
+    return superposicion::noSH;
 }
-Reservas clases(sClientes cliente, Asistencia* asistencia, Clases* clase, int *cantClientes, string nombreClase, u_int horario)//modificar
+Reservas clases(sClientes cliente, Asistencia* asistencia, Clases* clase, u_int *cantClientes, string nombreClase, u_int horario)//modificar
 {
     int cont=0;
     Inscripto resul = estaInscriptoClase(asistencia, clase,nombreClase, horario);
@@ -117,7 +109,7 @@ Reservas clases(sClientes cliente, Asistencia* asistencia, Clases* clase, int *c
     }
     return reservar::ErrR;
 }
-Baja cancelarClase(Asistencia* asistencia, u_int idClase, int* cant)//modificar
+Baja cancelarClase(Asistencia* asistencia, u_int idClase, u_int* cant)//modificar
 {
     for(int i=0; i<*cant; i++)
     {
@@ -126,11 +118,12 @@ Baja cancelarClase(Asistencia* asistencia, u_int idClase, int* cant)//modificar
             asistencia[i].cantInscriptos=(asistencia[i].cantInscriptos)-1;
             asistencia[i].CursosInscriptos->idCurso = 0;
             return darBaja::ExitoBaja;
-        }else
-            return darBaja::ErrBaja;
+        }
     }
+
+    return darBaja::ErrBaja;
 }
-Asistencia* resizeAsistencia(Asistencia* asistencia, int *tam, u_int nuevoTam)
+Asistencia* resizeAsistencia(Asistencia* asistencia, u_int *tam, u_int nuevoTam)
 {
     Asistencia* aux = new Asistencia[nuevoTam];
     u_int longitud = (*tam < nuevoTam) ? *tam : nuevoTam;

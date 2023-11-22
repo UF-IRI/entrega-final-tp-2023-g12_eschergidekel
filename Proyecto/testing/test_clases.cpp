@@ -10,8 +10,8 @@ TEST_CASE("Incripcion multiple")
 {
     Asistencia *aux= new Asistencia; //tamaño
     sClientes cliente;
-    int num=1;
-    int *cantClientes;
+    u_int num=1;
+    u_int *cantClientes;
     cantClientes=&num;
     Clases *curso;
     cliente.apellido={"serene"};

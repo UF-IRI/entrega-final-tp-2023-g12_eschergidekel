@@ -19,8 +19,8 @@ int main()
     Asistencia* asistencia;
     Inscripcion* inscripcion;
     Clases* clase;
-    int cantidad=cantClientes(archiClientes); //cantidad de clientes, lo paso como variable global para que los cambios se reflejen en todo el programa
-    int *cant;
+    u_int cantidad=cantClientes(archiClientes); //cantidad de clientes, lo paso como variable global para que los cambios se reflejen en todo el programa
+    u_int *cant;
     cant=&cantidad;
     if(archiClases.is_open() && archiClientes.is_open() && archiAsistencia.is_open())
     {
@@ -131,7 +131,7 @@ int main()
                     str dni;
                     cout << "Ingrese el dni del cliente a eliminar: " << endl;
                     cin >> dni;
-                    int eliminar = eliminarCliente(cliente, dni, cant);
+                    u_int eliminar = eliminarCliente(cliente, dni, cant);
                     if(eliminar == (*cant)-1)
                         cout << "Cliente eliminado." << endl;
                     else
@@ -161,7 +161,7 @@ int main()
 
                     Inscripto resul = estaInscriptoClases(asistencia, clase, nombreClase, horario);
                     if(resul==1){
-                        for(int i=0; i<*cant; i++)
+                        for(u_int i=0; i<*cant; i++)
                         {
                             if(asistencia[i].idCliente==id)
                             {
@@ -174,7 +174,7 @@ int main()
                         superposicion resul2 = superposicionHorarios(asistencia, clase, id, cantidad, nombreClase, horario);
                         if(resul2==1)
                         {
-                            for(int i=0;i<*cant;i++)
+                            for(u_int i=0;i<*cant;i++)
                             {
                                 if(asistencia[i].idCliente==id)
                                 {
@@ -188,14 +188,14 @@ int main()
                             string respuesta;
                             cout << "Usted ya tiene una reserva programada para dicho horario." << endl;
                             cout << "¿Desea cancelarla?" << endl;
-                            cout << "Ingrese si en caso de querer cancelarla, o no en caso de no desearlo: " << endl;
+                            cout << "Ingrese 'Si' en caso de querer cancelarla, o 'No' en caso de no desearlo: " << endl;
                             cin >> respuesta;
-                            if(respuesta == "si"){
+                            if(respuesta == "Si"){
                                 Baja cancelar= cancelarClase(asistencia, clase[pos].idClase, cant);
                                 if(cancelar==1)
                                 {
                                     cout << "Su reserva se cancelo con exito." << endl;
-                                    for(int i=0; i<*cant; i++)
+                                    for(u_int i=0; i<*cant; i++)
                                     {
                                         if(asistencia[i].idCliente==id)
                                         {
@@ -208,7 +208,7 @@ int main()
                                 else
                                     cout << "Hubo problemas para cancelar su clase." << endl;
                             }
-                            else if(respuesta == "no")
+                            else if(respuesta == "No")
                                 cout << "Su reserva no ha sido modificada." << endl;
                         }
                     }
@@ -223,12 +223,12 @@ int main()
                     cout<<"Ingrese el horario de la clase que desea cancelar"<<endl;
                     cin>>horario;
 
-                    for(int i=0;i<*cant;i++)
+                    for(u_int i=0;i<*cant;i++)
                     {
                         if(clase[i].nombreClase==nombre && clase[i].horarioClase==horario)
                             pos=i;
                     }
-                    Baja cancelar=cancelarClase(asistencia,clase[pos].idClase,cant);
+                    Baja cancelar=cancelarClase(asistencia, clase[pos].idClase, cant);
                     if(cancelar==1)
                         cout<<"Su clase fue cancelada con exito"<<endl;
                     else

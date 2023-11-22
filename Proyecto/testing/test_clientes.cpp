@@ -21,7 +21,7 @@ const sClientes DefaultCliente[3] = {
 TEST_CASE("Agregar cliente")
 {
     sClientes* cliente= new sClientes;
-    int *cant=NULL;
+    u_int *cant=NULL;
     int cantMaxima=6;
 
     SECTION("Agregando dos clientes")
@@ -41,8 +41,8 @@ TEST_CASE("Agregar cliente")
 TEST_CASE("Buscar cliente")
 {
     sClientes* cliente= new sClientes;
-    int num=2;
-    int *cant;
+    u_int num=2;
+    u_int *cant;
     cant=&num;
     int cantMaxima=6;
 
@@ -60,8 +60,8 @@ TEST_CASE("Buscar cliente")
 TEST_CASE("Eliminar cliente")
 {
     sClientes* cliente= new sClientes;
-    int num=2;
-    int *cant;
+    u_int num=2;
+    u_int *cant;
     cant=&num;
     int cantMaxima=6;
     int resul;
@@ -74,7 +74,7 @@ TEST_CASE("Eliminar cliente")
     CHECK(*cant==2);
     REQUIRE(resul1==1);
     REQUIRE(resul2==1);
-    resul = eliminarCliente(cliente,"46534213",cant);
+    resul = eliminarCliente(cliente,"46534213", cant);
     REQUIRE(resul==1);
     CHECK(*cant==1);
     busqueda = buscarCliente(cliente, "46534213" ,cant);
@@ -86,8 +86,8 @@ TEST_CASE("Modificar cliente")
 {
     sClientes* cliente = new sClientes;
     str dni;
-    int num=2;
-    int *cant;
+    u_int num=2;
+    u_int *cant;
     cant=&num;
     int cantMaxima=6;
 
@@ -116,8 +116,8 @@ TEST_CASE("Resize cliente")
     SECTION("Agregando dos nuevos datos")
     {
     sClientes* ViejaDireccion = clientes;
-    int num=3;
-    int *cant;
+    u_int num=3;
+    u_int *cant;
     cant=&num;
     resizeClientes(clientes, cant , 3 + 2);
     clientes[3] = {"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1};
@@ -133,8 +133,8 @@ TEST_CASE("Estado de la cuota")
     //eEstado Cuota(sClientes* cliente, str dni, int cant)
     str dni1={"46534213"};
     str dni2={"45025423"};
-    int num=2;
-    int *cant;
+    u_int num=2;
+    u_int *cant;
     cant=&num;
     SECTION("Comprobando estado de dos clientes")
     {
@@ -147,8 +147,8 @@ TEST_CASE("Estado de la cuota")
 TEST_CASE("verificar espacio")
 {
     int cantmax=6;
-    int num=6;
-    int *cant;
+    u_int num=6;
+    u_int *cant;
     cant=&num;
     REQUIRE(!espacio(cantmax,cant));
  }

@@ -3,7 +3,7 @@
 #include "clientes.h"
 #include "clases.h"
 
-eCodArchivos leerArchivoClientes(ifstream &archiClientes, sClientes* cliente, int *cant) //archivo CSV
+eCodArchivos leerArchivoClientes(ifstream &archiClientes, sClientes* cliente, u_int *cant) //archivo CSV
 {
     sClientes* aux = new sClientes[*cant]; //tamaño
     string auxNombre;
@@ -51,7 +51,7 @@ eCodArchivos leerArchivoClientes(ifstream &archiClientes, sClientes* cliente, in
             i++;
         }
         archiClientes.close();
-        for(int i=0; i<*cant; i++)
+        for(u_int i=0; i<*cant; i++)
             cliente[i]=aux[i];
         delete[] aux;
         return eCodArchivos::ExitoOperacion;
@@ -125,7 +125,7 @@ eCodArchivos escribirArchivoClases(ofstream &archivoClases, u_int idClase, str n
 
         return eCodArchivos::ExitoOperacion;
     }
-    eCodArchivos::ErrorEscritura;
+    return eCodArchivos::ErrorEscritura;
 }
 eCodArchivos leerArchivoAsistencia(ifstream &archiAsistencia, Asistencia* asistencia) //archivo binario
 {
