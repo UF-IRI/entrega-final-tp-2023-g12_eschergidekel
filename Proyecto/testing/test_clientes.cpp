@@ -1,6 +1,6 @@
 #include <catch2/catch.hpp>
 #include <clientes.h>
-#include <fstream>
+#include <libreria.h>
 #include <archivo.h>
 /*
 sClientes* resizeClientes(sClientes* lista, u_int tam, u_int nuevoTam); //tamaño de clientes
@@ -59,7 +59,6 @@ TEST_CASE("Buscar cliente")
 
 TEST_CASE("Eliminar cliente")
 {
-
     sClientes* cliente= new sClientes;
     int num=2;
     int *cant;
@@ -85,7 +84,6 @@ TEST_CASE("Eliminar cliente")
 
 TEST_CASE("Modificar cliente")
 {
-
     sClientes* cliente = new sClientes;
     str dni;
     int num=2;
@@ -146,8 +144,8 @@ TEST_CASE("Estado de la cuota")
     REQUIRE(resul2==eEstado::Afavor);
     }
 }
-TEST_CASE("verificar espacio"){
-
+TEST_CASE("verificar espacio")
+{
     int cantmax=6;
     int num=6;
     int *cant;

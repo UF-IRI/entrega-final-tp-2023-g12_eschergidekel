@@ -38,17 +38,19 @@ TEST_CASE("Incripcion multiple")
 
 
     SECTION("Verificacion de inscripcion"){
-        Inscripto result=estaInscriptoClases(aux, curso, curso->nombreClase, curso->horarioClase);
-        REQUIRE(result==1);
+        Inscripto result = estaInscriptoClases(aux, curso, curso->nombreClase, curso->horarioClase);
+        REQUIRE(result == 1);
     }
     SECTION("Superposicion horaria"){
         superposicion superp = superposicionHorarios(aux, curso, cliente.idCliente, cantClientes,curso->nombreClase, curso->horarioClase);
-        REQUIRE (superp==1);
+        REQUIRE(superp == 1);
     }
     SECTION("Reserva de clases"){
-
+        Reservas result2 = clases(cliente, aux, curso, cantClientes, curso->nombreClase, curso->horarioClase);
+        REQUIRE(result2 == 1);
     }
     SECTION("Cancelacion de clase"){
-
+        Baja result3 = cancelarClase(aux, curso->idClase, cantClientes);
+        REQUIRE(result3 == 1);
     }
 }

@@ -1,7 +1,7 @@
 #ifndef CLASES_H
 #define CLASES_H
-#include "libreria.h"
-#include "clientes.h"
+#include <libreria.h>
+#include <clientes.h>
 
 enum estaInscripto {Esta = -1, noEsta = 1};
 typedef enum estaInscripto Inscripto;

@@ -1,6 +1,6 @@
-#include "clientes.h"
-#include "archivo.h"
-#include "clases.h"
+#include <clientes.h>
+#include <archivo.h>
+#include <clases.h>
 
 
 bool espacio(int cantMaxima, int *cant)

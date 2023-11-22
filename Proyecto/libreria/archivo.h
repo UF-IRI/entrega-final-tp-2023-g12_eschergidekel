@@ -1,9 +1,9 @@
 #ifndef ARCHIVO_H
 #define ARCHIVO_H
 
-#include "libreria.h"
-#include "clientes.h"
-#include "clases.h"
+#include <libreria.h>
+#include <clientes.h>
+#include <clases.h>
 
 fstream archiClientes, archiClases, archiAsistencia, informe;
 

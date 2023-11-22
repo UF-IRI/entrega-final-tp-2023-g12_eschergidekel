@@ -31,7 +31,7 @@ int main()
         if(result != eCodArchivos::ExitoOperacion)
            cout << "Hubo un error." << endl;
 
-        eCodArchivos result2 = leerArchivoClientes(archiClientes, cliente,cant);
+        eCodArchivos result2 = leerArchivoClientes(archiClientes, cliente, cant);
         if(result2 != eCodArchivos::ExitoOperacion)
            cout << "Hubo un error." << endl;
 
@@ -257,6 +257,7 @@ int main()
     }else
         cout << "Hubo algun error." << endl;
 
+    archiAsistencia.close();
     archiClientes.close();
     archiClases.close();
     return 0;

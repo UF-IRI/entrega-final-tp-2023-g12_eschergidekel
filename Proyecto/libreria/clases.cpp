@@ -126,14 +126,13 @@ Baja cancelarClase(Asistencia* asistencia, u_int idClase, int* cant)//modificar
 {
     for(int i=0; i<*cant; i++)
     {
-        if(asistencia[i].CursosInscriptos->idCurso==idClase)
+        if(asistencia[i].CursosInscriptos->idCurso == idClase)
         {
             asistencia[i].cantInscriptos=(asistencia[i].cantInscriptos)-1;
-            asistencia[i].CursosInscriptos->idCurso=0;
-
-        }
-
+            asistencia[i].CursosInscriptos->idCurso = 0;
+            return darBaja::ExitoBaja;
+        }else
+            return darBaja::ErrBaja;
     }
-
 }
 
