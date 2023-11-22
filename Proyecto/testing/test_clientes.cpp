@@ -21,32 +21,35 @@ const sClientes DefaultCliente[3] = {
 TEST_CASE("Agregar cliente")
 {
     sClientes* cliente= new sClientes;
-    int cant=0;
+    int *cant=NULL;
     int cantMaxima=6;
 
     SECTION("Agregando dos clientes")
     {
     eAgregar resul;
     eAgregar resul2;
-    resul= agregarCliente(archiClientes,archivoClientes ,cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima); //agregar cliente
-    resul2= agregarCliente(archiClientes,archivoClientes ,cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
+    resul= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima); //agregar cliente
+    resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
     if(resul==1 && resul2==1)
-        cant=2;
+        *cant=2;
     REQUIRE(resul==1); //ambos se agregaron de manera correcta
     REQUIRE(resul2==1);
-    CHECK(cant==2);
+    CHECK(*cant==2);
     }
 }
 
 TEST_CASE("Buscar cliente")
 {
     sClientes* cliente= new sClientes;
-    int cant=2;
+    int num=2;
+    int *cant;
+    cant=&num;
     int cantMaxima=6;
 
-    eAgregar resul1= agregarCliente(archiClientes,archivoClientes ,cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima);
-    eAgregar resul2= agregarCliente(archiClientes,archivoClientes ,cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
-
+    eAgregar resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima);
+    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
+    REQUIRE(resul1==1);
+    REQUIRE(resul2==1);
     SECTION("Buscando el cliente por DNI")
     {
     int resul = buscarCliente(cliente, "46534213", cant);
@@ -56,22 +59,25 @@ TEST_CASE("Buscar cliente")
 
 TEST_CASE("Eliminar cliente")
 {
-    ifstream archiClientes("iriClientesGYM.csv");
+
     sClientes* cliente= new sClientes;
-    int cant=2;
+    int num=2;
+    int *cant;
+    cant=&num;
     int cantMaxima=6;
     int resul;
     int busqueda;
 
     SECTION("Eliminando un cliente")
     {
-    eAgregar resul1= agregarCliente(archiClientes,archivoClientes ,cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima);
-    eAgregar resul2= agregarCliente(archiClientes,archivoClientes ,cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
-    CHECK(cant==2);
-
-    resul = eliminarCliente(archiClientes, cliente,"46534213",cant);
+    eAgregar resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima);
+    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
+    CHECK(*cant==2);
+    REQUIRE(resul1==1);
+    REQUIRE(resul2==1);
+    resul = eliminarCliente(cliente,"46534213",cant);
     REQUIRE(resul==1);
-    CHECK(cant==1);
+    CHECK(*cant==1);
     busqueda = buscarCliente(cliente, "46534213" ,cant);
     REQUIRE(busqueda==-1);
     }
@@ -79,20 +85,23 @@ TEST_CASE("Eliminar cliente")
 
 TEST_CASE("Modificar cliente")
 {
-    ifstream archiClientes("iriClientesGYM.csv");
+
     sClientes* cliente = new sClientes;
     str dni;
-    int cant=2;
+    int num=2;
+    int *cant;
+    cant=&num;
     int cantMaxima=6;
 
     int pos=buscarCliente(cliente, dni, cant);
 
     SECTION("Mofificando un cliente")
     {
-    eAgregar resul1= agregarCliente(archiClientes,archivoClientes ,cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima); //agregar cliente
-    eAgregar resul2= agregarCliente(archiClientes,archivoClientes ,cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
-
-    eModificar resul = modificarCliente(archiClientes, cliente, cliente[pos], dni, cant);
+    eAgregar resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima); //agregar cliente
+    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
+    REQUIRE(resul1==1);
+    REQUIRE(resul2==1);
+    eModificar resul = modificarCliente(cliente, cliente[pos], dni, cant);
     REQUIRE(resul == eModificar::ExitoMod);
     }
 }
@@ -109,8 +118,10 @@ TEST_CASE("Resize cliente")
     SECTION("Agregando dos nuevos datos")
     {
     sClientes* ViejaDireccion = clientes;
-
-    resizeClientes(clientes, 3 , 3 + 2);
+    int num=3;
+    int *cant;
+    cant=&num;
+    resizeClientes(clientes, cant , 3 + 2);
     clientes[3] = {"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1};
     clientes[3] = {"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2};
 
@@ -124,21 +135,23 @@ TEST_CASE("Estado de la cuota")
     //eEstado Cuota(sClientes* cliente, str dni, int cant)
     str dni1={"46534213"};
     str dni2={"45025423"};
-    int cant=2;
-
+    int num=2;
+    int *cant;
+    cant=&num;
     SECTION("Comprobando estado de dos clientes")
     {
-    eEstado resul=Cuota(archiClientes,cliente, dni1, cant);
+    eEstado resul=Cuota(cliente, dni1, cant);
     REQUIRE(resul==eEstado::AlDia);
-    eEstado resul2=Cuota(archiClientes,cliente, dni2, cant);
+    eEstado resul2=Cuota(cliente, dni2, cant);
     REQUIRE(resul2==eEstado::Afavor);
     }
 }
 TEST_CASE("verificar espacio"){
 
     int cantmax=6;
-    int cant=6;
-
+    int num=6;
+    int *cant;
+    cant=&num;
     REQUIRE(!espacio(cantmax,cant));
  }
 

@@ -3,9 +3,9 @@
 #include "clientes.h"
 #include "clases.h"
 
-eCodArchivos leerArchivoClientes(ifstream &archiClientes, sClientes* cliente, int cant) //archivo CSV
+eCodArchivos leerArchivoClientes(ifstream &archiClientes, sClientes* cliente, int *cant) //archivo CSV
 {
-    sClientes* aux = new sClientes[cant]; //tamaño
+    sClientes* aux = new sClientes[*cant]; //tamaño
     string auxNombre;
     string auxApellido;
     string auxDNI;
@@ -51,7 +51,7 @@ eCodArchivos leerArchivoClientes(ifstream &archiClientes, sClientes* cliente, in
             i++;
         }
         archiClientes.close();
-        for(int i=0; i<cant; i++)
+        for(int i=0; i<*cant; i++)
             cliente[i]=aux[i];
         delete[] aux;
         return eCodArchivos::ExitoOperacion;
@@ -83,15 +83,16 @@ eCodArchivos leerArchivoClases(ifstream &archiClases, Clases* clase) //archivo C
     archiClases.open("iriClasesGYM.csv");
     if(archiClases.is_open())
     {
+        string linea;
         Clases*aux = new Clases[60];
         string auxidClase;
         string auxNombre;
         string auxHorario;
         int i=1;
-        while(archiClases.good()) //Leer los datos desde el archivo CSV
+        while(getline(archiClases, linea)) //Leer los datos desde el archivo CSV
         {
             str linea;
-            getline(archiClases, linea);
+
 
             char delimitador = ',';
             istringstream iss(linea);

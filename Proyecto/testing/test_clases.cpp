@@ -12,8 +12,10 @@ TEST_CASE("Incripcion multiple")
 {
     Asistencia *aux= new Asistencia; //tamaño
     sClientes cliente;
-    int cantClientes=1;
-    Clases curso;
+    int num=1;
+    int *cantClientes;
+    cantClientes=&num;
+    Clases *curso;
     cliente.apellido={"serene"};
     cliente.dni={"23456897"};
     cliente.estado=0;
@@ -29,18 +31,18 @@ TEST_CASE("Incripcion multiple")
     aux->CursosInscriptos->idCurso=3;
     aux->CursosInscriptos->fechaInscripcion=16112023;
     aux->idCliente=1;
-    curso.horarioClase=5;
-    curso.idClase=3;
-    curso.nombreClase={"boxeo"};
-    clases(archiClases, archiClientes, archiAsistencia, informe, cliente,aux ,curso, cantClientes);
+    curso->horarioClase=5;
+    curso->idClase=3;
+    curso->nombreClase={"boxeo"};
+    clases(cliente,aux ,curso, cantClientes);//revisar
 
 
     SECTION("Verificacion de inscripcion"){
-        Inscripto result=estaInscriptoClases(archiAsistencia,aux, curso);
+        Inscripto result=estaInscriptoClases(aux, curso,curso->nombreClase,curso->horarioClase);
         REQUIRE(result==1);
     }
     SECTION("Superposicion horaria"){
-        superposicion superp = superposicionHorarios(aux, curso, cliente.idCliente, cantClientes);
+        superposicion superp = superposicionHorarios(aux, curso, cliente.idCliente, cantClientes,curso->nombreClase, curso->horarioClase);
         REQUIRE (superp==1);
     }
     SECTION("Reserva de clases"){

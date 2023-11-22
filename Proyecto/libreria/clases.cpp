@@ -3,75 +3,67 @@
 #include "clientes.h"
 
 
-Inscripto estaInscriptoClase(ifstream &archiAsistencia, Asistencia* asistencia, Clases* clase)//modificar
+Inscripto estaInscriptoClase(Asistencia* asistencia, Clases* clase,string nombreClase,int horario)//modificar
 {
-    archiAsistencia.open("Asistencia.dat");
-    if(archiAsistencia.is_open())
+    int pos;
+    for(int i=0;i<33;i++)
+    {
+        if(clase->nombreClase==nombreClase && clase->horarioClase==horario)
+            pos=i;
+    }
+
+    for(u_int i=0; i<asistencia->cantInscriptos; i++)
+    {
+        if(asistencia[i].CursosInscriptos[i].idCurso == clase[pos].idClase) //verificar si ya está inscripto
+        {
+                return Inscripto::Esta;
+        }
+        else
+        {
+                return Inscripto::noEsta;
+        }
+    }
+
+}
+superposicion superposicionHorarios(Asistencia* asistencia, Clases* clase, u_int idCliente,
+                                    int cantClientes, string nombreClase, int horario)//modificar
+{
+    int pos;
+    for(int i=0;i<33;i++)
+    {
+        if(clase->nombreClase==nombreClase && clase->horarioClase==horario)
+                pos=i;
+    }
+    for(int i=0; i<cantClientes; i++)
+    {
+      if(asistencia->idCliente == idCliente && asistencia->CursosInscriptos[i].idCurso == clase[pos].idClase)
+        {
+          return superposicion::SH;
+        }
+        else
+        {
+          return superposicion::noSH;
+        }
+    }
+}
+Reservas clases(sClientes cliente, Asistencia* asistencia, Clases* clase, int *cantClientes)//modificar
+{
+   /* int cont=0;
+    Inscripto resul = estaInscriptoClase(asistencia, clase);
+    superposicion resul2 = superposicionHorarios(asistencia, clase, cliente.idCliente, *cantClientes);
+    if(resul != Inscripto::Esta && resul2 != superposicion::SH)
     {
         for(u_int i=0; i<asistencia->cantInscriptos; i++)
         {
-            if(asistencia[i].CursosInscriptos[i].idCurso == clase[i].idClase) //verificar si ya está inscripto
+            for(u_int j=0; j<asistencia->cantInscriptos; j++)
             {
-                archiAsistencia.close();
-                return Inscripto::Esta;
+               if(asistencia[i].CursosInscriptos[j].idCurso  == clase[i].idClase)
+                   cont++;
             }
-            else
-            {
-                archiAsistencia.close();
-                return Inscripto::noEsta;
-            }
-        }
-    }
-}
-superposicion superposicionHorarios(ifstream &archiAsistencia, Asistencia* asistencia, Clases* clase, u_int idCliente,
-                                    int cantClientes)//modificar
-{
-    archiAsistencia.open("Asistencia.dat");
-    if(archiAsistencia.is_open())
-    {
-        for(int i=0; i<cantClientes; i++)
-        {
-            for(int k=0; k<60; k++)
-            {
-                if(asistencia->idCliente == idCliente && asistencia->CursosInscriptos[i].idCurso == clase[k].idClase)
-                {
-                    archiAsistencia.close();
-                    return superposicion::SH;
-                }
-                else
-                {
-                    archiAsistencia.close();
-                    return superposicion::noSH;
-                }
-            }
-        }
-    }
-}
-Reservas clases(ifstream &archiClases, ifstream &archiClientes, ifstream &archiAsistencia, ofstream &informe,
-                sClientes cliente, Asistencia* asistencia, Clases* clase, int cantClientes)//modificar
-{
-    int cont=0;
-    Inscripto resul = estaInscriptoClase(archiAsistencia, asistencia, clase);
-    superposicion resul2 = superposicionHorarios(archiAsistencia, asistencia, clase, cliente.idCliente, cantClientes);
-    if(resul != Inscripto::Esta && resul2 != superposicion::SH)
-    {
-        informe.open("informe.dat");
-        if(informe.is_open() && archiClases.is_open())
-        {
-            eCodArchivos resul3 = informeAsistencia(informe, asistencia);
-            if(resul3 != eCodArchivos::ErrorApertura)
-            {
-                for(u_int i=0; i<asistencia->cantInscriptos; i++)
-                {
-                    for(u_int j=0; j<asistencia->cantInscriptos; j++)
-                    {
-                        if(asistencia[i].CursosInscriptos[j].idCurso  == clase[i].idClase)
-                            cont++;
-                    }
-                }
+
                 //spinning
-                if((clase->idClase == '1' || clase->idClase == '2' || clase->idClase == '3' || clase->idClase == '4' ||
-                    clase->idClase == '5') && cont<45)
+             if((clase->idClase == '1' || clase->idClase == '2' || clase->idClase == '3' || clase->idClase == '4' ||
+                 clase->idClase == '5') && cont<45)
                 {
                     cont++;
                     return reservar::ExitoR;
@@ -123,21 +115,21 @@ Reservas clases(ifstream &archiClases, ifstream &archiClientes, ifstream &archiA
                 }
                 else
                     return reservar::ErrR;
-            }
+
         }
         return reservar::ExitoR;
     }
     else
-        return reservar::ErrR;
+        return reservar::ErrR;*/
 }
-Baja cancelarClase(Asistencia* asistencia, Clases *clase, int cantClientes)//modificar
+Baja cancelarClase(Asistencia* asistencia, u_int idClase, int* cant)//modificar
 {
-    Clases nula={0,0,""};
-    for(int i=0; i<cantClientes;i++)
+
+    for(int i=0; i<*cant;i++)
     {
-        if(asistencia[i].CursosInscriptos->idCurso== clase.idClase)
+        if(asistencia[i].CursosInscriptos->idCurso==idClase)
         {
-            asistencia[i].cantInscriptos=asistencia[i].cantInscriptos-1;
+            asistencia[i].cantInscriptos=(asistencia[i].cantInscriptos)-1;
             asistencia[i].CursosInscriptos->idCurso=0;
 
         }
