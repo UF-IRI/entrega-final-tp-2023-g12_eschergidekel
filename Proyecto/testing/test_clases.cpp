@@ -1,7 +1,5 @@
 #include <catch2/catch.hpp>
-#include <clases.h>
-#include <clientes.h>
-#include <archivo.h>
+#include "archivo.h"
 /*
 Inscripto estaInscriptoClases(Asistencia* asistencia, Clases clase);
 superposicion superposicionHorarios(Asistencia* asistencia, Clases clase, int idCliente);
@@ -42,7 +40,7 @@ TEST_CASE("Incripcion multiple")
         REQUIRE(result == 1);
     }
     SECTION("Superposicion horaria"){
-        superposicion superp = superposicionHorarios(aux, curso, cliente.idCliente, cantClientes,curso->nombreClase, curso->horarioClase);
+        superposicion superp = superposicionHorarios(aux, curso, cliente.idCliente, *cantClientes,curso->nombreClase, curso->horarioClase);
         REQUIRE(superp == 1);
     }
     SECTION("Reserva de clases"){

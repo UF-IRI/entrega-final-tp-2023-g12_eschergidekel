@@ -1,9 +1,6 @@
 #include "clases.h"
-#include "archivo.h"
-#include "clientes.h"
 
-
-Inscripto estaInscriptoClase(Asistencia* asistencia, Clases* clase, string nombreClase, u_int horario)//modificar
+Inscripto estaInscriptoClase(Asistencia* asistencia, Clases* clase, string nombreClase, u_int horario)
 {
     int pos;
     for(int i=0;i<33;i++)
@@ -23,10 +20,9 @@ Inscripto estaInscriptoClase(Asistencia* asistencia, Clases* clase, string nombr
                 return Inscripto::noEsta;
         }
     }
-
 }
-superposicion superposicionHorarios(Asistencia* asistencia, Clases* clase, u_int idCliente,
-                                    int cantClientes, string nombreClase, u_int horario)//modificar
+superposicion superposicionHorarios(Asistencia* asistencia, Clases* clase, u_int idCliente, int cantClientes,
+                                    string nombreClase, u_int horario)
 {
     int pos;
     for(int i=0;i<33;i++)
@@ -119,8 +115,7 @@ Reservas clases(sClientes cliente, Asistencia* asistencia, Clases* clase, int *c
         }
         return reservar::ExitoR;
     }
-    else
-        return reservar::ErrR;
+    return reservar::ErrR;
 }
 Baja cancelarClase(Asistencia* asistencia, u_int idClase, int* cant)//modificar
 {
@@ -134,5 +129,21 @@ Baja cancelarClase(Asistencia* asistencia, u_int idClase, int* cant)//modificar
         }else
             return darBaja::ErrBaja;
     }
+}
+Asistencia* resizeAsistencia(Asistencia* asistencia, int *tam, u_int nuevoTam)
+{
+    Asistencia* aux = new Asistencia[nuevoTam];
+    u_int longitud = (*tam < nuevoTam) ? *tam : nuevoTam;
+
+    if(aux!=nullptr)
+    {
+        for(u_int i=0; i<longitud; i++)
+            aux[i] = asistencia[i]; //*(cliente+1)
+
+        delete[] asistencia;
+        return aux;
+    }
+
+    return nullptr;
 }
 

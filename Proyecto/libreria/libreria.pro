@@ -21,9 +21,8 @@ HEADERS += \
     libreria.h
 
 FILES += \
-    iriClasesGYM.csv\
-    iriClientesGYM.csv\
-    asistencias_1697673600000.dat\
+    iriClasesGYM.csv
+    iriClientesGYM.csv
 
 # Default rules for deployment.
 unix {

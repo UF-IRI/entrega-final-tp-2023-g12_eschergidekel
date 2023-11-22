@@ -56,8 +56,7 @@ eCodArchivos leerArchivoClientes(ifstream &archiClientes, sClientes* cliente, in
         delete[] aux;
         return eCodArchivos::ExitoOperacion;
     }
-    else
-        return eCodArchivos::ErrorApertura;
+    return eCodArchivos::ErrorApertura;
 }
 eCodArchivos escribirArchivoClientes(ofstream &archivoClientes, str nombre, str apellido, str email, str telefono,
                                      Fecha fechaNac, int estado, u_int idCliente)
@@ -74,8 +73,8 @@ eCodArchivos escribirArchivoClientes(ofstream &archivoClientes, str nombre, str 
         archivoClientes.close();
 
         return eCodArchivos::ExitoOperacion;
-    } else
-        return eCodArchivos::ErrorEscritura;
+    }
+    return eCodArchivos::ErrorEscritura;
 }
 eCodArchivos leerArchivoClases(ifstream &archiClases, Clases* clase) //archivo CSV
 {
@@ -110,8 +109,7 @@ eCodArchivos leerArchivoClases(ifstream &archiClases, Clases* clase) //archivo C
         delete[] aux;
         return eCodArchivos::ExitoOperacion;
     }
-    else
-        return eCodArchivos::ErrorApertura;
+    return eCodArchivos::ErrorApertura;
 }
 eCodArchivos escribirArchivoClases(ofstream &archivoClases, u_int idClase, str nombre, u_int horario)
 {
@@ -126,8 +124,8 @@ eCodArchivos escribirArchivoClases(ofstream &archivoClases, u_int idClase, str n
         archivoClases.close();
 
         return eCodArchivos::ExitoOperacion;
-    } else
-        return eCodArchivos::ErrorEscritura;
+    }
+    eCodArchivos::ErrorEscritura;
 }
 eCodArchivos leerArchivoAsistencia(ifstream &archiAsistencia, Asistencia* asistencia) //archivo binario
 {
@@ -163,7 +161,7 @@ eCodArchivos leerArchivoAsistencia(ifstream &archiAsistencia, Asistencia* asiste
 eCodArchivos informeAsistencia(ofstream &informe, Asistencia *asistencia)
 {
     informe.open("informe.dat", ios::binary);
-    if(!archiAsistencia.is_open())
+    if(!informe.is_open())
         return eCodArchivos::ErrorApertura;
     // Setear inicio
     informe.clear();
