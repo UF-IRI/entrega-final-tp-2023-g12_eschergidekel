@@ -1,7 +1,5 @@
-#include <libreria.h>
-#include <clientes.h>
-#include <clases.h>
-#include <archivo.h>
+#include "archivo.h"
+
 using namespace std;
 
 int main()
@@ -35,7 +33,7 @@ int main()
         if(result2 != eCodArchivos::ExitoOperacion)
            cout << "Hubo un error." << endl;
 
-        eCodArchivos result3 = leerArchivoAsistencia(&archiAsistencia, asistencia);
+        eCodArchivos result3 = leerArchivoAsistencia(archiAsistencia, asistencia);
         if(result3 != eCodArchivos::ExitoOperacion)
            cout << "Huno un error." << endl;
 
@@ -162,7 +160,7 @@ int main()
                             pos=i;
                     }
 
-                    Inscripto resul= estaInscriptoClases(asistencia, clase, nombreClase, horario);
+                    Inscripto resul= estaInscriptoClase(asistencia, clase, nombreClase, horario);
                     if(resul==1){
                         for(int i=0; i<*cant; i++)
                         {
@@ -174,7 +172,7 @@ int main()
                         }
                     }else//si ya tiene cursos inscriptos me fijo que no esten superpuestos
                     {
-                        superposicion resul2= superposicionHorarios(asistencia, clase,id,cant,nombreClase,horario);
+                        superposicion resul2= superposicionHorarios(asistencia, clase,id,*cant,nombreClase,horario);
                         if(resul2==1)
                         {
                             for(int i=0;i<*cant;i++)

@@ -1,7 +1,4 @@
-#include <libreria.h>
 #include "archivo.h"
-#include "clientes.h"
-#include "clases.h"
 
 eCodArchivos leerArchivoClientes(ifstream &archiClientes, sClientes* cliente, int *cant) //archivo CSV
 {
@@ -56,11 +53,9 @@ eCodArchivos leerArchivoClientes(ifstream &archiClientes, sClientes* cliente, in
         delete[] aux;
         return eCodArchivos::ExitoOperacion;
     }
-    else
-        return eCodArchivos::ErrorApertura;
+    return eCodArchivos::ErrorApertura;
 }
-eCodArchivos escribirArchivoClientes(ofstream &archivoClientes, str nombre, str apellido, str email, str telefono,
-                                     Fecha fechaNac, int estado, u_int idCliente)
+eCodArchivos escribirArchivoClientes(ofstream &archivoClientes, str nombre, str apellido, str email, str telefono, Fecha fechaNac, int estado, u_int idCliente)
 {
     archivoClientes.open("iriClientesGYM.csv");
     if(archivoClientes.is_open())
@@ -74,8 +69,8 @@ eCodArchivos escribirArchivoClientes(ofstream &archivoClientes, str nombre, str 
         archivoClientes.close();
 
         return eCodArchivos::ExitoOperacion;
-    } else
-        return eCodArchivos::ErrorEscritura;
+    }
+    return eCodArchivos::ErrorEscritura;
 }
 eCodArchivos leerArchivoClases(ifstream &archiClases, Clases* clase) //archivo CSV
 {
@@ -157,13 +152,13 @@ eCodArchivos leerArchivoAsistencia(ifstream &archiAsistencia, Asistencia* asiste
     archiAsistencia.close();
     for(u_int j=0; j<asistencia->cantInscriptos; j++)
         asistencia[j]=aux[j];
-    delete aux;
+    //delete aux;
     return eCodArchivos::ExitoOperacion; //archivo binario
 }
 eCodArchivos informeAsistencia(ofstream &informe, Asistencia *asistencia)
 {
     informe.open("informe.dat", ios::binary);
-    if(!archiAsistencia.is_open())
+    if(!informe.is_open())
         return eCodArchivos::ErrorApertura;
     // Setear inicio
     informe.clear();

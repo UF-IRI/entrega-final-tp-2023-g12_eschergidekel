@@ -1,7 +1,4 @@
 #include "clases.h"
-#include "archivo.h"
-#include "clientes.h"
-
 
 Inscripto estaInscriptoClase(Asistencia* asistencia, Clases* clase, string nombreClase, u_int horario)//modificar
 {
@@ -25,8 +22,7 @@ Inscripto estaInscriptoClase(Asistencia* asistencia, Clases* clase, string nombr
     }
 
 }
-superposicion superposicionHorarios(Asistencia* asistencia, Clases* clase, u_int idCliente,
-                                    int cantClientes, string nombreClase, u_int horario)//modificar
+superposicion superposicionHorarios(Asistencia* asistencia, Clases* clase, u_int idCliente, int cantClientes, string nombreClase, u_int horario)//modificar
 {
     int pos;
     for(int i=0;i<33;i++)
@@ -135,4 +131,3 @@ Baja cancelarClase(Asistencia* asistencia, u_int idClase, int* cant)//modificar
             return darBaja::ErrBaja;
     }
 }
-

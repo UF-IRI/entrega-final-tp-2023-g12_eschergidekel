@@ -1,7 +1,6 @@
 TEMPLATE = lib
 DEFINES += LIBRERIA_LIBRARY
-
-CONFIG += c++17
+CONFIG += c++17 staticlib
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -22,8 +21,7 @@ HEADERS += \
 
 FILES += \
     iriClasesGYM.csv\
-    iriClientesGYM.csv\
-    asistencias_1697673600000.dat\
+    iriClientesGYM.csv
 
 # Default rules for deployment.
 unix {
