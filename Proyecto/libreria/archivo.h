@@ -11,7 +11,7 @@ eCodArchivos escribirArchivoClientes(ofstream& archiClientes, str nombre, str ap
                                      Fecha fechaNac, int estado, u_int idCliente);
 eCodArchivos leerArchivoClases(ifstream& archiClases, Clases* clase);
 eCodArchivos escribirArchivoClases(ofstream& archiClases, u_int idClase, str nombre, u_int horario);
-eCodArchivos leerArchivoAsistencia(ifstream& archiAsistencia, Asistencia* asistencia);
+eCodArchivos leerArchivoAsistencia(ifstream& archiAsistencia, Asistencia* asistencia, u_int &cantAsistencia);
 eCodArchivos informeAsistencia(ofstream &informe, Asistencia *asistencia);
 
 #endif // ARCHIVO_H

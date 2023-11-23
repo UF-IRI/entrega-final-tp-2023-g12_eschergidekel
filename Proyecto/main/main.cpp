@@ -22,6 +22,7 @@ int main()
     u_int cantidad=cantClientes(archiClientes); //cantidad de clientes, lo paso como variable global para que los cambios se reflejen en todo el programa
     u_int *cant;
     cant=&cantidad;
+    u_int cantAsistencia=0;
     if(archiClases.is_open() && archiClientes.is_open() && archiAsistencia.is_open())
     {
         eCodArchivos result = leerArchivoClases(archiClases, clase);
@@ -32,7 +33,7 @@ int main()
         if(result2 != eCodArchivos::ExitoOperacion)
            cout << "Hubo un error." << endl;
 
-        eCodArchivos result3 = leerArchivoAsistencia(archiAsistencia, asistencia);
+        eCodArchivos result3 = leerArchivoAsistencia(archiAsistencia, asistencia, cantAsistencia);
         if(result3 != eCodArchivos::ExitoOperacion)
            cout << "Huno un error." << endl;
 
@@ -40,7 +41,8 @@ int main()
         cliente = resizeClientes(cliente, cant, nuevoTam);
         int cantMaxima = nuevoTam;
         sClientes ultimo = cliente[(*cant)-1];
-
+        u_int cantMaxAsistencia= cantAsistencia+30;
+        u_int cantMaxInscripciones= (asistencia->cantInscriptos)+30;
         int opcion;
         cout << "1.Agregar un cliente" << endl;
         cout << "2.Actualizar un cliente" << endl;
@@ -152,12 +154,25 @@ int main()
                     cin >> horario;
 
                     int pos=0;
-
+                    int posCliente=0;
                     u_int id = buscarCliente(cliente, dni, cant);
+                    for(int i=0;i<*cant;i++)
+                    {
+                        if(cliente[i].idCliente==id)
+                            posCliente=i;
+                    }
                     for(int i=0;i<33;i++){
                         if(clase[i].nombreClase==nombreClase && clase[i].horarioClase==horario)
                             pos=i;
                     }
+                    Reservas lugares= clases(cliente[pos], asistencia,clase,cant, nombreClase, horario);
+                    if(lugares !=1)
+                        cout<<"No hay lugar para dicha clase para ese horario"<<endl;
+
+                    if(!espacioAsistencias(cantMaxAsistencia,cantAsistencia))
+                       asistencia= resizeAsistencia(asistencia,cantAsistencia, cantMaxAsistencia);
+                    if(!espacioInscripciones(asistencia,cantMaxInscripciones))
+                       inscripcion=resizeInscripcion(inscripcion,asistencia->cantInscriptos,cantMaxInscripciones);
 
                     Inscripto resul = estaInscriptoClases(asistencia, clase, nombreClase, horario);
                     if(resul==1){
@@ -179,7 +194,7 @@ int main()
                                 if(asistencia[i].idCliente==id)
                                 {
                                     asistencia[i].cantInscriptos=(asistencia[i].cantInscriptos)+1;
-                                    asistencia[i].CursosInscriptos[i].idCurso=clase[i].idClase; //fijarme que posicion esoty ocupando en cursosinscriptos
+                                    asistencia[i].CursosInscriptos[(asistencia->cantInscriptos)-1].idCurso=clase[i].idClase; //fijarme que posicion esoty ocupando en cursosinscriptos
 
                                 }
                             }
@@ -237,7 +252,6 @@ int main()
                 }
                 case 6: //generar informe
                 {
-                    informe.open("informe.dat");
                     if(informe.is_open())
                     {
                         eCodArchivos resultados = informeAsistencia(informe, asistencia);
@@ -253,7 +267,7 @@ int main()
         } while (opcion != 7);
     }else
         cout << "Hubo algun error." << endl;
-
+    informe.close();
     archiAsistencia.close();
     archiClientes.close();
     archiClases.close();

@@ -127,7 +127,7 @@ eCodArchivos escribirArchivoClases(ofstream &archivoClases, u_int idClase, str n
     }
     return eCodArchivos::ErrorEscritura;
 }
-eCodArchivos leerArchivoAsistencia(ifstream &archiAsistencia, Asistencia* asistencia) //archivo binario
+eCodArchivos leerArchivoAsistencia(ifstream &archiAsistencia, Asistencia* asistencia, u_int &cantAsistencia) //archivo binario
 {
     archiAsistencia.open("Asistencia.dat");
     if(!archiAsistencia.is_open())
@@ -147,6 +147,7 @@ eCodArchivos leerArchivoAsistencia(ifstream &archiAsistencia, Asistencia* asiste
         {
             archiAsistencia.read((char *)&auxInscriptions, sizeof(Inscripcion));
             auxInscriptions++;
+            cantAsistencia++;
         }
         aux->CursosInscriptos = registro;
 

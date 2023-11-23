@@ -1,5 +1,14 @@
 #include "clases.h"
 
+
+bool espacioAsistencias(int cantMaxAsistencia, u_int cantAsistencias)
+{
+  return ((cantMaxAsistencia-(cantAsistencias))>0);
+}
+bool espacioInscripciones(Asistencia* asistencia, int cantMaxInscripciones)
+{
+  return ((cantMaxInscripciones-(asistencia->cantInscriptos))>0);
+}
 Inscripto estaInscriptoClase(Asistencia* asistencia, Clases* clase, string nombreClase, u_int horario)
 {
     int pos;
@@ -123,10 +132,11 @@ Baja cancelarClase(Asistencia* asistencia, u_int idClase, u_int* cant)//modifica
 
     return darBaja::ErrBaja;
 }
-Asistencia* resizeAsistencia(Asistencia* asistencia, u_int *tam, u_int nuevoTam)
+
+Asistencia* resizeAsistencia(Asistencia* asistencia, u_int tam, u_int nuevoTam)
 {
     Asistencia* aux = new Asistencia[nuevoTam];
-    u_int longitud = (*tam < nuevoTam) ? *tam : nuevoTam;
+    u_int longitud = (tam < nuevoTam) ? tam : nuevoTam;
 
     if(aux!=nullptr)
     {
@@ -138,5 +148,21 @@ Asistencia* resizeAsistencia(Asistencia* asistencia, u_int *tam, u_int nuevoTam)
     }
 
     return nullptr;
+}
+Inscripcion* resizeInscripcion(Inscripcion* inscripcion, u_int tam, u_int nuevoTam)
+{
+    Inscripcion*aux=new Inscripcion[nuevoTam];
+    u_int longitud=(tam<nuevoTam)? tam: nuevoTam;
+
+    if(aux!=nullptr)
+    {
+        for(u_int i=0; i<longitud;i++)
+            aux[i]=inscripcion[i];
+
+        delete[] inscripcion;
+        return aux;
+    }
+
+
 }
 
