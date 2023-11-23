@@ -1,6 +1,6 @@
 #include "clientes.h"
 
-bool espacio(int cantMaxima, u_int *cant)
+bool espacio(u_int cantMaxima, u_int *cant)
 {
     return ((cantMaxima-(*cant))>0);
 }

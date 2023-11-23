@@ -6,6 +6,18 @@ superposicion superposicionHorarios(Asistencia* asistencia, Clases clase, int id
 Reservas clases(sClientes cliente, Asistencia* asistencia, Clases nombreClase);
 */
 
+const Asistencia DefaultAsistencia[3] = {
+    {23,1,{5,168999097}},
+    {28,2,{8,168999097}},
+    {21,6,{2,168999097}}
+};
+
+const Inscripcion DefaultInscripcion[3] = {
+    {5,168999097},
+    {8,168999097},
+    {2,168999097}
+};
+
 TEST_CASE("Incripcion multiple")
 {
     Asistencia *aux= new Asistencia; //tamaño
@@ -50,5 +62,64 @@ TEST_CASE("Incripcion multiple")
     SECTION("Cancelacion de clase"){
         Baja result3 = cancelarClase(aux, curso->idClase, cantClientes);
         REQUIRE(result3 == 1);
+    }
+}
+TEST_CASE("Resize")
+{
+    SECTION("Resize asistencia"){
+        Asistencia* asistencia = new Asistencia[2];
+
+        REQUIRE(asistencia != nullptr);
+
+        for(u_int i = 0; i < 2; i++)
+            asistencia[i] = DefaultAsistencia[i];
+
+        Asistencia* vieja = asistencia;
+        u_int num=3;
+        u_int cant;
+        cant=num;
+        resizeAsistencia(asistencia, cant , 2 + 3);
+        asistencia[2] = {"23","1",{5,168999097}};
+        asistencia[3] = {"28","2",{8,168999097}};
+
+        CHECK(vieja != asistencia);
+    }
+
+    SECTION("Resize inscripcion"){
+        Inscripcion* inscripcion = new Inscripcion[2];
+
+        REQUIRE(inscripcion != nullptr);
+
+        for(u_int i = 0; i < 2; i++)
+            inscripcion[i] = DefaultInscripcion[i];
+
+        Inscripcion* antigua = inscripcion;
+        u_int num=3;
+        u_int cant;
+        cant=num;
+        resizeInscripcion(inscripcion, cant , 2 + 3);
+        inscripcion[3] = {5,168999097};
+        inscripcion[3] = {8,168999097};
+
+        CHECK(antigua != inscripcion);
+    }
+}
+TEST_CASE("Verificar espacio")
+{
+    SECTION("Asistencia"){
+        int cantmax=40;
+        u_int num=6;
+        u_int cant;
+        cant=num;
+        REQUIRE(!espacioAsistencias(cantmax,cant));
+    }
+
+    SECTION("Inscricion"){
+        Asistencia* asistencia;
+        int cantmax=40;
+        u_int num=2;
+        u_int cant;
+        cant=num;
+        REQUIRE(!espacioInscripciones(asistencia,cantmax));
     }
 }

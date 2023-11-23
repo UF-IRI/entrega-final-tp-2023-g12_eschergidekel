@@ -41,6 +41,6 @@ eEstado Cuota(sClientes* cliente, str dni, u_int *cant); //verificar el estado d
 int eliminarCliente(sClientes* cliente, str dni, u_int *cant); //eliminar cliente
 eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, u_int *cant, int cantMaxima); //agregar cliente
 eModificar modificarCliente( sClientes* cliente, sClientes clienteModificado, str dni, u_int *cant); //modificar cliente
-bool espacio(int cantMaxima, u_int *cant); //verificar el espacio disponible
+bool espacio(u_int cantMaxima, u_int *cant); //verificar el espacio disponible
 int cantClientes(ifstream &archiClientes); //paso el archivo como parámetro y leo la cantidad de registros
 #endif // CLIENTES_H

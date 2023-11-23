@@ -1,11 +1,11 @@
 #include "clases.h"
 
 
-bool espacioAsistencias(int cantMaxAsistencia, u_int cantAsistencias)
+bool espacioAsistencias(u_int cantMaxAsistencia, u_int cantAsistencias)
 {
   return ((cantMaxAsistencia-(cantAsistencias))>0);
 }
-bool espacioInscripciones(Asistencia* asistencia, int cantMaxInscripciones)
+bool espacioInscripciones(Asistencia* asistencia, u_int cantMaxInscripciones)
 {
   return ((cantMaxInscripciones-(asistencia->cantInscriptos))>0);
 }
@@ -151,18 +151,18 @@ Asistencia* resizeAsistencia(Asistencia* asistencia, u_int tam, u_int nuevoTam)
 }
 Inscripcion* resizeInscripcion(Inscripcion* inscripcion, u_int tam, u_int nuevoTam)
 {
-    Inscripcion*aux=new Inscripcion[nuevoTam];
-    u_int longitud=(tam<nuevoTam)? tam: nuevoTam;
+    Inscripcion*aux = new Inscripcion[nuevoTam];
+    u_int longitud = (tam<nuevoTam)? tam: nuevoTam;
 
     if(aux!=nullptr)
     {
         for(u_int i=0; i<longitud;i++)
-            aux[i]=inscripcion[i];
+            aux[i] = inscripcion[i];
 
         delete[] inscripcion;
         return aux;
     }
 
-
+    return nullptr;
 }
 

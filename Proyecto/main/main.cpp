@@ -41,8 +41,8 @@ int main()
         cliente = resizeClientes(cliente, cant, nuevoTam);
         int cantMaxima = nuevoTam;
         sClientes ultimo = cliente[(*cant)-1];
-        u_int cantMaxAsistencia= cantAsistencia+30;
-        u_int cantMaxInscripciones= (asistencia->cantInscriptos)+30;
+        u_int cantMaxAsistencia = cantAsistencia+30;
+        u_int cantMaxInscripciones = (asistencia->cantInscriptos)+30;
         int opcion;
         cout << "1.Agregar un cliente" << endl;
         cout << "2.Actualizar un cliente" << endl;
@@ -156,9 +156,9 @@ int main()
                     int pos=0;
                     int posCliente=0;
                     u_int id = buscarCliente(cliente, dni, cant);
-                    for(int i=0;i<*cant;i++)
+                    for(u_int i=0;i<*cant;i++)
                     {
-                        if(cliente[i].idCliente==id)
+                        if(cliente[i].idCliente == id)
                             posCliente=i;
                     }
                     for(int i=0;i<33;i++){
