@@ -68,19 +68,23 @@ TEST_CASE("Resize")
 {
     SECTION("Resize asistencia"){
         Asistencia* asistencia = new Asistencia[2];
+        Inscripcion* inscripcion = new Inscripcion[2];
 
         REQUIRE(asistencia != nullptr);
 
-        for(u_int i = 0; i < 2; i++)
+        for(u_int i=0; i < 2; i++)
             asistencia[i] = DefaultAsistencia[i];
+
+        for(u_int i=0; i<2; i++)
+            inscripcion[i] = DefaultInscripcion[i];
 
         Asistencia* vieja = asistencia;
         u_int num=3;
         u_int cant;
         cant=num;
         resizeAsistencia(asistencia, cant , 2 + 3);
-        asistencia[2] = {"23","1",{5,168999097}};
-        asistencia[3] = {"28","2",{8,168999097}};
+        asistencia[0] = {"23","1",Inscripcion[0]};
+        asistencia[1] = {"28","2",inscripcion[1]};
 
         CHECK(vieja != asistencia);
     }

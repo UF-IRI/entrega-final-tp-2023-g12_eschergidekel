@@ -151,6 +151,6 @@ TEST_CASE("verificar espacio")
     u_int *cant;
     cant=&num;
     REQUIRE(!espacio(cantmax,cant));
- }
+}
 
 
