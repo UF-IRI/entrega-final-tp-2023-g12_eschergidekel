@@ -9,7 +9,7 @@ bool espacioInscripciones(Asistencia* asistencia, u_int cantMaxInscripciones)
 {
   return ((cantMaxInscripciones-(asistencia->cantInscriptos))>0);
 }
-Inscripto estaInscriptoClase(Asistencia* asistencia, Clases* clase, string nombreClase, u_int horario)
+Inscripto estaInscriptoClases(Asistencia* asistencia, Clases* clase, string nombreClase, u_int horario)
 {
     int pos;
     for(int i=0;i<33;i++)
@@ -46,7 +46,7 @@ superposicion superposicionHorarios(Asistencia* asistencia, Clases* clase, u_int
 Reservas clases(sClientes cliente, Asistencia* asistencia, Clases* clase, u_int *cantClientes, string nombreClase, u_int horario)//modificar
 {
     int cont=0;
-    Inscripto resul = estaInscriptoClase(asistencia, clase,nombreClase, horario);
+    Inscripto resul = estaInscriptoClases(asistencia, clase,nombreClase, horario);
     superposicion resul2 = superposicionHorarios(asistencia, clase, cliente.idCliente, *cantClientes, nombreClase, horario);
     if(resul != Inscripto::Esta && resul2 != superposicion::SH)
     {

@@ -18,7 +18,7 @@ const Inscripcion DefaultInscripcion[3] = {
     {2,168999097}
 };
 
-TEST_CASE("Incripcion multiple")
+TEST_CASE("Inscripcion multiple")
 {
     Asistencia *aux= new Asistencia; //tamaño
     sClientes cliente;
