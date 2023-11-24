@@ -66,7 +66,7 @@ int eliminarCliente(sClientes* cliente, str dni, u_int &cant)
         i++;
     }
 }
-int cantClientes(ifstream &archiClientes)
+u_int cantClientes(ifstream &archiClientes)
 {
     int cont=0;
     archiClientes.open("iriClientesGYM.csv");
