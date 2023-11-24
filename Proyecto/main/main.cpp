@@ -3,16 +3,16 @@ using namespace std;
 
 int main()
 {
-    ofstream informe("informe.dat");
+    ofstream informe;
 
-    ifstream archiClases("iriClasesGYM.csv");
-    ifstream archiClientes("iriClientesGYM.csv");
-    ifstream archiAsistencia("AsistenciaGYM.dat");
+    ifstream archiClases;
+    ifstream archiClientes;
+    ifstream archiAsistencia;
 
-    informe.open("informe.dat");
-    archiClases.open("iriClasesGYM.csv");
+    informe.open("informe.dat",ios::binary);
+    archiClases.open("iriClasesGYM.csv",ios::in);
     archiClientes.open("iriClientesGYM.csv");
-    archiAsistencia.open("AsistenciaGYM.dat");
+    archiAsistencia.open("asistencias_1697673600000.dat",ios::binary);
 
     sClientes aux;
     sClientes* cliente;
@@ -265,11 +265,13 @@ int main()
                 }
             }
         } while (opcion != 7);
+
+        informe.close();
+        archiAsistencia.close();
+        archiClientes.close();
+        archiClases.close();
     }else
-        cout << "Hubo algun error." << endl;
-    informe.close();
-    archiAsistencia.close();
-    archiClientes.close();
-    archiClases.close();
+        cout << "Hubo algun error.1" << endl;
+
     return 0;
 }
