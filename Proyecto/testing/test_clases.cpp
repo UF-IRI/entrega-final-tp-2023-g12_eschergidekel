@@ -23,10 +23,11 @@ const Inscripcion DefaultInscripcion[3] = {
 TEST_CASE("Inscripcion multiple")
 {
     Asistencia *aux= new Asistencia; //tamaño
+    aux=nullptr;
     sClientes cliente;
     u_int num=1;
-    u_int *cantClientes;
-    cantClientes=&num;
+    u_int cantClientes;
+    cantClientes=num;
     Clases *curso;
     cliente.apellido={"serene"};
     cliente.dni={"23456897"};
@@ -54,7 +55,7 @@ TEST_CASE("Inscripcion multiple")
         REQUIRE(result == 1);
     }
     SECTION("Superposicion horaria"){
-        superposicion superp = superposicionHorarios(aux, curso, cliente.idCliente, *cantClientes,curso->nombreClase, curso->horarioClase);
+        superposicion superp = superposicionHorarios(aux, curso, cliente.idCliente, cantClientes,curso->nombreClase, curso->horarioClase);
         REQUIRE(superp == 1);
     }
     SECTION("Reserva de clases"){

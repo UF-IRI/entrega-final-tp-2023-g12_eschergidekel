@@ -1,13 +1,13 @@
 #include "clientes.h"
 
-bool espacio(u_int cantMaxima, u_int *cant)
+bool espacio(u_int cantMaxima, u_int &cant)
 {
-    return ((cantMaxima-(*cant))>0);
+    return ((cantMaxima-(cant))>0);
 }
-sClientes* resizeClientes(sClientes* cliente, u_int *tam, u_int nuevoTam)
+sClientes* resizeClientes(sClientes* cliente, u_int &tam, u_int nuevoTam)
 {
     sClientes* aux = new sClientes[nuevoTam];
-    u_int longitud = (*tam < nuevoTam) ? *tam : nuevoTam;
+    u_int longitud = (tam < nuevoTam) ? tam : nuevoTam;
 
     if(aux!=nullptr)
     {
@@ -20,22 +20,22 @@ sClientes* resizeClientes(sClientes* cliente, u_int *tam, u_int nuevoTam)
 
     return nullptr;
 }
-int buscarCliente(sClientes* cliente, str dni, u_int *cant)
+int buscarCliente(sClientes* cliente, str dni, u_int &cant)
 {
     u_int i;
-    for(i=0; i<*cant; i++)
+    for(u_int i=0; i<cant; i++)
     {
       if(cliente[i].dni==dni)
         return cliente[i].idCliente;
     }
-    if(i==*cant)
+    if(i==cant)
       return -1;
 }
-eEstado Cuota(sClientes* cliente, str dni, u_int *cant)
+eEstado Cuota(sClientes* cliente, str dni, u_int &cant)
 {
     u_int id = buscarCliente(cliente, dni, cant);
 
-    for(u_int i=0; i<*cant; i++)
+    for(u_int i=0; i<cant; i++)
     {
         if(cliente[i].idCliente == id)
         {
@@ -49,18 +49,18 @@ eEstado Cuota(sClientes* cliente, str dni, u_int *cant)
         }
     }
 }
-int eliminarCliente(sClientes* cliente, str dni, u_int *cant)
+int eliminarCliente(sClientes* cliente, str dni, u_int &cant)
 {
     u_int id=buscarCliente(cliente, dni, cant); //cambiar tamaño
     u_int i=0;
     while(true){
         if(cliente[i].idCliente==id){
             cliente[i]=clienteNulo;
-            return (*cant)-1;
+            return (cant)-1;
         }
-        if(i==*cant)
+        if(i==cant)
         {
-           return *cant;
+           return cant;
             break;
         }
         i++;
@@ -80,10 +80,10 @@ int cantClientes(ifstream &archiClientes)
     }else
         return -1;
 }
-eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, u_int *cant, int cantMaxima)
+eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, u_int &cant, u_int cantMaxima)
 {
     int id = buscarCliente(cliente, nuevoCliente.dni, cant);
-    int nuevoTam = (*cant)+30;
+    u_int nuevoTam = (cant)+30;
     if(!espacio(cantMaxima, cant))
     {
        cliente = resizeClientes(cliente, cant, nuevoTam);
@@ -91,17 +91,17 @@ eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, u_int *cant,
     }
     if(id == -1) //me aseguro que el cliente ya no este inscripto
     {
-       (*cant)++;
-       cliente[(*cant)-1]=nuevoCliente;
+       cant++;
+       cliente[cant-1]=nuevoCliente;
        return eAgregar:: ExitoAg;
     }
     else
        return eAgregar::ErrorAg;
 }
-eModificar modificarCliente(sClientes* cliente, sClientes clienteModificado, str dni, u_int *cant)
+eModificar modificarCliente(sClientes* cliente, sClientes clienteModificado, str dni, u_int &cant)
 {
     u_int id=buscarCliente(cliente,dni,cant);
-    for(int i=0;i<*cant;i++)
+    for(u_int i=0;i<cant;i++)
     {
         if(cliente[i].idCliente==id)
         {

@@ -18,10 +18,10 @@ typedef struct {
 } Clases;
 
 Inscripto estaInscriptoClases(Asistencia* asistencia, Clases* clase, string nombreClase, u_int horario); //verificar que no se inscriba dos veces
-superposicion superposicionHorarios(Asistencia* asistencia, Clases* clase, u_int idCliente, int cantClientes, string nombreClase,
+superposicion superposicionHorarios(Asistencia* asistencia, Clases* clase, u_int idCliente, u_int& cantClientes, string nombreClase,
                                     u_int horario); //verificar que no se superpongan horarios
-Reservas clases(sClientes cliente, Asistencia* asistencia, Clases *clase, u_int *cantClientes, string nombreClase, u_int horario); //reservar clase
-Baja cancelarClase(Asistencia* asistencia, u_int idClase, u_int *cant); //dar de baja clase
+Reservas clases(sClientes cliente, Asistencia* asistencia, Clases *clase, u_int &cantClientes, string nombreClase, u_int horario); //reservar clase
+Baja cancelarClase(Asistencia* asistencia, u_int idClase, u_int &cant); //dar de baja clase
 Asistencia* resizeAsistencia(Asistencia* asistencia, u_int tam, u_int nuevoTam); //tamaño de asistencia
 bool espacioAsistencias(u_int cantMaxAsistencia, u_int cantAsistencias);
 Inscripcion* resizeInscripcion(Inscripcion* inscripcion, u_int tam, u_int nuevoTam);

@@ -26,7 +26,7 @@ Inscripto estaInscriptoClases(Asistencia* asistencia, Clases* clase, string nomb
 
     return Inscripto::noEsta;
 }
-superposicion superposicionHorarios(Asistencia* asistencia, Clases* clase, u_int idCliente, int cantClientes,
+superposicion superposicionHorarios(Asistencia* asistencia, Clases* clase, u_int idCliente, u_int& cantClientes,
                                     string nombreClase, u_int horario)
 {
     int pos;
@@ -43,11 +43,11 @@ superposicion superposicionHorarios(Asistencia* asistencia, Clases* clase, u_int
 
     return superposicion::noSH;
 }
-Reservas clases(sClientes cliente, Asistencia* asistencia, Clases* clase, u_int *cantClientes, string nombreClase, u_int horario)//modificar
+Reservas clases(sClientes cliente, Asistencia* asistencia, Clases* clase, u_int &cantClientes, string nombreClase, u_int horario)
 {
     int cont=0;
     Inscripto resul = estaInscriptoClases(asistencia, clase,nombreClase, horario);
-    superposicion resul2 = superposicionHorarios(asistencia, clase, cliente.idCliente, *cantClientes, nombreClase, horario);
+    superposicion resul2 = superposicionHorarios(asistencia, clase, cliente.idCliente, cantClientes, nombreClase, horario);
     if(resul != Inscripto::Esta && resul2 != superposicion::SH)
     {
         for(u_int i=0; i<asistencia->cantInscriptos; i++)
@@ -118,9 +118,9 @@ Reservas clases(sClientes cliente, Asistencia* asistencia, Clases* clase, u_int 
     }
     return reservar::ErrR;
 }
-Baja cancelarClase(Asistencia* asistencia, u_int idClase, u_int* cant)//modificar
+Baja cancelarClase(Asistencia* asistencia, u_int idClase, u_int& cant)//modificar
 {
-    for(int i=0; i<*cant; i++)
+    for(u_int i=0; i<cant; i++)
     {
         if(asistencia[i].CursosInscriptos->idCurso == idClase)
         {
