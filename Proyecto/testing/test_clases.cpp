@@ -11,6 +11,8 @@ Reservas clases(sClientes cliente, Asistencia* asistencia, Clases nombreClase);
     {28,2,{8,168999097}},
     {21,6,{2,168999097}}
 };
+
+hay un par de errores con el testing del resize de asistencias pero no llegamos a resolverlo
 */
 const Inscripcion DefaultInscripcion[3] = {
     {5,168999097},
