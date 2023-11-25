@@ -25,8 +25,10 @@ int buscarCliente(sClientes* cliente, str dni, u_int &cant)
     u_int i;
     for(u_int i=0; i<cant; i++)
     {
-      if(cliente[i].dni==dni)
+        if(cliente[i].dni==dni){
         return cliente[i].idCliente;
+        break;
+        }
     }
     //if(i==cant)
       return -1;
@@ -91,8 +93,8 @@ eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, u_int &cant,
     }
     if(id == -1) //me aseguro que el cliente ya no este inscripto
     {
-       cant++;
        cliente[cant-1]=nuevoCliente;
+        cant++;
        return eAgregar:: ExitoAg;
     }
     else

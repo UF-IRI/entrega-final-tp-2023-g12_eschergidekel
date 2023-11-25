@@ -20,8 +20,8 @@ int main()
     Inscripcion* inscripcion;
     Clases* clase;
     u_int cantidad=cantClientes(archiClientes); //cantidad de clientes, lo paso como variable global para que los cambios se reflejen en todo el programa
-    u_int *cant;
-    cant=&cantidad;
+    u_int cant;
+    cant=cantidad;
     u_int cantAsistencia=0;
     if(archiClases.is_open() && archiClientes.is_open() && archiAsistencia.is_open())
     {
@@ -29,7 +29,7 @@ int main()
         if(result != eCodArchivos::ExitoOperacion)
            cout << "Hubo un error." << endl;
 
-        eCodArchivos result2 = leerArchivoClientes(archiClientes, cliente, *cant);
+        eCodArchivos result2 = leerArchivoClientes(archiClientes, cliente, cant);
         if(result2 != eCodArchivos::ExitoOperacion)
            cout << "Hubo un error." << endl;
 
@@ -37,10 +37,10 @@ int main()
         if(result3 != eCodArchivos::ExitoOperacion)
            cout << "Huno un error." << endl;
 
-        u_int nuevoTam = *cant+30; //para agregar mas espacio hacemos un rezise
-        cliente = resizeClientes(cliente, *cant, nuevoTam);
+        u_int nuevoTam = cant+30; //para agregar mas espacio hacemos un rezise
+        cliente = resizeClientes(cliente, cant, nuevoTam);
         int cantMaxima = nuevoTam;
-        sClientes ultimo = cliente[(*cant)-1];
+        sClientes ultimo = cliente[(cant)-1];
         u_int cantMaxAsistencia = cantAsistencia+30;
         u_int cantMaxInscripciones = (asistencia->cantInscriptos)+30;
         int opcion;
@@ -77,7 +77,7 @@ int main()
 
         if(opcion==2)//modificar
         {
-           int pos = buscarCliente(cliente, aux.dni, *cant);
+           int pos = buscarCliente(cliente, aux.dni, cant);
            cout << "Ingrese su estado actual"<<endl;
            cin >> aux.estado;
            aux.idCliente= cliente[pos].idCliente; //el id sigue siendo el mismo
@@ -112,7 +112,7 @@ int main()
              case 1: //agregar cliente
                 {
 
-                    eAgregar result1 = agregarCliente(cliente, aux, *cant, cantMaxima);
+                    eAgregar result1 = agregarCliente(cliente, aux, cant, cantMaxima);
                     if(result1 == -1)
                         cout << "Hubo un error, porfavor vuelva a intentar." << endl;
                     else
@@ -121,7 +121,7 @@ int main()
                 }
                 case 2: //actualizar cliente
                 {
-                    eModificar result2 = modificarCliente(cliente, aux, aux.dni, *cant);
+                    eModificar result2 = modificarCliente(cliente, aux, aux.dni, cant);
                     if(result2 == -1)
                         cout << "Hubo un error, intente nuevamente." << endl;
                     else
@@ -133,8 +133,8 @@ int main()
                     str dni;
                     cout << "Ingrese el dni del cliente a eliminar: " << endl;
                     cin >> dni;
-                    u_int eliminar = eliminarCliente(cliente, dni, *cant);
-                    if(eliminar == (*cant)-1)
+                    u_int eliminar = eliminarCliente(cliente, dni, cant);
+                    if(eliminar == (cant)-1)
                         cout << "Cliente eliminado." << endl;
                     else
                         cout << "Hubo un error, intente nuevamente." << endl;
@@ -155,8 +155,8 @@ int main()
 
                     int pos=0;
                     int posCliente=0;
-                    u_int id = buscarCliente(cliente, dni, *cant);
-                    for(u_int i=0;i<*cant;i++)
+                    u_int id = buscarCliente(cliente, dni, cant);
+                    for(u_int i=0;i<cant;i++)
                     {
                         if(cliente[i].idCliente == id)
                             posCliente=i;
@@ -165,7 +165,7 @@ int main()
                         if(clase[i].nombreClase==nombreClase && clase[i].horarioClase==horario)
                             pos=i;
                     }
-                    Reservas lugares= clases(cliente[pos], asistencia,clase,*cant, nombreClase, horario);
+                    Reservas lugares= clases(cliente[posCliente], asistencia,clase,cant, nombreClase, horario);
                     if(lugares !=1)
                         cout<<"No hay lugar para dicha clase para ese horario"<<endl;
 
@@ -176,7 +176,7 @@ int main()
 
                     Inscripto resul = estaInscriptoClases(asistencia, clase, nombreClase, horario);
                     if(resul==1){
-                        for(u_int i=0; i<*cant; i++)
+                        for(u_int i=0; i<cant; i++)
                         {
                             if(asistencia[i].idCliente==id)
                             {
@@ -189,7 +189,7 @@ int main()
                         superposicion resul2 = superposicionHorarios(asistencia, clase, id, cantidad, nombreClase, horario);
                         if(resul2==1)
                         {
-                            for(u_int i=0;i<*cant;i++)
+                            for(u_int i=0;i<cant;i++)
                             {
                                 if(asistencia[i].idCliente==id)
                                 {
@@ -206,11 +206,11 @@ int main()
                             cout << "Ingrese 'Si' en caso de querer cancelarla, o 'No' en caso de no desearlo: " << endl;
                             cin >> respuesta;
                             if(respuesta == "Si"){
-                                Baja cancelar= cancelarClase(asistencia, clase[pos].idClase, *cant);
+                                Baja cancelar= cancelarClase(asistencia, clase[pos].idClase, cant);
                                 if(cancelar==1)
                                 {
                                     cout << "Su reserva se cancelo con exito." << endl;
-                                    for(u_int i=0; i<*cant; i++)
+                                    for(u_int i=0; i<cant; i++)
                                     {
                                         if(asistencia[i].idCliente==id)
                                         {
@@ -238,12 +238,12 @@ int main()
                     cout<<"Ingrese el horario de la clase que desea cancelar"<<endl;
                     cin>>horario;
 
-                    for(u_int i=0; i<*cant; i++)
+                    for(u_int i=0; i<cant; i++)
                     {
                         if(clase[i].nombreClase==nombre && clase[i].horarioClase==horario)
                             pos=i;
                     }
-                    Baja cancelar=cancelarClase(asistencia, clase[pos].idClase, *cant);
+                    Baja cancelar=cancelarClase(asistencia, clase[pos].idClase, cant);
                     if(cancelar==1)
                         cout<<"Su clase fue cancelada con exito"<<endl;
                     else
