@@ -10,7 +10,7 @@ int main()
     ifstream archiAsistencia;
 
     informe.open("informe.dat",ios::binary);
-    archiClases.open("iriClasesGYM.csv",ios::in);
+    archiClases.open("iriClasesGYM.csv");
     archiClientes.open("iriClientesGYM.csv");
     archiAsistencia.open("asistencias_1697673600000.dat",ios::binary);
 
