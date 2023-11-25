@@ -3,9 +3,9 @@
 #include "clientes.h"
 #include "clases.h"
 
-eCodArchivos leerArchivoClientes(ifstream &archiClientes, sClientes* cliente, u_int *cant) //archivo CSV
+eCodArchivos leerArchivoClientes(ifstream &archiClientes, sClientes* cliente, u_int &cant) //archivo CSV
 {
-    sClientes* aux = new sClientes[*cant]; //tamaño
+    sClientes* aux = new sClientes[cant]; //tamaño
     string auxNombre;
     string auxApellido;
     string auxDNI;
@@ -51,7 +51,7 @@ eCodArchivos leerArchivoClientes(ifstream &archiClientes, sClientes* cliente, u_
             i++;
         }
         archiClientes.close();
-        for(u_int i=0; i<*cant; i++)
+        for(u_int i=0; i<cant; i++)
             cliente[i]=aux[i];
         delete[] aux;
         return eCodArchivos::ExitoOperacion;

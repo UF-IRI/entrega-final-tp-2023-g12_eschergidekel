@@ -38,7 +38,7 @@ const sClientes clienteNulo{"","","","","",{0,0,0},0,0};
 sClientes* resizeClientes(sClientes* cliente, u_int &tam, u_int nuevoTam); //tamaño de clientes
 int buscarCliente(sClientes* cliente, str dni, u_int &cant); //buscar clientes por dni
 eEstado Cuota(sClientes* cliente, str dni, u_int &cant); //verificar el estado del cliente
-int eliminarCliente(sClientes* cliente, str dni, u_int &cant); //eliminar cliente
+u_int eliminarCliente(sClientes* cliente, str dni, u_int &cant); //eliminar cliente
 eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, u_int &cant, u_int cantMaxima); //agregar cliente
 eModificar modificarCliente(sClientes* cliente, sClientes clienteModificado, str dni, u_int &cant); //modificar cliente
 bool espacio(u_int cantMaxima, u_int &cant); //verificar el espacio disponible

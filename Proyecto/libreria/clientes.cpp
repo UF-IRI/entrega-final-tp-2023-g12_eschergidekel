@@ -28,7 +28,7 @@ int buscarCliente(sClientes* cliente, str dni, u_int &cant)
       if(cliente[i].dni==dni)
         return cliente[i].idCliente;
     }
-    if(i==cant)
+    //if(i==cant)
       return -1;
 }
 eEstado Cuota(sClientes* cliente, str dni, u_int &cant)
@@ -49,7 +49,7 @@ eEstado Cuota(sClientes* cliente, str dni, u_int &cant)
         }
     }
 }
-int eliminarCliente(sClientes* cliente, str dni, u_int &cant)
+u_int eliminarCliente(sClientes* cliente, str dni, u_int &cant)
 {
     u_int id=buscarCliente(cliente, dni, cant); //cambiar tamaño
     u_int i=0;
@@ -83,7 +83,7 @@ u_int cantClientes(ifstream &archiClientes)
 eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, u_int &cant, u_int cantMaxima)
 {
     int id = buscarCliente(cliente, nuevoCliente.dni, cant);
-    u_int nuevoTam = (cant)+30;
+    u_int nuevoTam = cant+30;
     if(!espacio(cantMaxima, cant))
     {
        cliente = resizeClientes(cliente, cant, nuevoTam);
