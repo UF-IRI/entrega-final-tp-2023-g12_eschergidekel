@@ -35,7 +35,7 @@ superposicion superposicionHorarios(Asistencia* asistencia, Clases* clase, u_int
         if(clase->nombreClase==nombreClase && clase->horarioClase==horario)
                 pos=i;
     }
-    for(int i=0; i<cantClientes; i++)
+    for(u_int i=0; i<cantClientes; i++)
     {
       if(asistencia->idCliente == idCliente && asistencia->CursosInscriptos[i].idCurso == clase[pos].idClase)
           return superposicion::SH;
@@ -68,8 +68,8 @@ Reservas clases(sClientes cliente, Asistencia* asistencia, Clases *clase, u_int 
                 else
                     return reservar::ErrR;
                 //yoga
-                if((clase->idClase == '6' || clase->idClase == '7' || clase->idClase == '8' || clase->idClase == '9' ||
-                    clase->idClase == '10' || clase->idClase == '11') && cont<25)
+                if((clase->idClase == 6 || clase->idClase == 7 || clase->idClase == 8 || clase->idClase == 9 ||
+                    clase->idClase == 10 || clase->idClase == 11) && cont<25)
                 {
                     cont++;
                     return reservar::ExitoR;
@@ -77,8 +77,8 @@ Reservas clases(sClientes cliente, Asistencia* asistencia, Clases *clase, u_int 
                 else
                     return reservar::ErrR;
                 //pilates
-                if((clase->idClase == '12' || clase->idClase == '13' || clase->idClase == '14' || clase->idClase == '15' ||
-                    clase->idClase == '16' || clase->idClase == '17') && cont<15)
+                if((clase->idClase == 12 || clase->idClase == 13 || clase->idClase == 14 || clase->idClase == 15 ||
+                    clase->idClase == 16 || clase->idClase == 17) && cont<15)
                 {
                     cont++;
                     return reservar::ExitoR;
@@ -86,8 +86,8 @@ Reservas clases(sClientes cliente, Asistencia* asistencia, Clases *clase, u_int 
                 else
                     return reservar::ErrR;
                 //stretching
-                if((clase->idClase == '18' || clase->idClase == '19' || clase->idClase == '20' || clase->idClase == '21' ||
-                    clase->idClase == '22' || clase->idClase == '23') && cont<40)
+                if((clase->idClase == 18 || clase->idClase == 19 || clase->idClase == 20 || clase->idClase == 21 ||
+                    clase->idClase == 22 || clase->idClase == 23) && cont<40)
                 {
                     cont++;
                     return reservar::ExitoR;
@@ -95,8 +95,8 @@ Reservas clases(sClientes cliente, Asistencia* asistencia, Clases *clase, u_int 
                 else
                     return reservar::ErrR;
                 //zumba
-                if((clase->idClase == '24' || clase->idClase == '25' || clase->idClase == '26' || clase->idClase == '27' ||
-                    clase->idClase == '28' || clase->idClase == '29') && cont<50)
+                if((clase->idClase == 24 || clase->idClase == 25 || clase->idClase == 26 || clase->idClase == 27 ||
+                    clase->idClase == 28 || clase->idClase == 29) && cont<50)
                 {
                     cont++;
                     return reservar::ExitoR;
@@ -104,7 +104,7 @@ Reservas clases(sClientes cliente, Asistencia* asistencia, Clases *clase, u_int 
                 else
                     return reservar::ErrR;
                 //boxeo
-                if((clase->idClase == '30' || clase->idClase == '31' || clase->idClase == '32' || clase->idClase == '33')
+                if((clase->idClase == 30 || clase->idClase == 31 || clase->idClase == 32 || clase->idClase == 33)
                     && cont<30)
                 {
                     cont++;

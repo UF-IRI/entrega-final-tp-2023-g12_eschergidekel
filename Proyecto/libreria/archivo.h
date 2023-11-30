@@ -2,6 +2,8 @@
 #define ARCHIVO_H
 
 #include "clases.h"
+#include "clientes.h"
+#include "encabezados.h"
 
 
 typedef enum CodArchivos {ErrorLectura=-3, ErrorApertura=-2, ErrorEscritura=-1, ExitoOperacion=1} eCodArchivos;

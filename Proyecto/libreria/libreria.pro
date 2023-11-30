@@ -17,12 +17,10 @@ HEADERS += \
     archivo.h \
     clases.h \
     clientes.h \
+    encabezados.h \
     libreria_global.h \
     libreria.h
 
-FILES += \
-    iriClasesGYM.csv
-    iriClientesGYM.csv
 
 # Default rules for deployment.
 unix {

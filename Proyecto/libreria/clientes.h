@@ -1,7 +1,7 @@
 #ifndef CLIENTES_H
 #define CLIENTES_H
 
-#include "libreria.h"
+#include "encabezados.h"
 
 enum estado {Deudor=-1, AlDia=1, Afavor=2};
 typedef enum estado eEstado;

@@ -10,9 +10,25 @@ int main()
     ifstream archiAsistencia;
 
     informe.open("informe.dat",ios::binary);
-    archiClases.open("iriClasesGYM.csv");
-    archiClientes.open("iriClientesGYM.csv");
+    archiClases.open("iriClasesGYM.csv",ios::in);
+    archiClientes.open("iriClientesGYM.csv", ios::in);
     archiAsistencia.open("asistencias_1697673600000.dat",ios::binary);
+
+
+    if(!archiAsistencia.is_open()){
+        cout<<"no abrio asistencia"<<endl;
+        return -1;
+    }
+    if(!archiClientes.is_open()){
+        cout<<"no abrio clientes"<<endl;
+        return -1;
+    }
+    if(!archiClases.is_open()){
+        cout<<"no abrio clases"<<endl;
+        return -1;
+    }
+
+
 
     sClientes aux;
     sClientes* cliente;
@@ -23,8 +39,9 @@ int main()
     u_int cant;
     cant=cantidad;
     u_int cantAsistencia=0;
-    if(archiClases.is_open() && archiClientes.is_open() && archiAsistencia.is_open())
-    {
+
+
+
         eCodArchivos result = leerArchivoClases(archiClases, clase);
         if(result != eCodArchivos::ExitoOperacion)
            cout << "Hubo un error." << endl;
@@ -270,8 +287,6 @@ int main()
         archiAsistencia.close();
         archiClientes.close();
         archiClases.close();
-    }else
-        cout << "Hubo algun error.1" << endl;
 
     return 0;
 }

@@ -1,7 +1,5 @@
-#include "libreria.h"
+
 #include "archivo.h"
-#include "clientes.h"
-#include "clases.h"
 
 eCodArchivos leerArchivoClientes(ifstream &archiClientes, sClientes* cliente, u_int &cant) //archivo CSV
 {
