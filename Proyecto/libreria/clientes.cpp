@@ -22,7 +22,6 @@ sClientes* resizeClientes(sClientes* cliente, u_int &tam, u_int nuevoTam)
 }
 int buscarCliente(sClientes* cliente, str dni, u_int &cant)
 {
-    u_int i;
     for(u_int i=0; i<cant; i++)
     {
         if(cliente[i].dni==dni){
@@ -31,7 +30,7 @@ int buscarCliente(sClientes* cliente, str dni, u_int &cant)
         }
     }
     //if(i==cant)
-      return -1;
+    return -1;
 }
 eEstado Cuota(sClientes* cliente, str dni, u_int &cant)
 {

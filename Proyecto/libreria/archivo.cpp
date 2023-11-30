@@ -1,4 +1,3 @@
-
 #include "archivo.h"
 
 eCodArchivos leerArchivoClientes(ifstream &archiClientes, sClientes* cliente, u_int &cant) //archivo CSV
