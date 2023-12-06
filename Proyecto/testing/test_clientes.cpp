@@ -93,7 +93,7 @@ TEST_CASE("Modificar cliente")
     cant=num;
     u_int cantMaxima=6;
     int pos;
-    SECTION("Mofificando un cliente")
+    SECTION("Modificando un cliente")
     {
     eAgregar resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima); //agregar cliente
     eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
@@ -150,6 +150,7 @@ TEST_CASE("Estado de la cuota")
     REQUIRE(resul2==eEstado::Afavor);
     }
 }
+
 TEST_CASE("verificar espacio")
 {
     u_int cantmax=6;
