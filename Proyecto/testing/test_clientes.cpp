@@ -17,10 +17,10 @@ const sClientes DefaultCliente[3] = {
     {"Felipe", "Gonzalez", "44312783", "felipeg@gmail.com", "987-654-3210", {15, 11, 1992}, 0, 2},
     {"Laura", "Fernandez", "32145638", "laurafernandez@gamil.com", "316-424-5885", {3, 9, 1995}, 0, 3}
 };
-/*
+
 TEST_CASE("Agregar cliente")
 {
-    sClientes* cliente= new sClientes;
+    sClientes* cliente= new sClientes[2];
     cliente=nullptr;
     u_int cant=0;
     u_int cantMaxima=6;
@@ -39,7 +39,7 @@ TEST_CASE("Agregar cliente")
 
 TEST_CASE("Buscar cliente")
 {
-    sClientes* cliente= new sClientes;
+    sClientes* cliente= new sClientes[2];
     cliente=nullptr;
     u_int num=2;
     u_int cant;
@@ -59,13 +59,13 @@ TEST_CASE("Buscar cliente")
 
 TEST_CASE("Eliminar cliente")
 {
-    sClientes* cliente= new sClientes;
+    sClientes* cliente= new sClientes[2];
     cliente=nullptr;
     u_int num=2;
     u_int cant;
     cant=num;
     u_int cantMaxima=6;
-    int resul;
+    u_int resul;
     int busqueda;
 
     SECTION("Eliminando un cliente")
@@ -76,7 +76,7 @@ TEST_CASE("Eliminar cliente")
     REQUIRE(resul1==1);
     REQUIRE(resul2==1);
     resul = eliminarCliente(cliente,"46534213", cant);
-    REQUIRE(resul==1);
+    REQUIRE(resul==cant-1);
     CHECK(cant==1);
     busqueda = buscarCliente(cliente, "46534213" ,cant);
     REQUIRE(busqueda==-1);
@@ -85,24 +85,27 @@ TEST_CASE("Eliminar cliente")
 
 TEST_CASE("Modificar cliente")
 {
-    sClientes* cliente = new sClientes;
+    sClientes* cliente = new sClientes[2];
     cliente=nullptr;
     str dni;
     u_int num=2;
     u_int cant;
     cant=num;
     u_int cantMaxima=6;
-
-    int pos=buscarCliente(cliente, dni, cant);
-
+    int pos;
     SECTION("Mofificando un cliente")
     {
     eAgregar resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima); //agregar cliente
     eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
     REQUIRE(resul1==1);
     REQUIRE(resul2==1);
+    int id=buscarCliente(cliente, dni, cant);
+    for(int i=0;i<2;i++){
+        if(cliente[i].idCliente==id)
+            pos=i;
+    }
     eModificar resul = modificarCliente(cliente, cliente[pos], dni, cant);
-    REQUIRE(resul == eModificar::ExitoMod);
+    REQUIRE(resul == 1);
     }
 }
 
@@ -125,9 +128,10 @@ TEST_CASE("Resize cliente")
     clientes[3] = {"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,4};
     clientes[4] = {"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,5};
 
+
     CHECK(ViejaDireccion != clientes);
     }
-}*/
+}
 
 TEST_CASE("Estado de la cuota")
 {

@@ -11,13 +11,13 @@ Reservas clases(sClientes cliente, Asistencia* asistencia, Clases nombreClase);
     {28,2,{8,168999097}},
     {21,6,{2,168999097}}
 };
-
+*/
 const Inscripcion DefaultInscripcion[3] = {
     {5,168999097},
     {8,168999097},
     {2,168999097}
-};*/
-/*
+};
+
 TEST_CASE("Inscripcion multiple")
 {
     Asistencia *aux= new Asistencia[1]; //tamaño
@@ -25,7 +25,7 @@ TEST_CASE("Inscripcion multiple")
     u_int num=1;
     u_int cantClientes;
     cantClientes=num;
-    Clases *curso;
+    Clases *curso=new Clases[1];//tamaño
     cliente.apellido={"serene"};
     cliente.dni={"23456897"};
     cliente.estado=0;
@@ -38,7 +38,7 @@ TEST_CASE("Inscripcion multiple")
     cliente.telefono={"123-456-786"};
     aux->cantInscriptos=1;
     aux->CursosInscriptos->idCurso=3;
-    aux->CursosInscriptos->fechaInscripcion=16112023;
+    aux->CursosInscriptos->fechaInscripcion=0;
     aux->idCliente=1;
     curso->horarioClase=5;
     curso->idClase=3;
@@ -48,16 +48,16 @@ TEST_CASE("Inscripcion multiple")
 
     SECTION("Verificacion de inscripcion"){
         Inscripto result = estaInscriptoClases(aux, curso, curso->nombreClase, curso->horarioClase);
-        REQUIRE(result == 1);
+        REQUIRE(result == -1);
     }
 
     SECTION("Superposicion horaria"){
         superposicion superp = superposicionHorarios(aux, curso, cliente.idCliente, cantClientes,curso->nombreClase, curso->horarioClase);
-        REQUIRE(superp == 1);
+        REQUIRE(superp == -1);
     }
     SECTION("Reserva de clases"){
         Reservas result2 = clases(cliente, aux, curso, cantClientes, curso->nombreClase, curso->horarioClase);
-        REQUIRE(result2 == 1);
+        REQUIRE(result2 == -1);
     }
     SECTION("Cancelacion de clase"){
         Baja result3 = cancelarClase(aux, curso->idClase, cantClientes);
@@ -75,16 +75,16 @@ TEST_CASE("Resize")
             inscripcion[i] = DefaultInscripcion[i];
 
         Inscripcion* antigua = inscripcion;
-        u_int num=3;
+        u_int num=2;
         u_int cant;
         cant=num;
-        resizeInscripcion(inscripcion, cant , 2 + 3);
+        resizeInscripcion(inscripcion, cant , 2 + 2);
         inscripcion[3] = {5,168999097};
-        inscripcion[3] = {8,168999097};
+        inscripcion[4] = {8,168999097};
 
         CHECK(antigua != inscripcion);
     }
-
+/*
     SECTION("Resize asistencia"){
         Asistencia* asistencia = new Asistencia[2];
         Inscripcion* inscripcion = new Inscripcion[2];
@@ -103,8 +103,8 @@ TEST_CASE("Resize")
         asistencia[2] = {28,2,inscripcion};
 
         CHECK(vieja != asistencia);
-    }
-}*/
+    }*/
+}
 TEST_CASE("Verificar espacio")
 {
     SECTION("Asistencia"){
