@@ -24,11 +24,11 @@ TEST_CASE("Agregar cliente")
     cliente=nullptr;
     u_int cant=0;
     u_int cantMaxima=6;
-
+    u_int nuevoTam=cant+3;
     SECTION("Agregando dos clientes")
     {
-    eAgregar resul= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima); //agregar cliente
-    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
+    eAgregar resul= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima, nuevoTam); //agregar cliente
+    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima, nuevoTam);
     if(resul==1 && resul2==1)
         cant=2;
     REQUIRE(resul==1); //ambos se agregaron de manera correcta
@@ -45,9 +45,10 @@ TEST_CASE("Buscar cliente")
     u_int cant;
     cant=num;
     u_int cantMaxima=6;
+    u_int nuevoTam=cant+3;
 
-    eAgregar resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima);
-    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
+    eAgregar resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima, nuevoTam);
+    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima, nuevoTam);
     REQUIRE(resul1==1);
     REQUIRE(resul2==1);
     SECTION("Buscando el cliente por DNI")
@@ -67,11 +68,12 @@ TEST_CASE("Eliminar cliente")
     u_int cantMaxima=6;
     u_int resul;
     int busqueda;
+    u_int nuevoTam=cant+3;
 
     SECTION("Eliminando un cliente")
     {
-    eAgregar resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima);
-    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
+    eAgregar resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima, nuevoTam);
+    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima, nuevoTam);
     CHECK(cant==2);
     REQUIRE(resul1==1);
     REQUIRE(resul2==1);
@@ -93,10 +95,11 @@ TEST_CASE("Modificar cliente")
     cant=num;
     u_int cantMaxima=6;
     int pos;
+     u_int nuevoTam=cant+3;
     SECTION("Modificando un cliente")
     {
-    eAgregar resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima); //agregar cliente
-    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima);
+    eAgregar resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima, nuevoTam); //agregar cliente
+    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima, nuevoTam);
     REQUIRE(resul1==1);
     REQUIRE(resul2==1);
     int id=buscarCliente(cliente, dni, cant);

@@ -127,7 +127,7 @@ int main()
         {
             case 1: //agregar cliente
             {
-                eAgregar result1 = agregarCliente(cliente, aux, cant, cantMaxima);
+                eAgregar result1 = agregarCliente(cliente, aux, cant, cantMaxima, nuevoTam);
                 if(result1 == -1)
                     cout << "Hubo un error, porfavor vuelva a intentar." << endl;
                 else

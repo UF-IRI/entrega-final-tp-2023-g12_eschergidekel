@@ -81,10 +81,9 @@ u_int cantClientes(ifstream &archiClientes)
     }else
         return -1;
 }
-eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, u_int &cant, u_int cantMaxima)
+eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, u_int &cant, u_int &cantMaxima, u_int nuevoTam)
 {
     int id = buscarCliente(cliente, nuevoCliente.dni, cant);
-    u_int nuevoTam = cant+30;
     if(!espacio(cantMaxima, cant))
     {
        cliente = resizeClientes(cliente, cant, nuevoTam);
