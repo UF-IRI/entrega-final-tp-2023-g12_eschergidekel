@@ -63,6 +63,8 @@ TEST_CASE("Inscripcion multiple")
         Baja result3 = cancelarClase(aux, curso->idClase, cantClientes);
         REQUIRE(result3 == 1);
     }
+    delete[] aux;
+    delete[] curso;
 }
 TEST_CASE("Resize")
 {
@@ -104,6 +106,7 @@ TEST_CASE("Resize")
 
         CHECK(vieja != asistencia);
     }*/
+    delete[] inscripcion;
 }
 TEST_CASE("Verificar espacio")
 {
@@ -121,4 +124,5 @@ TEST_CASE("Verificar espacio")
         asistencia->cantInscriptos=6;
         REQUIRE(!espacioInscripciones(asistencia,cantmax));
     }
+    delete[] inscripcion;
 }

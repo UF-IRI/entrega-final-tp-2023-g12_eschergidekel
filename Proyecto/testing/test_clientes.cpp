@@ -35,6 +35,7 @@ TEST_CASE("Agregar cliente")
     REQUIRE(resul2==1);
     CHECK(cant==2);
     }
+    delete[] cliente;
 }
 
 TEST_CASE("Buscar cliente")
@@ -56,6 +57,7 @@ TEST_CASE("Buscar cliente")
     int resul = buscarCliente(cliente, "46534213", cant);
     REQUIRE(resul == 1);
     }
+    delete[] cliente;
 }
 
 TEST_CASE("Eliminar cliente")
@@ -83,6 +85,7 @@ TEST_CASE("Eliminar cliente")
     busqueda = buscarCliente(cliente, "46534213" ,cant);
     REQUIRE(busqueda==-1);
     }
+    delete[] cliente;
 }
 
 TEST_CASE("Modificar cliente")
@@ -110,6 +113,7 @@ TEST_CASE("Modificar cliente")
     eModificar resul = modificarCliente(cliente, cliente[pos], dni, cant);
     REQUIRE(resul == 1);
     }
+    delete[] cliente;
 }
 
 TEST_CASE("Resize cliente")
@@ -134,6 +138,7 @@ TEST_CASE("Resize cliente")
 
     CHECK(ViejaDireccion != clientes);
     }
+    delete[] cliente;
 }
 
 TEST_CASE("Estado de la cuota")
@@ -152,6 +157,7 @@ TEST_CASE("Estado de la cuota")
     eEstado resul2=Cuota(cliente, dni2, cant);
     REQUIRE(resul2==eEstado::Afavor);
     }
+    delete[] cliente;
 }
 
 TEST_CASE("verificar espacio")
