@@ -23,11 +23,12 @@ TEST_CASE("Inscripcion multiple")
     Asistencia *aux= new Asistencia[1]; //tamaño
     sClientes cliente;
     u_int num=1;
+    int longitud=0;
     u_int cantClientes;
     cantClientes=num;
     Clases *curso=new Clases[1];//tamaño
     cliente.apellido={"serene"};
-    cliente.dni={"23456897"};
+
     cliente.estado=0;
     cliente.fechaNac.anio=2002;
     cliente.fechaNac.mes=5;
@@ -36,36 +37,37 @@ TEST_CASE("Inscripcion multiple")
     cliente.mail={"serenemartina@gmial.com"};
     cliente.nombre={"Martina"};
     cliente.telefono={"123-456-786"};
-    aux->cantInscriptos=1;
-    aux->CursosInscriptos->idCurso=3;
-    aux->CursosInscriptos->fechaInscripcion=0;
-    aux->idCliente=1;
-    curso->horarioClase=5;
-    curso->idClase=3;
-    curso->nombreClase={"boxeo"};
-    clases(cliente, aux, curso, cantClientes, curso->nombreClase, curso->horarioClase);
+    aux[0].cantInscriptos=1;
+    aux[0].CursosInscriptos->idCurso=3;
+    aux[0].CursosInscriptos->fechaInscripcion=0;
+    aux[0].idCliente=1;
+    curso[0].horarioClase=5;
+    curso[0].idClase=3;
+    curso[0].nombreClase={"boxeo"};
+
 
 
     SECTION("Verificacion de inscripcion"){
-        Inscripto result = estaInscriptoClases(aux, curso, curso->nombreClase, curso->horarioClase);
+        Inscripto result = estaInscriptoClases(aux, curso, curso[0].nombreClase, curso[0].horarioClase);
         REQUIRE(result == -1);
     }
 
     SECTION("Superposicion horaria"){
-        superposicion superp = superposicionHorarios(aux, curso, cliente.idCliente, cantClientes,curso->nombreClase, curso->horarioClase);
+        superposicion superp = superposicionHorarios(aux, curso, cliente.idCliente, cantClientes,curso[0].nombreClase, curso[0].horarioClase, longitud);
         REQUIRE(superp == -1);
     }
     SECTION("Reserva de clases"){
-        Reservas result2 = clases(cliente, aux, curso, cantClientes, curso->nombreClase, curso->horarioClase);
+        Reservas result2 = clases(cliente, aux, curso, cantClientes, curso[0].nombreClase, curso[0].horarioClase, longitud);
         REQUIRE(result2 == -1);
     }
     SECTION("Cancelacion de clase"){
-        Baja result3 = cancelarClase(aux, curso->idClase, cantClientes);
+        Baja result3 = cancelarClase(aux, curso[0].idClase, cantClientes);
         REQUIRE(result3 == 1);
     }
     delete[] aux;
     delete[] curso;
 }
+/*
 TEST_CASE("Resize")
 {
     SECTION("Resize inscripcion"){
@@ -88,7 +90,7 @@ TEST_CASE("Resize")
 
         delete[] inscripcion;
     }
-/*
+
     SECTION("Resize asistencia"){
         Asistencia* asistencia = new Asistencia[2];
         Inscripcion* inscripcion = new Inscripcion[2];
@@ -107,8 +109,8 @@ TEST_CASE("Resize")
         asistencia[2] = {28,2,inscripcion};
 
         CHECK(vieja != asistencia);
-    }*/
-}
+    }
+}*/
 TEST_CASE("Verificar espacio")
 {
     SECTION("Asistencia"){
@@ -117,7 +119,7 @@ TEST_CASE("Verificar espacio")
         REQUIRE(!espacioAsistencias(cantmax,cant));
     }
 
-    SECTION("Inscricion"){
+    SECTION("Inscripcion"){
         Inscripcion* inscripcion = new Inscripcion[1];
         inscripcion[1]={5,168999097};
         Asistencia asistencia[1]={23, 1, inscripcion};

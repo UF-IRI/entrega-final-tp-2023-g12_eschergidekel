@@ -4,7 +4,7 @@ bool espacio(u_int cantMaxima, u_int &cant)
 {
     return ((cantMaxima-(cant))>0);
 }
-sClientes* resizeClientes(sClientes* cliente, u_int &tam, u_int nuevoTam)
+void resizeClientes(sClientes*& cliente, u_int &tam, u_int nuevoTam)
 {
     sClientes* aux = new sClientes[nuevoTam];
     u_int longitud = (tam < nuevoTam) ? tam : nuevoTam;
@@ -15,29 +15,24 @@ sClientes* resizeClientes(sClientes* cliente, u_int &tam, u_int nuevoTam)
             aux[i] = cliente[i]; //*(cliente+1)
 
         delete[] cliente;
-        return aux;
+        cliente=aux;
     }
-
-    return nullptr;
 }
-int buscarCliente(sClientes* cliente, str dni, u_int &cant)
+int buscarCliente(sClientes* cliente, str mail, u_int cant)
 {
     u_int i;
-    int pos;
     for(i=0; i<cant; i++)
     {
-        if(cliente[i].dni==dni){
-            pos=i;
+        if(cliente[i].mail==mail){
+            return cliente[i].idCliente;
         }
     }
-    if(i==cant)
          return -1;
-    else
-         return cliente[pos].idCliente;
+
 }
-eEstado Cuota(sClientes* cliente, str dni, u_int &cant)
+eEstado Cuota(sClientes* cliente, str email, u_int &cant)
 {
-    u_int id = buscarCliente(cliente, dni, cant);
+    u_int id = buscarCliente(cliente, email, cant);
 
     for(u_int i=0; i<cant; i++)
     {
@@ -53,22 +48,18 @@ eEstado Cuota(sClientes* cliente, str dni, u_int &cant)
         }
     }
 }
-u_int eliminarCliente(sClientes* cliente, str dni, u_int &cant)
+u_int eliminarCliente(sClientes* cliente, str mail, u_int &cant)
 {
-    u_int id=buscarCliente(cliente, dni, cant); //cambiar tamaño
+    u_int id=buscarCliente(cliente, mail, cant); //cambiar tamaño
     u_int i=0;
-    while(true){
+    for(i=0;i<cant;i++){
         if(cliente[i].idCliente==id){
             cliente[i]=clienteNulo;
-            return (cant)-1;
+            return cant-1;
         }
-        if(i==cant)
-        {
-           return cant;
-            break;
-        }
-        i++;
     }
+        return cant;
+
 }
 int cantClientes(ifstream &archiClientes)
 {
@@ -84,12 +75,12 @@ int cantClientes(ifstream &archiClientes)
     }else
         return -1;
 }
-eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, u_int &cant, u_int &cantMaxima, u_int nuevoTam)
+eAgregar agregarCliente(sClientes*& cliente, sClientes nuevoCliente, u_int &cant, u_int &cantMaxima, u_int nuevoTam)
 {
-    int id = buscarCliente(cliente, nuevoCliente.dni, cant);
+    int id = buscarCliente(cliente, nuevoCliente.mail, cant);
     if(!espacio(cantMaxima, cant))
     {
-       cliente = resizeClientes(cliente, cant, nuevoTam);
+      resizeClientes(cliente, cant, nuevoTam);
        cantMaxima = nuevoTam;
     }
     if(id == -1) //me aseguro que el cliente ya no este inscripto
@@ -101,12 +92,12 @@ eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, u_int &cant,
     else
        return eAgregar::ErrorAg;
 }
-eModificar modificarCliente(sClientes* cliente, sClientes clienteModificado, str dni, u_int &cant)
+eModificar modificarCliente(sClientes* cliente, sClientes clienteModificado, str mail, u_int cant)
 {
-    u_int id=buscarCliente(cliente,dni,cant);
+
     for(u_int i=0;i<cant;i++)
     {
-        if(cliente[i].idCliente==id)
+        if(cliente[i].idCliente==clienteModificado.idCliente)
         {
             cliente[i]=clienteModificado;
             return eModificar::ExitoMod;

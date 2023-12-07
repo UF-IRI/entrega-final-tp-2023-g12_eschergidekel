@@ -12,13 +12,13 @@ bool espacioInscripciones(Asistencia* asistencia, u_int cantMaxInscripciones)
 Inscripto estaInscriptoClases(Asistencia* asistencia, Clases* clase, string nombreClase, u_int horario)
 {
     int pos;
-    for(int i=0;i<33;i++)
+    for(int i=0;i<60;i++)
     {
-        if(clase->nombreClase==nombreClase && clase->horarioClase==horario)
+        if(clase[i].nombreClase==nombreClase && clase[i].horarioClase==horario)
             pos=i;
     }
 
-    for(u_int i=0; i<asistencia->cantInscriptos; i++)
+    for(u_int i=0; i<250; i++)
     {
         if(asistencia[i].CursosInscriptos[i].idCurso == clase[pos].idClase) //verificar si ya está inscripto
             return Inscripto::Esta;
@@ -27,40 +27,40 @@ Inscripto estaInscriptoClases(Asistencia* asistencia, Clases* clase, string nomb
     return Inscripto::noEsta;
 }
 superposicion superposicionHorarios(Asistencia* asistencia, Clases* clase, u_int idCliente, u_int& cantClientes, string nombreClase,
-                                    u_int horario)
+                                    u_int horario, int &longitud)
 {
     int pos;
-    for(int i=0;i<33;i++)
+    for(int i=0;i<60;i++)
     {
-        if(clase->nombreClase==nombreClase && clase->horarioClase==horario)
+        if(clase[i].nombreClase==nombreClase && clase[i].horarioClase==horario)
                 pos=i;
     }
-    for(u_int i=0; i<cantClientes; i++)
+    for(u_int i=0; i<250; i++)
     {
-      if(asistencia->idCliente == idCliente && asistencia->CursosInscriptos[i].idCurso == clase[pos].idClase)
+      if(asistencia[i].idCliente == idCliente && asistencia[i].CursosInscriptos[i].idCurso == clase[pos].idClase)
           return superposicion::SH;
     }
 
     return superposicion::noSH;
 }
-Reservas clases(sClientes cliente, Asistencia* asistencia, Clases *clase, u_int &cantClientes, string nombreClase, u_int horario)
+Reservas clases(sClientes cliente, Asistencia* asistencia, Clases *clase, u_int &cantClientes, string nombreClase, u_int horario, int &longitud)
 {
     int cont=0;
     Inscripto resul = estaInscriptoClases(asistencia, clase,nombreClase, horario);
-    superposicion resul2 = superposicionHorarios(asistencia, clase, cliente.idCliente, cantClientes, nombreClase, horario);
+    superposicion resul2 = superposicionHorarios(asistencia, clase, cliente.idCliente, cantClientes, nombreClase, horario, longitud);
     if(resul != Inscripto::Esta && resul2 != superposicion::SH)
     {
-        for(u_int i=0; i<asistencia->cantInscriptos; i++)
+        for(u_int i=0; i<250; i++)
         {
-            for(u_int j=0; j<asistencia->cantInscriptos; j++)
+            for(u_int j=0; j<asistencia[i].cantInscriptos; j++)
             {
                if(asistencia[i].CursosInscriptos[j].idCurso  == clase[i].idClase)
                    cont++;
             }
 
                 //spinning
-             if((clase->idClase == '1' || clase->idClase == '2' || clase->idClase == '3' || clase->idClase == '4' ||
-                 clase->idClase == '5') && cont<45)
+             if((clase[i].idClase == '1' || clase[i].idClase == '2' || clase[i].idClase == '3' || clase[i].idClase == '4' ||
+                 clase[i].idClase == '5') && cont<45)
                 {
                     cont++;
                     return reservar::ExitoR;
@@ -68,8 +68,8 @@ Reservas clases(sClientes cliente, Asistencia* asistencia, Clases *clase, u_int 
                 else
                     return reservar::ErrR;
                 //yoga
-                if((clase->idClase == 6 || clase->idClase == 7 || clase->idClase == 8 || clase->idClase == 9 ||
-                    clase->idClase == 10 || clase->idClase == 11) && cont<25)
+                if((clase[i].idClase == 6 || clase[i].idClase == 7 || clase[i].idClase == 8 || clase[i].idClase == 9 ||
+                    clase[i].idClase == 10 || clase[i].idClase == 11) && cont<25)
                 {
                     cont++;
                     return reservar::ExitoR;
@@ -77,8 +77,8 @@ Reservas clases(sClientes cliente, Asistencia* asistencia, Clases *clase, u_int 
                 else
                     return reservar::ErrR;
                 //pilates
-                if((clase->idClase == 12 || clase->idClase == 13 || clase->idClase == 14 || clase->idClase == 15 ||
-                    clase->idClase == 16 || clase->idClase == 17) && cont<15)
+                if((clase[i].idClase == 12 || clase[i].idClase == 13 || clase[i].idClase == 14 || clase[i].idClase == 15 ||
+                    clase[i].idClase == 16 || clase[i].idClase == 17) && cont<15)
                 {
                     cont++;
                     return reservar::ExitoR;
@@ -86,8 +86,8 @@ Reservas clases(sClientes cliente, Asistencia* asistencia, Clases *clase, u_int 
                 else
                     return reservar::ErrR;
                 //stretching
-                if((clase->idClase == 18 || clase->idClase == 19 || clase->idClase == 20 || clase->idClase == 21 ||
-                    clase->idClase == 22 || clase->idClase == 23) && cont<40)
+                if((clase[i].idClase == 18 || clase[i].idClase == 19 || clase[i].idClase == 20 || clase[i].idClase == 21 ||
+                    clase[i].idClase == 22 || clase[i].idClase == 23) && cont<40)
                 {
                     cont++;
                     return reservar::ExitoR;
@@ -95,8 +95,8 @@ Reservas clases(sClientes cliente, Asistencia* asistencia, Clases *clase, u_int 
                 else
                     return reservar::ErrR;
                 //zumba
-                if((clase->idClase == 24 || clase->idClase == 25 || clase->idClase == 26 || clase->idClase == 27 ||
-                    clase->idClase == 28 || clase->idClase == 29) && cont<50)
+                if((clase[i].idClase == 24 || clase[i].idClase == 25 || clase[i].idClase == 26 || clase[i].idClase == 27 ||
+                    clase[i].idClase == 28 || clase[i].idClase == 29) && cont<50)
                 {
                     cont++;
                     return reservar::ExitoR;
@@ -104,7 +104,7 @@ Reservas clases(sClientes cliente, Asistencia* asistencia, Clases *clase, u_int 
                 else
                     return reservar::ErrR;
                 //boxeo
-                if((clase->idClase == 30 || clase->idClase == 31 || clase->idClase == 32 || clase->idClase == 33)
+                if((clase[i].idClase == 30 || clase[i].idClase == 31 || clase[i].idClase == 32 || clase[i].idClase == 33)
                     && cont<30)
                 {
                     cont++;

@@ -1,11 +1,10 @@
 #include "archivo.h"
 
-eCodArchivos leerArchivoClientes(ifstream &archiClientes, sClientes* cliente, u_int &cant) //archivo CSV
+void leerArchivoClientes(ifstream &archiClientes, sClientes* cliente, u_int &cant) //archivo CSV
 {
     sClientes* aux = new sClientes[cant]; //tamaño
     string auxNombre;
     string auxApellido;
-    string auxDNI;
     string auxtelefono;
     string auxMail;
     string auxestado;
@@ -51,9 +50,7 @@ eCodArchivos leerArchivoClientes(ifstream &archiClientes, sClientes* cliente, u_
         for(u_int i=0; i<cant; i++)
             cliente[i]=aux[i];
         delete[] aux;
-        return eCodArchivos::ExitoOperacion;
     }
-    return eCodArchivos::ErrorApertura;
 }
 eCodArchivos escribirArchivoClientes(ofstream &archivoClientes, str nombre, str apellido, str email, str telefono,
                                      Fecha fechaNac, int estado, u_int idCliente)
@@ -73,14 +70,14 @@ eCodArchivos escribirArchivoClientes(ofstream &archivoClientes, str nombre, str 
     }
     return eCodArchivos::ErrorEscritura;
 }
-eCodArchivos leerArchivoClases(ifstream &archiClases, Clases* clase) //archivo CSV
+void leerArchivoClases(ifstream &archiClases, Clases* clase) //archivo CSV
 {
     //Abrir el archivo CSV para lectura
     archiClases.open("iriClasesGYM.csv");
     if(archiClases.is_open())
     {
         string linea;
-        Clases*aux = new Clases[60];
+        Clases*aux = new Clases[33];
         string auxidClase;
         string auxNombre;
         string auxHorario;
@@ -101,12 +98,10 @@ eCodArchivos leerArchivoClases(ifstream &archiClases, Clases* clase) //archivo C
             i++;
         }
         archiClases.close();
-        for(int j=0; j<60; j++)
+        for(int j=0; j<33; j++)
             clase[j]=aux[j];
         delete[] aux;
-        return eCodArchivos::ExitoOperacion;
     }
-    return eCodArchivos::ErrorApertura;
 }
 eCodArchivos escribirArchivoClases(ofstream &archivoClases, u_int idClase, str nombre, u_int horario)
 {
@@ -124,37 +119,34 @@ eCodArchivos escribirArchivoClases(ofstream &archivoClases, u_int idClase, str n
     }
     return eCodArchivos::ErrorEscritura;
 }
-eCodArchivos leerArchivoAsistencia(ifstream &archiAsistencia, Asistencia* asistencia, u_int &cantAsistencia) //archivo binario
+void leerArchivoAsistencia(ifstream &archiAsistencia, Asistencia*& asistencia, u_int &cantAsistencia, int &longitud) //archivo binario
 {
     archiAsistencia.open("Asistencia.dat");
-    if(!archiAsistencia.is_open())
-        return eCodArchivos::ErrorApertura;
     // Setear inicio
     archiAsistencia.clear();
     archiAsistencia.seekg(0);
-
-    Asistencia* aux = new Asistencia[asistencia->cantInscriptos];
+    int i=0;
+    Asistencia* aux = new Asistencia[250];
     while (!archiAsistencia.eof())
     {
-        archiAsistencia.read((char *)&aux->idCliente, sizeof(u_int));
-        archiAsistencia.read((char *)&aux->cantInscriptos, sizeof(u_int));
-        Inscripcion *registro = new Inscripcion[aux->cantInscriptos];
+        archiAsistencia.read((char *)&aux[i].idCliente, sizeof(u_int));
+        archiAsistencia.read((char *)&aux[i].cantInscriptos, sizeof(u_int));
+        Inscripcion *registro = new Inscripcion[aux[i].cantInscriptos];
         Inscripcion *auxInscriptions = registro;
-        for (u_int i = 0; i < aux->cantInscriptos; i++)
+        for (u_int i = 0; i < aux[i].cantInscriptos; i++)
         {
             archiAsistencia.read((char *)&auxInscriptions, sizeof(Inscripcion));
             auxInscriptions++;
             cantAsistencia++;
         }
-        aux->CursosInscriptos = registro;
+        aux[i].CursosInscriptos = registro;
 
         aux++;
+        longitud++;
     }
     archiAsistencia.close();
-    for(u_int j=0; j<asistencia->cantInscriptos; j++)
-        asistencia[j]=aux[j];
-    delete aux;
-    return eCodArchivos::ExitoOperacion; //archivo binario
+    delete[] asistencia;
+    asistencia=aux; //archivo binario
 }
 eCodArchivos informeAsistencia(ofstream &informe, Asistencia *asistencia)
 {

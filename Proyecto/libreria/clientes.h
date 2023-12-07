@@ -18,7 +18,7 @@ typedef struct
 
 struct Clientes
 {
-    str nombre, apellido, dni, mail, telefono;
+    str nombre, apellido, mail, telefono;
     Fecha fechaNac;
     int estado;
     u_int idCliente;
@@ -34,13 +34,13 @@ typedef struct {
     u_int cantInscriptos, idCliente;
     Inscripcion* CursosInscriptos;
 } Asistencia;
-const sClientes clienteNulo{"","","","","",{0,0,0},0,0};
-sClientes* resizeClientes(sClientes* cliente, u_int &tam, u_int nuevoTam); //tamaño de clientes
-int buscarCliente(sClientes* cliente, str dni, u_int &cant); //buscar clientes por dni
-eEstado Cuota(sClientes* cliente, str dni, u_int &cant); //verificar el estado del cliente
-u_int eliminarCliente(sClientes* cliente, str dni, u_int &cant); //eliminar cliente
-eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, u_int &cant, u_int &cantMaxima, u_int nuevoTam); //agregar cliente
-eModificar modificarCliente(sClientes* cliente, sClientes clienteModificado, str dni, u_int &cant); //modificar cliente
+const sClientes clienteNulo{"","","","",{0,0,0},0,0};
+void resizeClientes(sClientes*& cliente, u_int &tam, u_int nuevoTam); //tamaño de clientes
+int buscarCliente(sClientes* cliente, str mail, u_int cant); //buscar clientes por dni
+eEstado Cuota(sClientes* cliente, str email, u_int &cant); //verificar el estado del cliente
+u_int eliminarCliente(sClientes* cliente, str mail, u_int &cant); //eliminar cliente
+eAgregar agregarCliente(sClientes*& cliente, sClientes nuevoCliente, u_int &cant, u_int &cantMaxima, u_int nuevoTam); //agregar cliente
+eModificar modificarCliente(sClientes* cliente, sClientes clienteModificado, str mail, u_int cant); //modificar cliente
 bool espacio(u_int cantMaxima, u_int &cant); //verificar el espacio disponible
 int cantClientes(ifstream &archiClientes); //paso el archivo como parámetro y leo la cantidad de registros
 #endif // CLIENTES_H

@@ -13,22 +13,21 @@ bool espacio(int cantMaxima, int cant); //verificar el espacio disponible
 */
 
 const sClientes DefaultCliente[3] = {
-    {"Maria","Lopez","46203718","lopezmaria@gmail.com", "333-444-5555",{6,7,1996},123,1},
-    {"Felipe", "Gonzalez", "44312783", "felipeg@gmail.com", "987-654-3210", {15, 11, 1992}, 0, 2},
-    {"Laura", "Fernandez", "32145638", "laurafernandez@gamil.com", "316-424-5885", {3, 9, 1995}, 0, 3}
+    {"Maria","Lopez","lopezmaria@gmail.com", "333-444-5555",{6,7,1996},123,1},
+    {"Felipe", "Gonzalez", "felipeg@gmail.com", "987-654-3210", {15, 11, 1992}, 0, 2},
+    {"Laura", "Fernandez","laurafernandez@gamil.com", "316-424-5885", {3, 9, 1995}, 0, 3}
 };
 
 TEST_CASE("Agregar cliente")
 {
     sClientes* cliente= new sClientes[2];
-    cliente=nullptr;
     u_int cant=0;
     u_int cantMaxima=6;
     u_int nuevoTam=cant+3;
     SECTION("Agregando dos clientes")
     {
-    eAgregar resul= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima, nuevoTam); //agregar cliente
-    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima, nuevoTam);
+    eAgregar resul= agregarCliente(cliente,{"Valentina","Perez","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima, nuevoTam); //agregar cliente
+    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima, nuevoTam);
     if(resul==1 && resul2==1)
         cant=2;
     REQUIRE(resul==1); //ambos se agregaron de manera correcta
@@ -40,21 +39,17 @@ TEST_CASE("Agregar cliente")
 
 TEST_CASE("Buscar cliente")
 {
-    sClientes* cliente= new sClientes[2];
-    cliente=nullptr;
-    u_int num=2;
+    sClientes* cliente= new sClientes[3];
+    u_int num=3;
     u_int cant;
     cant=num;
-    u_int cantMaxima=6;
-    u_int nuevoTam=cant+3;
 
-    eAgregar resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima, nuevoTam);
-    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima, nuevoTam);
-    REQUIRE(resul1==1);
-    REQUIRE(resul2==1);
     SECTION("Buscando el cliente por DNI")
     {
-    int resul = buscarCliente(cliente, "46534213", cant);
+    for(u_int i = 0; i < 3; i++)
+        cliente[i] = DefaultCliente[i];
+
+    int resul = buscarCliente(cliente, "lopezmaria@gmail.com", cant);
     REQUIRE(resul == 1);
     }
     delete[] cliente;
@@ -62,27 +57,24 @@ TEST_CASE("Buscar cliente")
 
 TEST_CASE("Eliminar cliente")
 {
-    sClientes* cliente= new sClientes[2];
-    cliente=nullptr;
-    u_int num=2;
+    sClientes* cliente= new sClientes[3];
+
+    u_int num=3;
     u_int cant;
     cant=num;
-    u_int cantMaxima=6;
     u_int resul;
     int busqueda;
-    u_int nuevoTam=cant+3;
+    u_int cantInicial=3;
 
     SECTION("Eliminando un cliente")
     {
-    eAgregar resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima, nuevoTam);
-    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima, nuevoTam);
-    CHECK(cant==2);
-    REQUIRE(resul1==1);
-    REQUIRE(resul2==1);
-    resul = eliminarCliente(cliente,"46534213", cant);
-    REQUIRE(resul==cant-1);
-    CHECK(cant==1);
-    busqueda = buscarCliente(cliente, "46534213" ,cant);
+    for(u_int i = 0; i < 3; i++)
+        cliente[i] = DefaultCliente[i];
+
+
+    resul = eliminarCliente(cliente,"felipeg@gmail.com", cant);
+    REQUIRE(resul==cantInicial-1);
+    busqueda = buscarCliente(cliente, "felipeg@gmail.com" ,cant);
     REQUIRE(busqueda==-1);
     }
     delete[] cliente;
@@ -90,27 +82,30 @@ TEST_CASE("Eliminar cliente")
 
 TEST_CASE("Modificar cliente")
 {
-    sClientes* cliente = new sClientes[2];
-    cliente=nullptr;
-    str dni;
-    u_int num=2;
+    sClientes* cliente = new sClientes[3];
+    sClientes clientemod;
+
+    u_int num=3;
     u_int cant;
     cant=num;
-    u_int cantMaxima=6;
-    int pos;
-     u_int nuevoTam=cant+3;
+
     SECTION("Modificando un cliente")
     {
-    eAgregar resul1= agregarCliente(cliente,{"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,1}, cant, cantMaxima, nuevoTam); //agregar cliente
-    eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima, nuevoTam);
-    REQUIRE(resul1==1);
-    REQUIRE(resul2==1);
-    u_int id=buscarCliente(cliente, dni, cant);
-    for(int i=0;i<2;i++){
-        if(cliente[i].idCliente==id)
-            pos=i;
-    }
-    eModificar resul = modificarCliente(cliente, cliente[pos], dni, cant);
+    for(u_int i = 0; i < 3; i++)
+        cliente[i] = DefaultCliente[i];
+//"Maria","Lopez","lopezmaria@gmail.com", "333-444-5555",{6,7,1996},123,1},
+
+    clientemod.nombre="Maria";
+    clientemod.apellido="Lopez";
+    clientemod.mail="lopezmaria@gmail.com";
+    clientemod.telefono="333-444-5555";
+    clientemod.fechaNac.dia=6;
+    clientemod.fechaNac.mes=7;
+    clientemod.fechaNac.anio=1996;
+    clientemod.estado=200;
+    clientemod.idCliente=1;
+
+    eModificar resul = modificarCliente(cliente, clientemod,"lopezmaria@gmail.com" , cant);
     REQUIRE(resul == 1);
     }
     delete[] cliente;
@@ -132,8 +127,8 @@ TEST_CASE("Resize cliente")
     u_int cant;
     cant=num;
     resizeClientes(clientes, cant , 3 + 2);
-    clientes[3] = {"Valentina","Perez","46534213","valenPrez@gmial", "115-233-5643",{12,3,2006},0,4};
-    clientes[4] = {"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,5};
+    clientes[3] = {"Valentina","Perez","valenPrez@gmial", "115-233-5643",{12,3,2006},0,4};
+    clientes[4] = {"Marcos","Aguilar","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,5};
 
 
     CHECK(ViejaDireccion != clientes);

@@ -1,6 +1,6 @@
 #ifndef CLASES_H
 #define CLASES_H
-#include "encabezados.h"
+
 #include "clientes.h"
 
 enum estaInscripto {Esta = -1, noEsta = 1};
@@ -19,8 +19,8 @@ typedef struct {
 
 Inscripto estaInscriptoClases(Asistencia* asistencia, Clases* clase, string nombreClase, u_int horario); //verificar que no se inscriba dos veces
 superposicion superposicionHorarios(Asistencia* asistencia, Clases* clase, u_int idCliente, u_int& cantClientes, string nombreClase,
-                                    u_int horario); //verificar que no se superpongan horarios
-Reservas clases(sClientes cliente, Asistencia* asistencia, Clases *clase, u_int &cantClientes, string nombreClase, u_int horario); //reservar clase
+                                    u_int horario, int& longitud); //verificar que no se superpongan horarios
+Reservas clases(sClientes cliente, Asistencia* asistencia, Clases *clase, u_int &cantClientes, string nombreClase, u_int horario, int &longitud); //reservar clase
 Baja cancelarClase(Asistencia* asistencia, u_int idClase, u_int &cant); //dar de baja clase
 Asistencia* resizeAsistencia(Asistencia* asistencia, u_int tam, u_int nuevoTam); //tamaño de asistencia
 bool espacioAsistencias(u_int cantMaxAsistencia, u_int cantAsistencias);
