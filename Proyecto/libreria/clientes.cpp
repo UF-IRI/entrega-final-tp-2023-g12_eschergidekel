@@ -22,14 +22,14 @@ sClientes* resizeClientes(sClientes* cliente, u_int &tam, u_int nuevoTam)
 }
 int buscarCliente(sClientes* cliente, str dni, u_int &cant)
 {
-    for(u_int i=0; i<cant; i++)
+    u_int i;
+    for(i=0; i<cant; i++)
     {
         if(cliente[i].dni==dni){
         return cliente[i].idCliente;
-        break;
         }
     }
-    //if(i==cant)
+    if(i==cant)
     return -1;
 }
 eEstado Cuota(sClientes* cliente, str dni, u_int &cant)
@@ -91,7 +91,7 @@ eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, u_int &cant,
     }
     if(id == -1) //me aseguro que el cliente ya no este inscripto
     {
-       cliente[cant-1]=nuevoCliente;
+       cliente[cant]=nuevoCliente;
         cant++;
        return eAgregar:: ExitoAg;
     }

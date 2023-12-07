@@ -56,7 +56,7 @@ int main()
     u_int nuevoTam = cant+30; //para agregar mas espacio hacemos un rezise
     cliente = resizeClientes(cliente, cant, nuevoTam);
     u_int cantMaxima = nuevoTam;
-    sClientes ultimo = cliente[(cant)-1];
+    sClientes ultimo = cliente[cant-1];
     u_int cantMaxAsistencia = cantAsistencia+30;
     u_int cantMaxInscripciones = (asistencia->cantInscriptos)+30;
     int opcion;
