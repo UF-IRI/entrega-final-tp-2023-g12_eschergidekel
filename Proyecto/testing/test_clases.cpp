@@ -85,6 +85,8 @@ TEST_CASE("Resize")
         inscripcion[4] = {8,168999097};
 
         CHECK(antigua != inscripcion);
+
+        delete[] inscripcion;
     }
 /*
     SECTION("Resize asistencia"){
@@ -106,7 +108,6 @@ TEST_CASE("Resize")
 
         CHECK(vieja != asistencia);
     }*/
-    delete[] inscripcion;
 }
 TEST_CASE("Verificar espacio")
 {
@@ -123,6 +124,7 @@ TEST_CASE("Verificar espacio")
         u_int cantmax=40;
         asistencia->cantInscriptos=6;
         REQUIRE(!espacioInscripciones(asistencia,cantmax));
+
+        delete[] inscripcion;
     }
-    delete[] inscripcion;
 }

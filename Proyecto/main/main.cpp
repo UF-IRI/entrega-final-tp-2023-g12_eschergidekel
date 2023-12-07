@@ -10,11 +10,10 @@ int main()
     ifstream archiAsistencia;
 
     informe.open("informe.dat",ios::binary);
-    archiClases.open(" ./../../iriClasesGYM.csv",ios::in);
-    archiClientes.open(" ./../../iriClientesGYM.csv", ios::in);
-    archiAsistencia.open("./../../asistencias_1697673600000.dat",ios::binary);
+    archiClases.open("./../../.github/iriClasesGYM.csv",ios::in);
+    archiClientes.open("./../../.github/iriClientesGYM.csv", ios::in);
+    archiAsistencia.open("./../../.github/asistencias_1697673600000.dat",ios::binary);
 
-//iriClientesGYM.csv asistencias_1697673600000.dat
     if(!archiAsistencia.is_open())
     {
         cout << "No abrio el archivo de asistencia." << endl;

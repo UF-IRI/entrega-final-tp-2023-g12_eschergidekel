@@ -105,7 +105,7 @@ TEST_CASE("Modificar cliente")
     eAgregar resul2= agregarCliente(cliente,{"Marcos","Aguilar","45025423","Aguilar115@gmial", "120-465-3289",{6,7,1996},123,2}, cant, cantMaxima, nuevoTam);
     REQUIRE(resul1==1);
     REQUIRE(resul2==1);
-    int id=buscarCliente(cliente, dni, cant);
+    u_int id=buscarCliente(cliente, dni, cant);
     for(int i=0;i<2;i++){
         if(cliente[i].idCliente==id)
             pos=i;
@@ -138,7 +138,7 @@ TEST_CASE("Resize cliente")
 
     CHECK(ViejaDireccion != clientes);
     }
-    delete[] cliente;
+    delete[] clientes;
 }
 
 TEST_CASE("Estado de la cuota")
