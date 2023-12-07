@@ -67,7 +67,7 @@ u_int eliminarCliente(sClientes* cliente, str dni, u_int &cant)
         i++;
     }
 }
-u_int cantClientes(ifstream &archiClientes)
+int cantClientes(ifstream &archiClientes)
 {
     int cont=0;
     archiClientes.open("iriClientesGYM.csv");
@@ -92,7 +92,7 @@ eAgregar agregarCliente(sClientes* cliente, sClientes nuevoCliente, u_int &cant,
     if(id == -1) //me aseguro que el cliente ya no este inscripto
     {
        cliente[cant]=nuevoCliente;
-        cant++;
+       cant++;
        return eAgregar:: ExitoAg;
     }
     else
